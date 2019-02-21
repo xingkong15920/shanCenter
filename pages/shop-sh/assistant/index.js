@@ -68,16 +68,27 @@ Page({
                 if (res.data.code != 1000) {
 
                 } else {
-                    that.setData({
-                        chooseShopList1: res.data.data.result,
-                    })
-                    var a = {}
-                    a.shopName = '全部门店'
-                    a.shopNumber = ''
-                    res.data.data.result.unshift(a)
-                    that.setData({
-                        chooseShopList: res.data.data.result,
-                    })
+                    if (!res.data.data) {
+                        wx.showToast({
+                            title: '查询为空！',
+                            icon: 'none'
+                        })
+                        that.setData({
+                            requestBreak: false,
+                            shopList: [],
+                        })
+                    } else {
+                        that.setData({
+                            chooseShopList1: res.data.data.result,
+                        })
+                        var a = {}
+                        a.shopName = '全部门店'
+                        a.shopNumber = ''
+                        res.data.data.result.unshift(a)
+                        that.setData({
+                            chooseShopList: res.data.data.result,
+                        })
+                    }
                 }
             }
         })
