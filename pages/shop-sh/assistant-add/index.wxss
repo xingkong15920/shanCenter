@@ -1,0 +1,360 @@
+/* pages/merchants/register/index.wxss */
+
+view, scroll-view, ::after, ::before {
+    box-sizing: border-box;
+    transition: 0.3s all;
+}
+
+button {
+    outline: none;
+    box-shadow: none;
+    border: 0;
+}
+
+button::after {
+    outline: none;
+    box-shadow: none;
+    border: 0;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.bodyTop {
+    height: calc(100% - 58px);
+    margin-bottom: 10px;
+    overflow: auto;
+}
+
+.bodyC {
+    background: #fff;
+    border-radius: 6px;
+    padding: 0 15px 15px;
+    margin-bottom: 10px;
+}
+
+.bodyC:last-child {
+    margin-bottom: 0;
+}
+
+.bodyCli {
+    height: 50px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+
+.bodyCli::after {
+    content: "";
+    height: 1px;
+    width: 0;
+    background: #ffa20a;
+    position: absolute;
+    left: 50%;
+    bottom: -1px;
+}
+
+.bodyCli.active {
+    height: 63px;
+}
+
+.bodyCli.activeInput {
+    height: 63px;
+}
+
+.bodyCli.active::after {
+    width: 100%;
+    left: 0;
+}
+
+.bodyClitit {
+    font-size: 14px;
+    color: #999;
+    padding-top: 15px;
+    display: none;
+}
+
+.Tips {
+    float: right;
+    color: red;
+}
+
+.TipsL {
+    display: inline-block;
+    color: red;
+}
+
+.active .bodyClitit, .activeInput .bodyClitit {
+    display: block;
+    font-size: 10px;
+    padding-top: 10px;
+}
+
+.active .placeholder {
+    color: transparent;
+}
+
+.bodyCliinput {
+    width: 100%;
+    height: 50px;
+    font-size: 14px;
+}
+
+.active .bodyCliinput, .activeInput .bodyCliinput {
+    height: 38px;
+    line-height: 38px;
+    font-size: 14px;
+    display: block;
+}
+
+.bodyCliradio {
+    height: 38px;
+    line-height: 38px;
+    font-size: 14px;
+}
+
+.bodyCliradio label {
+    margin-right: 20px;
+}
+
+.bodyCliradio label radio {
+    margin-right: 5px;
+}
+
+.bodyBottom {
+    width: 100%;
+    height: 48px;
+    border-radius: 6px;
+    color: #fff;
+    text-align: center;
+    line-height: 48px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bodyBtn {
+    width: 100%;
+    border-radius: 6px;
+    background: #ffa20a;
+}
+
+button.bodyBtn {
+    width: 100%;
+    border-radius: 6px;
+    background: #ffa20a;
+    margin: 0;
+}
+
+.bodyBtn.disabled {
+    background: #c6c6c6 !important;
+}
+
+.bodyBottom.active .bodyBtn {
+    width: calc(50% - 10px);
+    background: #ffa20a;
+}
+
+/* 弹窗样式 */
+
+.mendianList {
+    font-size: 14px;
+    color: #999;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.mendianList label {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* 自定义弹窗 */
+
+.modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 9000;
+    color: #fff;
+}
+
+.modal-dialog {
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    background: #fff;
+}
+
+.modal-title {
+    padding-top: 50rpx;
+    font-size: 36rpx;
+    color: #030303;
+    text-align: center;
+}
+
+.modal-content {
+    padding: 15px 20px;
+    height: auto;
+    overflow: hidden;
+}
+
+.modal-contentB {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    text-align: center;
+}
+
+.modal-input {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    background: #fff;
+    border: 2rpx solid #ddd;
+    border-radius: 4rpx;
+    font-size: 28rpx;
+}
+
+.input {
+    width: 100%;
+    height: 82rpx;
+    font-size: 28rpx;
+    line-height: 28rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    color: #333;
+}
+
+input-holder {
+    color: #666;
+    font-size: 28rpx;
+}
+
+.modal-footer {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #dedede;
+    font-size: 34rpx;
+    line-height: 86rpx;
+}
+
+.btn-cancel {
+    width: 50%;
+    color: #666;
+    text-align: center;
+    border-right: 1px solid #dedede;
+}
+
+.btn-confirm {
+    width: 50%;
+    color: #ec5300;
+    text-align: center;
+}
+
+.seach {
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    background: transparent;
+    margin-bottom: 0;
+}
+
+.sousuoIcon {
+    position: absolute;
+}
+
+.seachInput {
+    padding-left: 50px;
+    width: calc(100% - 110px);
+    margin-right: 10px;
+    background: #fff;
+}
+
+.closeBtn {
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 38px;
+    color: #ffa20a;
+    float: right;
+}
+
+.modal-content {
+    height: calc(100% - 60px);
+    overflow: auto;
+    background: #fff;
+    padding-left: 15px;
+}
+
+.listBody_li {
+    line-height: 50px;
+    font-size: 14px;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.basicpicTit {
+    color: red;
+    font-size: 10px;
+}
+
+/* 图片设置 */
+
+.picCK {
+    padding: 15px;
+    background: #fff;
+    border-radius: 6px;
+}
+
+.basicpic {
+    overflow: hidden;
+}
+
+.basicpicTit {
+    margin-bottom: 10px;
+}
+
+.picList {
+    display: flex;
+    float: left;
+    justify-content: center;
+    align-items: center;
+    width: calc(50% - 5px);
+    height: 125px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.picList:nth-child(odd) {
+    float: right;
+}
+
+.picList image {
+    width: 100%;
+    height: 100%;
+}
+
+.bodyCliicon{
+    position: absolute;
+    top: 18px;
+    right: 0;
+    font-size: 14px;
+    color: #999;
+}

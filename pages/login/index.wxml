@@ -1,0 +1,87 @@
+<view class='container'>
+    <view wx:if="{{login==0}}">
+        <view class='hello'>你好！</view>
+        <view class='chose'>欢迎使用闪盒助手，请选择身份</view>
+        <view class='idBox'>
+            <view class='idLeft fl' bindtap='shop'>
+                <view class='idText'> 我是商户</view>
+                <view class='idImg'></view>
+            </view>
+            <view class='idLeft fr' bindtap='sale'>
+                <view class='idText'>我是销售</view>
+                <view class='idImg saleImg'></view>
+            </view>
+        </view>
+    </view>
+    <view wx:if="{{login==1}}" style='display:block;width:100%'>
+		<view class='lTop'>
+			<view class="typeName fl {{type=='shop'?'typeName':'typeName1'}}" style='width:50%'>{{typeName}}</view>
+			<view class="back1 fr {{type=='shop'?'back1':'back2'}}" wx:if="{{login!=0}}" style='width:30%' bindtap="back">返回</view>
+		</view>
+        
+		
+        <view  class='fo'>
+            <form bindsubmit="formSubmit" bindreset="formReset" class='fo'>
+                <view class="box1">
+                    <view class="foText">账号</view>
+                    <input name="zhanghao" placeholder="请输入" value="{{type=='shop'?shoploginName:saleloginName}}" class='inp' placeholder-class="inputP" data-type="zhanghao" bindinput='setZ'/>
+                </view>
+				<view class="">
+                    <view class="foText">密码</view>
+                    <input name="password" value="{{type=='shop'?shoploginPass:saleloginPass}}"  type='password' placeholder="请输入" class='inp' data-type="mima" placeholder-class="inputP"  bindinput='setZ'/>
+                </view>
+				<view class='pass'>
+					<view class='fl'>
+						<!-- <input type='check'></input> -->
+						<checkbox-group bindchange="rember">
+							 <label class="checkbox">
+									<checkbox checked="{{type=='shop'?shopRem:saleRem}}"  />
+									记住密码
+								</label>
+						</checkbox-group>
+					</view>
+					<view class="fr forget {{type=='shop'?'forget':'forget1'}}" bindtap="forget">忘记密码？</view>
+				</view>
+                <view class="btn-area {{ type=='shop'?'btn-area':'btn-area1'}}" style='width:100%'>
+                    <view bindtap="salelogin" class='subT'>登录</view>
+                </view>
+            </form>
+        </view>
+		
+    </view>
+	<view wx:if="{{login==2}}" style='display:block;width:100%'>
+       <view class='lTop'>
+			<view class="typeName fl {{type=='shop'?'typeName':'typeName1'}}" style='width:50%'>忘记密码</view>
+			<view class="back1 fr {{type=='shop'?'back1':'back2'}}" wx:if="{{login!=0}}" style='width:30%' bindtap="back">返回</view>
+		</view>
+        <view  class='fo'>
+            <form bindsubmit="formSubmit" bindreset="formReset" class='fo'>
+                <view class="box1">
+                    <view class="foText">手机号</view>
+                    <input name="tell" placeholder="请输入手机号" class='inp' placeholder-class="inputP" bindinput='setTell'/>
+                </view>
+				<view class="mb40">
+                    <view class="foText">验证码</view>
+					<view class='bt' style='width:630rpx'>
+					<input name="code" type='password' placeholder="请输入验证码" class='inp'  placeholder-class="inputP" style='width:392rpx;display:inline-block'  bindinput='setCode'/>
+					<view class="codeBtn {{type=='shop'?'codeBtn':'codeBtn1'}} " bindtap="getCode" style='vertical-align:top;display:inline-block'>{{num}}</view>
+					</view>
+                    
+                </view>
+				<view class="mb40">
+                    <view class="foText">新密码</view>
+                    <input name="password" type='password' placeholder="请输入新密码" class='inp'  bindinput='setPass'  placeholder-class="inputP"/>
+                </view>
+				<view class="mb40">
+                    <view class="foText">确认密码</view>
+                    <input name="repassword" type='password' placeholder="请再次输入新密码" class='inp'  bindinput='setRepass'  placeholder-class="inputP"/>
+                </view>
+                <view class="btn-area {{ type=='shop'?'btn-area':'btn-area1'}}" style='width:100%'>
+                    <view bindtap='updataPass' class='subT'>{{btn}}</view>
+                </view>
+            </form>
+        </view>
+		
+    </view>
+    <view class='bot'></view>
+</view>

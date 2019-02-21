@@ -1,0 +1,7 @@
+<!-- 搜索框 -->
+<template name="seach">
+    <view class='seach'>
+        <view class='iconfont icon-xiazai5 sousuoIcon'></view>
+        <input class='seachInput' placeholder='{{placeholder}}' value="{{searchText}}" bindinput='wxSearchinput'  ></input>
+    </view>
+</template>

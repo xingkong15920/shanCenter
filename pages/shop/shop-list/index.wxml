@@ -1,0 +1,20 @@
+<!--pages/shop-manage/index.wxml-->
+<import src="../../common/seach.wxml" />
+<import src="../../common/empty.wxml" />
+<view class="container">
+    <view class="body">
+        <!-- 搜索框 -->
+		<template is="seach" data="{{placeholder:'请输入要搜索的门店'}}"/>
+        <!-- 列表 -->
+        <scroll-view class="listBody" scroll-y="true" wx:if="{{empty}}">
+            <view class="listBody_li" wx:for="{{shopList}}"  >
+                <view class="shopName" >{{item.shopName}}</view>
+                <view class="operation">
+                    <view class="operationBtn check" data-id="{{item.shopNumber}}" data-name="{{item.shopName}}" bindtap="Tocheck">查看</view>
+                    <view class="operationBtn add"  data-id="{{item.shopNumber}}"  bindtap='Toadd'>添加</view>
+                </view>
+            </view>
+        </scroll-view>
+		<template is="empty" wx:if="{{!empty}}"/>
+    </view>
+</view>

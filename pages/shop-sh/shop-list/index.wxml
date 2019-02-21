@@ -1,0 +1,20 @@
+<!--pages/merchants/manage/index.wxml-->
+<import src="../../common/seach.wxml" />
+<view class="container">
+    <view class="body">
+        <!-- 搜索框 -->
+        <template is="seach" data="{{placeholder: '请输入要搜索的门店名称'}}" />
+        <view class="tab-body">
+            <scroll-view class="listBody" scroll-y="true" bindscrolltolower="loadMore" bindscrolltoupper="reFresh">
+                <view class="listBody_li {{item.shopNumber==active?'active':''}}" wx:for="{{shopList}}" wx:key="{{shopList}}" data-id="{{item.shopNumber}}" bindtap="shopOperation">
+                    <view class="shopName">{{item.shopName}}</view>
+                    <view class="listIcon iconfont icon-xiajiantou"></view>
+                    <view class="operation">
+                        <view class="operationBtn editData" data-id="{{item.shopNumber}}" catchtap="editData">门店信息</view>
+                        <view class="operationBtn editDel" data-id="{{item.shopNumber}}" catchtap="editDel">删除</view>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,46 @@
+<!--pages/shop-sh/details/index.wxml-->
+<view class="container">
+    <view class="body">
+        <view class="Top">
+            <view class="orderstatus iconfont icon-zhifuchenggong {{batchInfo.orderState==1?'':'hide'}}"></view>
+            <view class="orderstatus iconfont icon-yudingshibai {{batchInfo.orderState==2?'':'hide'}}"></view>
+            <view class="orderstatus iconfont icon-tuikuan {{batchInfo.orderState==3?'':'hide'}}"></view>
+            <view class="price">¥
+                <view class="priceC">{{batchInfo.transactionAmount}}</view>
+            </view>
+        </view>
+        <view class="center">
+            <view class="detailsList">
+                <view class="detailsLi">
+                    <view class="detailsLiL">支付状态：</view>
+                    <view class="detailsLiR">{{orderstatus[batchInfo.orderState]}}</view>
+                </view>
+                <view class="detailsLi">
+                    <view class="detailsLiL">收款门店：</view>
+                    <view class="detailsLiR">{{batchInfo.transactionShop}}</view>
+                </view>
+                <view class="detailsLi">
+                    <view class="detailsLiL">支付方式：</view>
+                    <view class="detailsLiR">{{batchInfo.transactionType}}</view>
+                </view>
+                <view class="detailsLi">
+                    <view class="detailsLiL">收银员：</view>
+                    <view class="detailsLiR">{{batchInfo.clerkName}}</view>
+                </view>
+                <view class="detailsLi">
+                    <view class="detailsLiL">交易日期：</view>
+                    <view class="detailsLiR">{{batchInfo.transactionTime}}</view>
+                </view>
+                <view class="detailsLi">
+                    <view class="detailsLiL">订单号：</view>
+                    <view class="detailsLiR">{{batchInfo.batch}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="detailsBtn tuikuan {{batchInfo.orderState==2?'show':'hide'}}" bindtap="synchronous">同步</view>
+        <view class="detailsBtn tuikuan {{batchInfo.orderState==1?'show':'hide'}}" bindtap="passwordInput">退款</view>
+        <passwordInput wx:if="{{showPassword}}" bindhidePassBord="hidePassBord" bindvalueSix="valueSix" input_value="{{inputData.input_value}}" value_length="{{inputData.value_length}}" isNext="{{inputData.isNext}}" get_focus="{{inputData.get_focus}}" focus_class="{{inputData.focus_class}}"
+            value_num="{{inputData.value_num}}" height="{{inputData.height}}" width="{{inputData.width}}" see="{{inputData.see}}" interval="{{inputData.interval}}">
+        </passwordInput>
+    </view>
+</view>

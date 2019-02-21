@@ -1,0 +1,69 @@
+<view class='container'>
+	<view class='bg'></view>
+	<view class='top'>
+		<view class='topL fl'>
+			<view class='topA'>￥{{moneyCount}}</view>
+			<view class='topB'>今日佣金(元)</view>
+		</view>
+		<view class='topL br fl'>
+			<view class='topA'>{{shopCount}}</view>
+			<view class='topB'>今日新增店铺</view>
+		</view>
+	</view>
+	<view class='mid'>
+		<view class="midA mr33 {{type==0?'midAA':''}}" bindtap="day">日报</view>
+		<view class="midA mr33 {{type==1?'midAA':''}}"  bindtap="week">周报</view>
+		<view class="midA  {{type==2?'midAA':''}}"  bindtap="month">月报</view>
+	</view>
+	<view class='timeBox'  bindtap='chooseDate'>
+		<view class='dateBox'>{{startT}} - {{endT}}</view>
+		<view class='dateBtn iconfont icon-rili'></view>
+	</view>
+	<view class='boxA' >
+		<view class='boxC'>
+			<view class='boxC-left fl'>佣金合计(元)</view>
+			<view  class='boxC-left fr'>新增店铺合计</view>
+		</view>
+		<view class='boxB'>
+			<view class='boxB-left fl'>￥{{money}}</view>
+			<view  class='boxB-left fr'>{{shop}}</view>
+		</view>
+	</view>
+	<view class='btnBox'>
+		<view class="btnLeft fl {{lineType == 0?'btnC':''}}" bindtap="money">佣金收益</view>
+		<view class="btnRight fr {{lineType == 1?'btnC':''}}" bindtap="shop">新增店铺</view>
+	</view>
+	<view class='imgT'>新增店铺走势图</view>
+	<view class="container1">
+		<canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+		<!-- <button type="primary" bindtap="updateData">更新数据</button> -->
+	</view>
+	<view class='date'></view>
+</view>
+<view class='chooseData'  wx:if="{{chooseData == true}}" >
+		<view class='riqiBox' style='bottom:187px;'>
+			<view class='fl riqi year'>
+			<text class='yearL' decode='true' bindtap='yearjian'>&lt; </text>
+			<text class='' decode='true' style='vertical-align:middle;color:#FFA20A;'>{{year}}年</text>
+			<text class='yearR' decode='true' bindtap='yearadd'>&gt; </text>
+			</view>
+			<view  class='fl riqi month'>
+				<text class='yearL' decode='true' bindtap='monthjian'>&lt; </text>
+			<text class='' decode='true' style='vertical-align:middle;color:#FFA20A;'>{{month}}月</text>
+			<text class='yearR' decode='true'  bindtap='monthadd'>&gt; </text>
+			</view>
+			<view  class='fl riqi long' wx:if="{{isLong}}">永久</view>
+		</view>
+		<view wx:for="{{dateList}}" wx:key="{{index}}" wx:for-item="dateItem" style='height:100vh' bindtap="noClick">
+			<view class="layout-flex row" id='row1' style="flex-wrap: wrap;margin-top:30rpx;;background:#fff"  data-isL="0" >
+				<view class="date-day {{item.class}} {{item.isA >= firstNum && item.isA <= twoNum ? 'active':''}} {{item.class}} {{item.isA <= firstNum && item.isA >= twoNum ? 'active':''}}" style="width:36px;height:36px;line-height:36px;" data-year="{{dateItem.year}}" data-month="{{dateItem.month}}" data-day="{{item.day}}" bindtap="onPressDate" wx:for="{{dateItem.days}}"
+				wx:key="{{index}}"  data-isL="0">
+				<view class='item-days {{item.isA}}'  data-isL="0">
+					<text style='font-size:30rpx;' data-isL="0">{{item.day>0?(item.daytext?item.daytext:item.day):''}}</text>
+					<text style='font-size:30rpx;' wx:if="{{item.inday}}"></text>
+					<text style='font-size:30rpx;' wx:if="{{item.outday}}"></text>
+				</view>
+				</view>
+			</view>
+		</view>
+	</view>

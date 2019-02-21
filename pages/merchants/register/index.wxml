@@ -1,0 +1,167 @@
+<!--pages/merchants/register/index.wxml-->
+<view class="container">
+    <view class="body">
+	<view class='topNav' wx:if="{{isUpdata}}">
+		<view class="nvaL {{steps==0?'nvaL1':''}} " data-id="0" bindtap="navOn">商户信息</view>
+		<view class="nvaL {{steps==1?'nvaL1':''}} " data-id="1" bindtap="navOn">结算信息</view>
+		<view class="nvaL {{steps==2?'nvaL1':''}} " data-id="2" bindtap="navOn">图片信息</view>
+	</view>
+        <form catchsubmit="formSubmit">
+            <scroll-view class="{{isUpdata?'bodyTop1':'bodyTop'}}" scroll-y>
+                <!-- 商户信息步骤 -->
+                <view class="bodyCK {{steps==0?'':'hide'}}" wx:for="{{shopData}}" wx:key="{{stepsCon}}" wx:if="{{item.stepsNum == 1}}" data-basic="{{item.stepsNum}}">
+                    <view class="bodyC" wx:for="{{item.stepsCon}}" wx:key="{{basic}}" data-basic="{{item.basic}}" wx:if="{{item.isS}}">
+                        <!-- input循环 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 && item.picker == 0}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" value="{{shopInput[item.id]}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur'></input>
+                        </view>
+                        <!-- radio循环 -->
+                        <view class="bodyCli activeInput" wx:if="{{item.type == 1}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：</label>
+                            <radio-group class="bodyCliradio" name="{{item.id}}" bindchange="radioChange">
+                                <label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}">
+                                    <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
+                            </radio-group>
+                        </view>
+                        <!-- 日期picker循环 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 1}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <picker mode="date" value="{{shopInput[item.id]}}" start="1199-01-01" end="2200-12-31" bindchange="bindDateChange" data-current="{{item.id}}">
+                                <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus"
+                                    bindblur='blur' value="{{shopInput[item.id]}}"></input>
+                            </picker>
+                        </view>
+                        <!-- 行业picker循环 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 3}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}" >
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <picker mode="multiSelector" bindchange="businessPicker" bindcolumnchange="columB" value="{{multiIndex3}}" data-current="{{item.id}}" range="{{multiArray3}}">
+                                <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus" bindblur='blur' value="{{multihangye}}"></input>
+                            </picker>
+                        </view>
+                        <!-- 地址picker循环 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 2}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <picker mode="multiSelector" bindchange="addressPicker" bindcolumnchange="columA" value="{{multiIndex1}}" data-current="{{item.id}}" range="{{provincelist}}">
+                                <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus" bindblur='blur' value="{{multiaddress}}"></input>
+                            </picker>
+                        </view>
+                    </view>
+                </view>
+                <!-- 结算步骤 -->
+                <view class="bodyCK {{steps==1?'':'hide'}}" wx:for="{{shopData}}" wx:key="{{stepsCon}}" wx:if="{{item.stepsNum == 2}}" data-basic="{{item.stepsNum}}">
+                    <view class="bodyC" wx:for="{{item.stepsCon}}" wx:key="{{basic}}" data-basic="{{item.basic}}">
+                        <!-- radio循环 -->
+                        <view class="bodyCli activeInput" wx:if="{{item.type == 1}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}" wx:if="{{item.isS}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：</label>
+                            <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange1">
+                                <label wx:for="{{item.radiolist}}" wx:key="checked"  wx:if="{{item.isS}}">
+                                    <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
+                            </radio-group>
+                        </view>
+                        <!-- input循环 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 & item.picker == 0}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <input class="bodyCliinput" type="text" name="{{item.id}}" value="{{shopInput[item.id]}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur'></input>
+                        </view>
+                        <!-- 银行picker循环 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 5}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" bindtap="bindBankchoose" data-current="{{item.id}}" disabled="disabled" readonly="readonly"
+                                bindfocus="focus" bindblur='blur' value="{{shopInput[item.id]}}"></input>
+                        </view>
+                        <!-- 费率picker循环 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 4}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <picker value="{{shopInput[item.id]}}" range="{{rateList}}" bindchange="bindPickerChange" data-current="{{item.id}}">
+                                <input class="bodyCliinput" type="text"  name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus"
+                                    bindblur='blur' value="{{shopInput[item.id]}}"></input>
+                            </picker>
+                        </view>
+                    </view>
+                </view>
+                <!-- 图片步骤 -->
+                <view class="bodyCK picCK {{steps==2?'':'hide'}}">
+                    <view class="basicpic" >
+                        <view class="basicpicTit" wx:if="{{merchantType!=0}}">*请上传真实有效的营业执照照片，保证照片清晰可见，否则加将无法通过审核</view>
+                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index == 0 && merchantType!=0}}" >
+                            <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
+                        </view>
+						<view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index == 1 && merchantType==2}}" >
+                            <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
+                        </view>
+                    </view>
+                    <view class="basicpic">
+                        <view class="basicpicTit">*请上传真实有效的身份证照片，保证身份证清晰可见，否则加将无法通过审核</view>
+                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 1 && index <= 4}}">
+                            <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
+                        </view>
+                    </view>
+                    <view class="basicpic">
+                        <view class="basicpicTit">*请上传真实有效的银行卡照片，保证银行卡清晰可见，否则加将无法通过审核</view>
+                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 4 && index <= 5}}">
+                            <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
+                        </view>
+                    </view>
+                    <view class="basicpic">
+                        <view class="basicpicTit" >*请上传店铺照片，保证照片清晰可见，否则加将无法通过审核</view>
+                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 5 && index <= 7 }}" >
+                            <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
+                        </view>
+						<view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 7 && index <= 9 && merchantType==2}}" >
+                            <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
+                        </view>
+                    </view>
+                    <view class="basicpic">
+                        <view class="basicpicTit">*其他资料</view>
+                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 9 && index <= 10}}">
+                            <image src="{{imagelist[index].imgSrc}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
+                        </view>
+                    </view>
+                </view>
+            </scroll-view>
+            <view class="bodyBottom {{steps!=0?'active':''}}">
+                <view class="bodyBtn {{steps==0?'hide':''}} {{disabled?'disabled':''}}" data-current="{{steps}}" bindtap="laststep">上一步</view>
+                <view class="bodyBtn {{steps==2?'hide':''}} {{disabled?'disabled':''}}" data-current="{{steps}}" bindtap="nextstep">下一步</view>
+                <view class="bodyBtn {{steps!=2?'hide':''}} {{disabled?'disabled':''}}" type="primary" bindtap="subImage">提交</view>
+            </view>
+        </form>
+    </view>
+    <!--弹窗-->
+    <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal1}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal1}}">
+        <!-- <view class="modal-dialog"> -->
+        <view class="seach">
+            <view class="iconfont icon-xiazai5 sousuoIcon"></view>
+            <input class="seachInput" placeholder="请输入要搜索的开户支行" bindinput="choosebranch"></input>
+            <view class="closeBtn" bindtap="onCancel" data-status="cancel">取消</view>
+        </view>
+        <view class="modal-content">
+            <scroll-view class="listBody" scroll-y="true">
+                <view class="listBody_li" wx:for="{{branch}}" >
+                    <view class="shopName" data-num="{{item.lbnkNo}}" data-name="{{item.lbnkNm}}" bindtap="chooseHang1" >{{item.lbnkNm}}</view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+    <!--弹窗-->
+    <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal}}">
+        <!-- <view class="modal-dialog"> -->
+        <view class="seach">
+            <view class="iconfont icon-xiazai5 sousuoIcon"></view>
+            <input class="seachInput" placeholder="请输入要搜索的开户行" bindinput="bankSearch"></input>
+            <view class="closeBtn" bindtap="onCancel" data-status="cancel">取消</view>
+        </view>
+        <view class="modal-content">
+            <scroll-view class="listBody" scroll-y="true">
+                <!-- <view class="listBody_li" wx:for="{[0，1, 2, 3, 4, 5, 6, 7, 8, 9]}" wx:key="{{item}}" wx:for-index="item" wx:if="{{item < 50}}">
+                    <view class="shopName">鸿搜豆果{{item}}店</view>
+                </view> -->
+				<view class="listBody_li" wx:for="{{hangbie}}"  >
+                    <view class="shopName" data-num="{{item.value}}" wx:if="{{item.type}}" data-name="{{item.text}}" bindtap="chooseHang" >{{item.text}}</view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+</view>

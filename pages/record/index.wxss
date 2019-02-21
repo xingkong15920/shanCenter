@@ -1,0 +1,205 @@
+.top{
+	width:100%;
+	border-bottom:10px solid rgba(245,245,245,1);
+}
+.topL{
+	width:285px;
+	height:24px;
+	margin:0 auto;
+	margin-top:16px;
+	vertical-align: top;
+	display: flex;
+    /* align-items: center;  */
+     flex-direction: row; 
+	 justify-content:space-around;
+}
+.topT{
+	width:60px;
+	text-align:center;
+	border-radius:13px;
+	font-size:14px;
+	color:#666;
+	line-height:24px;
+}
+.topA{
+	color:#fff;
+	background:#FFA20A
+}
+.topR{
+	width:275px;
+	height:34px;
+	margin:0 auto;
+	margin-top:16px;
+	border:1px solid rgba(238,238,238,1);
+	opacity:1;
+	border-radius:17px;
+	margin-bottom:10px;
+}
+.topDate{
+	
+	width:213px;
+	line-height:34px;
+	vertical-align:top;
+	font-size:12px;
+	text-align:center;
+	border-right:1px solid rgba(238,238,238,1);
+	display:inline-block;
+}
+.topS{
+	display:inline-block;
+	width:40px;
+    height:40px;
+	margin-left:20px;
+	margin-top:10px;
+    border-color:#333 transparent transparent;
+}
+.mid{
+	width:100%;
+	height:47px;
+	border:1px solid rgba(245,245,245,1)
+}
+.midA{
+	width:125px;
+	font-size:16px;
+	color:#333;
+	text-align:center;
+	line-height:47px;
+}
+.foot{
+	width:100%;
+	height:50px;
+	border-top:1px solid rgba(255,162,10,1);
+	position:fixed;
+	bottom:0;
+	left:0;
+}
+.footA{
+	width:125px;
+	font-size:16px;
+	color:#ffa20a;
+	text-align:center;
+	line-height:50px;
+	background:#fff
+}
+.box{
+	width:100%;
+	height:auto;
+	overflow:auto;
+}
+.box1{
+	height:auto;
+}
+.boxT{
+	width:92%;
+	height:50px;
+	margin:0 15px;
+	border:1px solid rgba(245,245,245,1);
+}
+.boxA{
+	width:110px;
+	font-size:14px;
+	line-height:50px;
+	text-align:center;
+}
+/* pages/dateSelect/dateSelect.wxss */
+.date-day{
+    display: flex;
+	margin:0 5px;
+    text-align:center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.date-day.bgitem{
+  background-color: #d8ecf9;
+}
+.date-day.active{
+    background: #FFA20A;
+    color:#FFF;
+    border-radius:50%;
+}
+.date-day.unavailable{
+    color:#aaa;
+}
+
+.date-week{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin:5px;
+}
+.week{
+    color:#099FDE;
+}
+.row{
+width:100%;
+height:177px;
+padding-top:10px;
+display: flex;
+flex-direction: row;
+position:absolute;
+bottom:0;
+left:0
+}
+ .item-days{
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+} 
+.bgwhite{
+  background-color: #fff;
+}
+.chooseData{
+	width:100%;
+	position:fixed;
+	left:0;
+	top:0;
+	z-index:999;
+	height:100vh;
+	background:rgba(0,0,0,0.3);
+}
+.riqiBox{
+	width:100%;
+	height:47px;
+	background:#fff;
+	border-bottom:1px solid rgba(238,238,238,1);
+	position:fixed;
+	left:0;
+	bottom:100px;
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+	justify-content:space-around;
+}
+.riqi{
+	font-size:14px;
+	line-height:47px;
+	
+}
+.year{
+}
+.month{
+}
+.long{
+	margin-left:40px;
+	width:50px;
+	background:#FFA20A;
+	height:24px;
+	line-height:24px;
+	color:#fff;
+	margin-top:12px;
+	text-align:center;
+	border-radius:4px;
+}
+.yearL{
+	vertical-align: middle;
+	margin-right:5px;
+	font-size:14px;
+}
+.yearR{
+	vertical-align: middle;
+	margin-left:5px;
+	font-size:14px;
+}

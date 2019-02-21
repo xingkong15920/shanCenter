@@ -1,0 +1,674 @@
+/* pages/merchants/manage/index.wxss */
+
+view, scroll-view, ::after, ::before {
+    box-sizing: border-box;
+    transition: 0.3s all;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.payment {
+    padding-bottom: 0;
+}
+
+.Flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+/*swtich整体大小*/
+
+.wx-switch-input {
+    width: 42px !important;
+    height: 20px !important;
+    background: #ffa20a !important;
+    border: #ffa20a !important;
+}
+
+/*白色样式（false的样式）*/
+
+.wx-switch-input::before {
+    background: #c6c6c6 !important;
+    border: #c6c6c6 !important;
+    width: 42px !important;
+    height: 20px !important;
+}
+
+/*绿色样式（true的样式）*/
+
+.wx-switch-input::after {
+    margin-top: 2px !important;
+    margin-left: 3px !important;
+    width: 16px !important;
+    height: 16px !important;
+    box-shadow: none;
+}
+
+.screen {
+    width: calc(20% - 5px);
+    height: 40px;
+    background: #fff;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.chooseMendian {
+    height: 40px;
+    width: calc(80% - 5px);
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    line-height: 40px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+.mendianName {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.chooseMendian .iconfont {
+    font-size: 10px;
+}
+
+.tab-head-item {
+    width: 25%;
+    line-height: 48px;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+/* tab列表 */
+
+.tab-body {
+    width: calc(100% + 20px);
+    height: calc(100% - 50px);
+    margin-left: -10px;
+    margin-right: -10px;
+    background: #fff;
+}
+
+.listBody {
+    height: calc(100% - 50px);
+}
+
+.listBody_li {
+    height: 65px;
+    width: 100%;
+    border-bottom: 1px solid #f5f5f5;
+    position: relative;
+    overflow: hidden;
+}
+
+.listBody_li.active {
+    height: 90px;
+}
+
+.listBody_li:last-child {
+    border: none;
+}
+
+.active .shopName {
+    font-size: 12px;
+    color: #ffa20a;
+}
+
+.dingdanLine {
+    width: 55%;
+    height: 65px;
+    font-size: 12px;
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.dingdanLineB {
+    width: 100%;
+}
+
+.assistantname {
+    width: 100%;
+    color: #333;
+    line-height: 1;
+    margin-bottom: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.shopname {
+    width: 100%;
+    color: #333;
+    line-height: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.shopname>view{
+    margin-left: 10px;
+    display: inline-block;
+    font-weight: 600;
+}
+.shopname>view.fail{
+    color:#f00;
+}
+
+.iconLine {
+    width: auto;
+    margin-right: 10px;
+    line-height: 65px;
+    height: 65px;
+    padding-left: 10px;
+    float: left;
+    font-size: 14px;
+}
+
+.iconLine image {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin-top: 12.5px;
+}
+
+.stateLine {
+    width: 20%;
+    line-height: 65px;
+    height: 65px;
+    font-size: 14px;
+    float: left;
+    text-align: right;
+    font-weight: 600;
+}
+
+.operationLine {
+    width: calc(25% - 60px);
+    line-height: 65px;
+    height: 65px;
+    float: left;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.operationLine .iconfont {
+    font-size: 14px;
+    transform: rotate(-90deg);
+}
+
+.operationLineBtn {
+    width: 50px;
+    height: 22px;
+    line-height: 22px;
+    color: #fff;
+    background: #ffa20a;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.shopName {
+    font-size: 16px;
+    line-height: 50px;
+}
+
+.listIcon {
+    width: 20px;
+    height: 10px;
+    font-size: 12px;
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    text-align: center;
+}
+
+.active .listIcon {
+    transform: rotate(-180deg);
+}
+
+.active .operation {
+    display: flex;
+}
+
+.operation {
+    height: 40px;
+    width: 100%;
+    padding-left: 15px;
+    overflow: hidden;
+    display: none;
+    justify-content: space-between;
+}
+
+.operationBtn {
+    width: auto;
+    height: 30px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    float: left;
+    margin-right: 5px;
+    padding: 0 8px;
+}
+
+.editData {
+    background: #ff7b0a;
+}
+
+.WXpush {
+    background: #009588;
+}
+
+.editPass {
+    background: #118eea;
+}
+
+.Pay {
+    background: #a7b74b;
+}
+
+.editDel {
+    background: red;
+}
+
+.show-btn {
+    margin-top: 100rpx;
+    color: #2c2;
+}
+
+.selectRate {
+    width: 17em;
+    height: 100%;
+    line-height: 40px;
+    padding: 0 15px;
+}
+
+/* 弹窗样式 */
+
+.mendianList {
+    font-size: 14px;
+    color: #999;
+    height: 50px;
+    line-height: 50px;
+    text-align: left;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.mendianList label {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* 自定义弹窗 */
+
+.modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 9000;
+    color: #fff;
+}
+
+.modal-dialog {
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    background: #fff;
+}
+
+.modal-title {
+    padding-top: 50rpx;
+    font-size: 36rpx;
+    color: #030303;
+    text-align: center;
+}
+
+.modal-content {
+    padding: 15px 20px;
+    height: auto;
+    overflow: auto;
+}
+
+.modal-contentB {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    text-align: center;
+}
+
+.modal-input {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    background: #fff;
+    border: 2rpx solid #ddd;
+    border-radius: 4rpx;
+    font-size: 28rpx;
+}
+
+.input {
+    width: 100%;
+    height: 82rpx;
+    font-size: 28rpx;
+    line-height: 28rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    color: #333;
+}
+
+input-holder {
+    color: #666;
+    font-size: 28rpx;
+}
+
+.modal-footer {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #dedede;
+    font-size: 34rpx;
+    line-height: 86rpx;
+}
+
+.btn-cancel {
+    width: 50%;
+    color: #666;
+    text-align: center;
+    border-right: 1px solid #dedede;
+}
+
+.btn-confirm {
+    width: 50%;
+    color: #ec5300;
+    text-align: center;
+}
+
+.bodyC {
+    background: #fff;
+    margin-bottom: 10px;
+}
+
+.bodyC:last-child {
+    margin-bottom: 0;
+}
+
+.bodyCli {
+    height: 50px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+
+.bodyCli::after {
+    content: "";
+    height: 1px;
+    width: 0;
+    background: #ffa20a;
+    position: absolute;
+    left: 50%;
+    bottom: -1px;
+}
+
+.bodyCli.active {
+    height: 63px;
+}
+
+.bodyCli.activeInput {
+    height: 63px;
+}
+
+.bodyCli.active::after {
+    width: 100%;
+    left: 0;
+}
+
+.bodyClitit {
+    font-size: 14px;
+    color: #999;
+    padding-top: 15px;
+    display: none;
+}
+
+.Tips {
+    float: right;
+    color: red;
+}
+
+.active .bodyClitit, .activeInput .bodyClitit {
+    display: block;
+    font-size: 10px;
+    padding-top: 10px;
+}
+
+.active .placeholder {
+    color: transparent;
+}
+
+.bodyCliinput {
+    width: 100%;
+    height: 50px;
+    font-size: 14px;
+}
+
+.active .bodyCliinput, .activeInput .bodyCliinput {
+    height: 38px;
+    line-height: 38px;
+    font-size: 14px;
+    display: block;
+}
+
+.wxpushImg {
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.wxpushTips {
+    font-size: 12px;
+    color: red;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.wxpushbingTit {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #333;
+    padding: 0 15px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.wxpushbingList {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+    padding: 0 5px;
+    line-height: 40px;
+}
+
+.wxpushbingList-nick {
+    width: 25%;
+}
+
+.wxpushbingList-time {
+    text-align: center;
+    width: 50%;
+}
+
+.wxpushbingList-operation {
+    width: 25%;
+    text-align: right;
+}
+
+.wxpushbingList-operationBtn {
+    display: inline-block;
+    width: 60px;
+    height: 28px;
+    background: #f00;
+    color: #fff;
+    line-height: 28px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.pay {
+    height: 100%;
+}
+
+.pay .modal-content {
+    height: calc(100% - 86rpx);
+    text-align: center;
+}
+
+.payImg {
+    height: 100%;
+    width: 100%;
+}
+
+.payBtn {
+    border: none;
+    padding: 20rpx 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.payBtn .btn-cancel {
+    width: 45%;
+    border: 1px solid #ffa20a;
+    border-radius: 100px;
+    color: #ffa20a;
+}
+
+.payBtn .btn-confirm {
+    width: 45%;
+    border: 1px solid #ffa20a;
+    background: #ffa20a;
+    border-radius: 100px;
+    color: #fff;
+}
+
+.total {
+    height: 50px;
+    width: 100%;
+    border-top: 1px solid #eee;
+    color: #ffa20a;
+    font-size: 16px;
+    line-height: 50px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chooseTit {
+    width: 100%;
+    line-height: 18px;
+    font-size: 14px;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.chooseTiticon {
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    border-radius: 20px;
+    margin-right: 8px;
+}
+.time .chooseTiticon {
+    background: #FFA20A;
+}
+.pay .chooseTiticon {
+    background: #59D7A6;
+}
+.state .chooseTiticon {
+    background: #80A4DB;
+}
+.chooseBtnList{
+    display: flex;
+    margin-bottom: 15px;
+}
+.chooseBtn{
+    width: 70px;
+    height: 34px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 34px;
+    border: 1px solid #C6C6C6;
+    border-radius: 4px;
+    float: left;
+    margin-right: 10px;
+    position: relative;
+}
+.chooseBtn.active{
+    background: #FFE6E6;
+    border-color: #FE4543;
+    color: #333;
+}
+.chooseBtn.active::before{
+    content: "√";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 14px;
+    height: 14px;
+    color: #fff;
+    font-size: 10px;
+    border-radius: 50px;
+    background: #FF1818;
+    line-height: 14px;
+    text-align: center;
+}
+.chooseTips{
+    margin-top: 5px;
+    text-align: left;
+    color: red;
+    font-size: 12px;
+}
+
+
+/* 上拉加载下拉刷新 */
+.weui-loadmore {
+  width: 100%;
+  height: 100rpx;
+  font-size: 30rpx;
+  text-align: center;
+  margin-top: 30rpx;
+}
+
+.weui-loading {
+  width: 50rpx;
+  height: 50rpx;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-animation: weuiLoading 1s steps(12, end) infinite;
+  animation: weuiLoading 1s steps(12, end) infinite;
+  background: transparent url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgxMDB2MTAwSDB6Ii8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTlFOUU5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLTMwKSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iIzk4OTY5NyIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgzMCAxMDUuOTggNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjOUI5OTlBIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDYwIDc1Ljk4IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0EzQTFBMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSg5MCA2NSA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNBQkE5QUEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoMTIwIDU4LjY2IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0IyQjJCMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgxNTAgNTQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjQkFCOEI5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA1MCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDMkMwQzEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTE1MCA0NS45OCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDQkNCQ0IiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTEyMCA0MS4zNCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNEMkQyRDIiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDM1IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0RBREFEQSIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgtNjAgMjQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTJFMkUyIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKC0zMCAtNS45OCA2NSkiLz48L3N2Zz4=) no-repeat;
+  background-size: 100%;
+}
+
+.weui-loadmore-tips {
+  display: inline-block;
+  vertical-align: middle;
+}

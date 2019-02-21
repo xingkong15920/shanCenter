@@ -1,0 +1,89 @@
+<!--pages/merchants/manage/index.wxml-->
+<view class="container">
+    <view class="body payment">
+        <!-- 门店选择 -->
+        <view class="Flex">
+            <view class="chooseMendian" bindtap="editMendian">
+                <view class="mendianName">{{chooseShop}}</view>
+                <view class="iconfont icon-xiajiantou"></view>
+            </view>
+            <view class="screen" bindtap="screen">筛选</view>
+        </view>
+        <!-- tab框 -->
+        <view class="tab-body">
+            <scroll-view class="listBody" scroll-y="true" style="height:calc(100% - 50px)" bindscrolltolower="loadMore" bindscrolltoupper="reFresh">
+                <view class="listBody_li" wx:for="{{shopList}}" wx:key="{{shopList}}" data-batch="{{item.batch}}" data-orderState="{{item.orderState}}" bindtap="toDetails">
+                    <view class="iconLine">
+                        <image src="../../img/{{item.transactionType=='Alipay_Pay'?'zhifubao':'weixin'}}.png" mode="aspectFit"></image>
+                    </view>
+                    <view class="dingdanLine">
+                        <view class="dingdanLineB">
+                            <view class="assistantname">{{item.shopName}}</view>
+                            <view class="shopname">{{item.transactionTime}}
+                                <view class="{{item.orderState==0?'fail':''}}" data-id="{{item.orderState}}">{{orderstatus[item.orderState]}}</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="stateLine">
+                        {{item.transactionAmount}}
+                    </view>
+                    <view class="operationLine">
+                        <view class="iconfont icon-xiajiantou"></view>
+                    </view>
+                </view>
+                <!-- 下拉刷新 -->
+                <!-- 下拉刷新end -->
+            </scroll-view>
+            <view class="total">
+                <view>合计：</view>
+                <view>
+                    ¥ {{transactionListAmount}} / {{transactionListCount}} 笔
+                </view>
+            </view>
+        </view>
+    </view>
+    <!--弹窗-选择门店-->
+    <view class="modal-mask" bindtap="preventTouchMove" wx:if="{{showModal1}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal1}}">
+        <view class="modal-content" style="max-height:350px;">
+            <radio-group bindchange="radioChange" class="modal-contentB">
+                <view class="mendianList" wx:for="{{shopListM}}" wx:key="{{shopListM}}">
+                    <label data-name="{{item.shopNumber}}">
+                        <radio value="{{item.shopNumber}}" checked="{{item.shopName == chooseShop?'true':''}}" />{{item.shopName}}</label>
+                </view>
+            </radio-group>
+        </view>
+    </view>
+    <!--弹窗-筛选-->
+    <view class="modal-mask" bindtap="preventTouchMove" wx:if="{{showModal2}}"></view>
+    <view class="modal-dialog pay" wx:if="{{showModal2}}">
+        <view class="modal-content">
+            <view class="chooseTit time">
+                <view class="chooseTiticon"></view>
+                <view>按时间筛选</view>
+            </view>
+            <view class="chooseBtnList">
+                <view class="chooseBtn {{indexStateT==chooseTimgA[index].choosetype?'active':''}}" wx:for="{{chooseTimgA}}" wx:key="{{index}}" data-index="{{chooseTimgA[index].choosetype}}" bindtap="chooseT">{{chooseTimgA[index].choosetit}}</view>
+            </view>
+            <view class="chooseTit payment">
+                <view class="chooseTiticon"></view>
+                <view>按支付方式筛选</view>
+            </view>
+            <view class="chooseBtnList">
+                <view class="chooseBtn {{indexStateP==choosePaymentA[index].choosetype?'active':''}}" wx:for="{{choosePaymentA}}" wx:key="{{index}}" data-index="{{choosePaymentA[index].choosetype}}" bindtap="chooseP">{{choosePaymentA[index].choosetit}}</view>
+            </view>
+            <view class="chooseTit state">
+                <view class="chooseTiticon"></view>
+                <view>按订单状态筛选</view>
+            </view>
+            <view class="chooseBtnList">
+                <view class="chooseBtn {{indexStateS==chooseStateA[index].choosetype?'active':''}}" wx:for="{{chooseStateA}}" wx:key="{{index}}" data-index="{{chooseStateA[index].choosetype}}" bindtap="chooseS">{{chooseStateA[index].choosetit}}</view>
+            </view>
+            <view class="chooseTips">*查询结果仅显示三个月以内信息</view>
+        </view>
+        <view class="modal-footer">
+            <view class="btn-cancel" bindtap="onCancel" data-status="cancel2">重置</view>
+            <view class="btn-confirm" bindtap="onConfirm" data-status="confirm2">完成筛选</view>
+        </view>
+    </view>
+</view>

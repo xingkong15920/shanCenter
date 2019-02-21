@@ -1,0 +1,277 @@
+.bg{
+	background:#FFA20A;
+	height:60px;
+	width:100%;
+	position:fixed;
+	top:0;
+	left:0;
+}
+.top{
+width:345px;
+height:50px;
+margin-top:14px;
+padding-top:22px;
+padding-bottom:20px;
+background:rgba(255,255,255,1);
+box-shadow:0px 3px 6px rgba(0,0,0,0.16);
+opacity:1;
+border-radius:4px;
+z-index:999;
+margin-bottom:20px;
+}
+.topL{
+	width:172px;
+	display:inline-block;
+}
+.topA{
+	width:172px;
+	height:28px;
+	font-size:20px;
+	line-height:28px;
+	text-align:center;
+	margin-bottom:5px;
+	display:inline-block;
+}
+.topB{
+	width:172px;
+	height:20px;
+	font-size:14px;
+	line-height:20px;
+	text-align:center;
+}
+.br{
+	width:171px;
+	border-left:1px solid rgba(230,230,230,1);
+}
+.mid{
+	box-sizing: border-box;
+	width:320px;
+	margin-left:55px;
+	height:24px;
+	margin-bottom:26px;
+}
+.midA{
+	width:60px;
+	height:24px;
+	border-radius:13px;
+	font-size:14px;
+	line-height:24px;
+	background:#FFF;
+	color:#666666;
+	text-align:center;
+	display:inline-block;
+	
+}
+.midAA{
+	background:#FFA20A;
+	color:#fff;
+}
+.mr33{
+	margin-right:43px
+}
+.timeBox{
+	width:275px;
+	height:34px;
+	border:1px solid rgba(238,238,238,1);
+	border-radius:17px;
+	margin:0 auto;
+	margin-bottom:28px;
+}
+.dateBox{
+	width:213px;
+	height:34px;
+	line-height:34px;
+	font-size:12px;
+	text-align:center;
+	border-right:1px solid rgba(238,238,238,1);
+	display:inline-block;
+	vertical-align:top;
+}
+.dateBtn{
+	width:24px;
+	height:24px;
+	font-size:24px;
+	display:inline-block;
+	margin-left:14px;
+	margin-top:4px;
+}
+.boxA{
+	margin:0 70px;
+	width:235px;
+	height:50px;
+	margin-bottom:30px;
+}
+.boxC{
+	width:100%;
+	height:20px;
+	margin-bottom:8px;
+}
+.boxC-left{
+	font-size:14px;
+	color:#666
+}
+.boxB{
+	width:100%;
+	height:22px;
+}
+.boxB-left{
+	width:80px;
+	font-size:14px;
+	line-heiht:22px;
+	text-align:center;
+	color:#666
+}
+.btnBox{
+	width:198px;
+	height:34px;
+	position: relative;
+	margin-bottom:22px;
+}
+.btnLeft{
+	width:99px;
+	font-size:14px;
+	line-height:34px;
+	text-align:center;
+	color:#666;
+	border-radius:6px;
+	border:1px solid #FFA20A;
+	position: absolute;
+	left:0;
+	right:0
+}
+.btnRight{
+	width:99px;
+	font-size:14px;
+	line-height:34px;
+	text-align:center;
+	color:#666;
+	border-radius:6px;
+	border:1px solid #FFA20A;
+	position: absolute;
+	left:95px;
+	right:0
+}
+.btnC{
+	background: #FFA20A;
+	color:#fff;
+	z-index:999;
+}
+.imgT{
+width:100%;
+height:17px;
+font-size:12px;
+color:#666;
+text-indent:15px;
+line-height:17px;
+}
+.container1 {
+    width: 375px;
+    height: 180px;
+	overflow:auto;
+}
+.canvas{
+	width:auto;
+	height:220px;
+	position: relative;
+}
+.date-day{
+    display: flex;
+	margin:0 5px;
+    text-align:center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.date-day.bgitem{
+  background-color: #d8ecf9;
+}
+.date-day.active{
+    background: #FFA20A;
+    color:#FFF;
+    border-radius:50%;
+}
+.date-day.unavailable{
+    color:#aaa;
+}
+
+.date-week{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin:5px;
+}
+.week{
+    color:#099FDE;
+}
+.row{
+width:100%;
+height:177px;
+padding-top:10px;
+display: flex;
+flex-direction: row;
+position:absolute;
+bottom:0;
+left:0
+}
+ .item-days{
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  font-size: 35rpx;
+} 
+.bgwhite{
+  background-color: #fff;
+}
+.chooseData{
+	width:100%;
+	position:fixed;
+	left:0;
+	top:0;
+	z-index:999;
+	height:100vh;
+	background:rgba(0,0,0,0.3);
+}
+.riqiBox{
+	width:100%;
+	height:47px;
+	background:#fff;
+	border-bottom:1px solid rgba(238,238,238,1);
+	position:fixed;
+	left:0;
+	bottom:100px;
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+	justify-content:space-around;
+}
+.riqi{
+	font-size:14px;
+	line-height:47px;
+	
+}
+.year{
+}
+.month{
+}
+.long{
+	margin-left:40px;
+	width:50px;
+	background:#FFA20A;
+	height:24px;
+	line-height:24px;
+	color:#fff;
+	margin-top:12px;
+	text-align:center;
+	border-radius:4px;
+}
+.yearL{
+	vertical-align: middle;
+	margin-right:5px;
+	font-size:14px;
+}
+.yearR{
+	vertical-align: middle;
+	margin-left:5px;
+	font-size:14px;
+}

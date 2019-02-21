@@ -1,0 +1,583 @@
+/* pages/merchants/manage/index.wxss */
+
+view, scroll-view, ::after, ::before {
+    box-sizing: border-box;
+    transition: 0.3s all;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+
+/*swtich整体大小*/
+
+.wx-switch-input {
+    width: 42px !important;
+    height: 20px !important;
+    background: #ffa20a !important;
+    border: #ffa20a !important;
+}
+
+/*白色样式（false的样式）*/
+
+.wx-switch-input::before {
+    background: #c6c6c6 !important;
+    border: #c6c6c6 !important;
+    width: 42px !important;
+    height: 20px !important;
+}
+
+/*绿色样式（true的样式）*/
+
+.wx-switch-input::after {
+    margin-top: 2px !important;
+    margin-left: 3px !important;
+    width: 16px !important;
+    height: 16px !important;
+    box-shadow: none;
+}
+
+
+.chooseMendian{
+    height: 40px;
+    width: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    line-height: 40px;
+    margin-bottom: 5px;
+}
+.mendianName{
+    font-size: 14px;
+    margin-right: 5px;
+}
+.chooseMendian .iconfont{
+    font-size: 10px;
+}
+
+.tab-head {
+    width: 100%;
+    height: 48px;
+    background: #fff;
+    border-bottom: 1px solid #c6c6c6;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab-head-item {
+    width: 25%;
+    line-height: 48px;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.tab-head-item:nth-child(1) {
+    width: 30%;
+}
+
+.tab-head-item:nth-child(2) {
+    width: 30%;
+}
+
+.tab-head-item:nth-child(3) {
+    width: 20%;
+}
+
+.tab-head-item:nth-child(4) {
+    width: 20%;
+}
+
+.tab-head-item.active {
+    color: #ffa20a;
+}
+
+.tab-head-item.active::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #ffa20a;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+}
+
+/* tab列表 */
+
+.tab-body {
+    width: 100%;
+    height: calc(100% - 93px);
+}
+
+.listBody {
+    height: calc(100% - 50px);
+    margin-bottom: 10px;
+    background: #fff;
+}
+
+.listBody_li {
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid #f5f5f5;
+    position: relative;
+    overflow: hidden;
+}
+
+.listBody_li.active {
+    height: 90px;
+}
+
+.listBody_li:last-child {
+    border: none;
+}
+
+.active .shopName {
+    font-size: 12px;
+    color: #ffa20a;
+}
+
+.nameLine {
+    width: 30%;
+    height: 50px;
+    font-size: 12px;
+    float: left;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+}
+.nameLineB{
+    width: 100%;
+}
+
+.assistantname {
+    width: 100%;
+    color: #333;
+    line-height: 1;
+    margin-bottom: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.shopname {
+    width: 100%;
+    color: #999;
+    line-height: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.phoneLine {
+    width: 30%;
+    line-height: 50px;
+    height: 50px;
+    float: left;
+    font-size: 14px;
+    text-align: center;
+}
+
+.stateLine {
+    width: 20%;
+    line-height: 50px;
+    height: 50px;
+    float: left;
+    text-align: center;
+}
+
+.operationLine {
+    width: 20%;
+    line-height: 50px;
+    height: 50px;
+    float: left;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.operationLineBtn {
+    width: 50px;
+    height: 22px;
+    line-height: 22px;
+    color: #fff;
+    background: #ffa20a;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.shopName {
+    font-size: 16px;
+    line-height: 50px;
+}
+
+.listIcon {
+    width: 20px;
+    height: 10px;
+    font-size: 12px;
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    text-align: center;
+}
+
+.active .listIcon {
+    transform: rotate(-180deg);
+}
+
+.active .operation {
+    display: flex;
+}
+
+.operation {
+    height: 40px;
+    width: 100%;
+    padding-left: 15px;
+    overflow: hidden;
+    display: none;
+    justify-content: space-between;
+}
+
+.operationBtn {
+    width: auto;
+    height: 30px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    float: left;
+    margin-right: 5px;
+    padding: 0 8px;
+}
+
+.editData {
+    background: #ff7b0a;
+}
+
+.WXpush {
+    background: #009588;
+}
+
+.editPass {
+    background: #118eea;
+}
+
+.Pay {
+    background: #a7b74b;
+}
+
+.editDel {
+    background: red;
+}
+
+.show-btn {
+    margin-top: 100rpx;
+    color: #2c2;
+}
+
+.selectRate {
+    width: 17em;
+    height: 100%;
+    line-height: 40px;
+    padding: 0 15px;
+}
+
+/* 弹窗样式 */
+
+.mendianList {
+    font-size: 14px;
+    color: #999;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-bottom: 1px solid #f5f5f5;
+}
+.mendianList label{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* 自定义弹窗 */
+
+.modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.5;
+    overflow: hidden;
+    z-index: 9000;
+    color: #fff;
+}
+
+.modal-dialog {
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    background: #fff;
+}
+
+.modal-title {
+    padding-top: 50rpx;
+    font-size: 36rpx;
+    color: #030303;
+    text-align: center;
+}
+
+.modal-content {
+    padding: 15px 20px;
+    height: auto;
+    overflow: hidden;
+}
+
+.modal-contentB {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    text-align: center;
+}
+
+.modal-input {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    background: #fff;
+    border: 2rpx solid #ddd;
+    border-radius: 4rpx;
+    font-size: 28rpx;
+}
+
+.input {
+    width: 100%;
+    height: 82rpx;
+    font-size: 28rpx;
+    line-height: 28rpx;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+    color: #333;
+}
+
+input-holder {
+    color: #666;
+    font-size: 28rpx;
+}
+
+.modal-footer {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #dedede;
+    font-size: 34rpx;
+    line-height: 100rpx;
+}
+
+.btn-cancel {
+    width: 50%;
+    color: #f00;
+    text-align: center;
+    border-right: 1px solid #dedede;
+}
+
+.btn-confirm {
+    width: 50%;
+    color: #118EEA;
+    text-align: center;
+}
+
+
+.bodyC {
+    background: #fff;
+    margin-bottom: 10px;
+}
+
+.bodyC:last-child{
+    margin-bottom: 0;
+}
+
+.bodyCli {
+    height: 50px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+
+.bodyCli::after {
+    content: "";
+    height: 1px;
+    width: 0;
+    background: #ffa20a;
+    position: absolute;
+    left: 50%;
+    bottom: -1px;
+}
+
+.bodyCli.active {
+    height: 63px;
+}
+
+.bodyCli.activeInput {
+    height: 63px;
+}
+
+.bodyCli.active::after {
+    width: 100%;
+    left: 0;
+}
+
+.bodyClitit {
+    font-size: 14px;
+    color: #999;
+    padding-top: 15px;
+    display: none;
+}
+.Tips{
+    float: right;
+    color: red;
+}
+
+.active .bodyClitit, .activeInput .bodyClitit {
+    display: block;
+    font-size: 10px;
+    padding-top: 10px;
+}
+
+.active .placeholder {
+    color: transparent;
+}
+
+.bodyCliinput {
+    width: 100%;
+    height: 50px;
+    font-size: 14px;
+}
+
+.active .bodyCliinput, .activeInput .bodyCliinput {
+    height: 38px;
+    line-height: 38px;
+    font-size: 14px;
+    display: block;
+}
+.wxpushImg{
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.wxpushTips{
+    font-size: 12px;
+    color: red;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.wxpushbingTit{
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #333;
+    padding: 0 15px 10px;
+    border-bottom: 1px solid #EEEEEE;
+}
+.wxpushbingList{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+    padding: 0 5px;
+    line-height: 40px;
+}
+.wxpushbingList-nick{
+    width: 25%;
+}
+.wxpushbingList-time{
+    text-align: center;
+    width: 50%;
+}
+.wxpushbingList-operation{
+    width: 25%;
+    text-align: right;
+}
+.wxpushbingList-operationBtn{
+    display: inline-block;
+    width: 60px;
+    height: 28px;
+    background: #FF0000;
+    color: #fff;
+    line-height: 28px;
+    border-radius: 4px;
+    text-align: center;
+}
+.pay{
+    height: 100%;
+}
+.pay .modal-content{
+    height: calc(100% - 126rpx);
+    text-align: center;
+}
+.payImg{
+    height:100%;
+    width: 100%;
+    position: relative;
+}
+.canvas{
+    position:absolute;
+    top: 36%;
+    left: calc(50% - 175rpx);
+}
+.deviceCode{
+    position: absolute;
+    top: 71%;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+.payBtn{
+    border: none;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+.payBtn .btn-cancel{
+    width: 45%;
+    border: 1px solid #FFA20A;
+    border-radius: 100px;
+    color: #FFA20A
+}
+.payBtn .btn-confirm{
+    width: 45%;
+    border: 1px solid #FFA20A;
+    background: #FFA20A;
+    border-radius: 100px;
+    color: #fff;
+}
+
+.addClerkBtn{
+    height: 40px;
+    width: 100%;
+    background: #FFA20A;
+    text-align: center;
+    font-size: 16px;
+    line-height: 40px;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.passB{
+    padding-bottom: 0;
+}
+.passBtn{
+    margin-left: -20px;
+    margin-right: -20px;
+    width: clac(100% + 40px)
+}
+.inline{display: inline-block}
+.red{color: red;}

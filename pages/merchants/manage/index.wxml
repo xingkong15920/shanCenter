@@ -1,0 +1,47 @@
+<!--pages/merchants/manage/index.wxml-->
+<import src="../../common/seach.wxml" />
+<import src="../../common/empty.wxml" />
+<view class="container">
+    <view class="body">
+        <!-- 搜索框 -->
+        <template is="seach" data="{{placeholder:'请输入要搜索的商户'}}"/>
+		
+        <!-- tab框 -->
+        <view class="tab-head">
+            <view class="tab-head-item {{currentTab==2?'active':''}}" data-current="2" bindtap="swichNav">已通过</view>
+            <view class="tab-head-item {{currentTab==1?'active':''}}" data-current="1" bindtap="swichNav">审核中</view>
+            <view class="tab-head-item {{currentTab==0?'active':''}}" data-current="0" bindtap="swichNav">未通过</view>
+            <view class="tab-head-item {{currentTab==3?'active':''}}" data-current="3" bindtap="swichNav">未完成</view>
+        </view>
+        <view class="tab-body">
+            <scroll-view class="listBody" scroll-y="true" wx:if="{{empty}}">
+                <view class="listBody_li {{item.merchantNumber==active?'active':''}}" wx:for="{{shopList}}" data-id="{{item.merchantNumber}}" bindtap="shopOperation">
+                    <view class="shopName">{{item.merchantName}}</view>
+                    <view class="listIcon iconfont icon-xiajiantou"></view>
+                    <view class="operation">
+                        <view class="operationBtn editData" catchtap="editData" data-subnumber="{{item.subaccountNumber}}" data-id="{{item.merchantNumber}}" wx:if="{{currentTab != 1}}">修改资料</view>
+                        <view class="operationBtn editRate" catchtap="editRate" data-type="{{item.rateType}}" data-rateCoding="{{item.rateCoding}}" data-id="{{item.merchantNumber}}" wx:if="{{currentTab ==2}}">修改费率</view>
+                        <view class="operationBtn editShop"  data-id="{{item.merchantNumber}}" wx:if="{{currentTab == 2}}" catchtap="editShop">门店管理</view>
+                    </view>
+                </view>
+            </scroll-view>
+			<template is="empty" wx:if="{{!empty}}"/>
+        </view>
+    </view>
+    <!--弹窗-->
+    <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal}}">
+        <view class="modal-title">设置费率</view>
+		
+        <view class="modal-content">
+		<view style='font-size:30rpx;line-height:32rpx;margin-top:10rpx;margin-bottom:10rpx'>当前费率: <text style='color:red'>{{rateCoding}}</text></view>
+            <picker class="modal-input" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+                <view class="selectRate">{{choRate}}</view>
+            </picker>
+        </view>
+        <view class="modal-footer">
+            <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+            <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+        </view>
+    </view>
+</view>

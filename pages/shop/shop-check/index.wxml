@@ -1,0 +1,23 @@
+<!--pages/shop-manage/index.wxml-->
+<import src="../../common/seach.wxml" />
+<import src="../../common/empty.wxml" />
+<view class="container">
+    <view class="body">
+        <!-- 列表 -->
+        <view class="listBodyk">
+		<template is="empty" wx:if="{{!empty}}"/>
+            <view class="listBodyTit" wx:if="{{empty}}">
+                <view class="shopnameTit">{{menchartsName}}</view>
+                <view class="numTit">共 <text>{{menNum}}</text>  个桌牌码</view>
+            </view>
+            <scroll-view class="listBody" scroll-y="true"  wx:if="{{empty}}">
+                <view class="listBody_li" wx:for="{{shopList}}"  >
+                    <view class="shopName">{{item.qrCode}}</view>
+                    <view class="operation">
+                        <view class="operationBtn unbind" bindtap="unbind" data-id="{{item.qrCode}}">解绑</view>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+</view>

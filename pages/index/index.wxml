@@ -1,0 +1,68 @@
+<!--index.wxml-->
+<view class="container">
+    <view class='top'>
+        <view class='topL'>
+            <view class='topT'>今日佣金(元)</view>
+            <view class='topN'>￥{{moneyD}}</view>
+        </view>
+        <view class='topL'>
+            <view class='topT'>今日新增店铺</view>
+            <view class='topN'>{{shopD}}</view>
+        </view>
+		<view class='topL aL' bindtap='record'>
+			<view class='topZ'></view>
+            <view class='topC iconfont icon-xinjianmendian'></view>
+            <view class='topB'>佣金记录</view>
+			<view class='pL'></view>
+        </view>
+		<view class='topL'  bindtap='salekit'>
+			<view class='topZ'></view>
+            <view class='topC  iconfont icon-tianbao'></view>
+            <view class='topB'>销售简报</view>
+        </view>
+    </view>
+	<view class='mid clearfix'>
+		<view class='midA fl'></view>
+		<view class='midB fl'>今日数据</view>
+	</view>
+	<view class='bot'>
+		<view class='boA fl'>
+
+			<view class='boB fl'></view>
+			<view class='boC fl'>
+				<view class='boD'>交易总金额</view>
+				<view class='boE'>{{moneyA}} 元</view>
+			</view>
+			<view class='boL'></view>
+		</view>
+		<view class='boA fl'>
+			<view class='boB fl boBa'></view>
+			<view class='boC fl'>
+				<view class='boD'>交易总笔数</view>
+				<view class='boE'>{{shopA}} 笔</view>
+			</view>
+		</view>
+	</view>
+	<view class='foot' >
+		<view class='footA fl'  wx:for="{{sList}}" bindtap="{{item.tap}}">
+			<view class='footB iconfont {{item.icon}}' style='color:{{item.color}}'></view>
+			<view class='footC'>{{item.name}}<text style='color:red'>{{item.num}}</text></view>
+		</view>
+		<!-- <view class='footA fl' bindtap='shop'>
+			<view class='footB'></view>
+			<view class='footC'>商户管理(<text style='color:red'>123</text>)</view>
+			
+		</view>
+		<view class='footA fl' style='border-right:0'>
+			<view class='footB'></view>
+			<view class='footC'>常见问题</view>
+		</view> -->
+	</view>
+	<view class='foot'>
+		<view class='footA fl' wx:for="{{sList1}}">
+			<view class='footB iconfont {{item.icon}}' style='color:{{item.color}}'></view>
+			<view class='footC'>{{item.name}}</view>
+		</view>
+		
+	</view>
+</view>

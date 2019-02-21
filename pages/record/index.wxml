@@ -1,0 +1,60 @@
+<view class='container'>
+	<view class='top'>
+		<view class='topL '>
+		  	<view class="topT fl {{today == 0?'topA':''}}" bindtap="cToday">今天</view>
+			<view class="topT fl {{today == 1?'topA':''}}"  bindtap="cYesday">昨日</view>
+			<view class="topT fl {{today == 2?'topA':''}}"  bindtap="cLastSeven">最近7天</view>
+		</view>
+		<view class='topR ' bindtap='chooseDate'>
+			<view class='topDate'>{{startT}}  -  {{endT}}</view>
+			<view class='topS iconfont icon-rili'></view>
+		</view>
+	</view>
+	
+	<view class='mid'>
+		<view class='midA fl'>时间</view>
+		<view class='midA fr'>佣金</view>
+	</view>
+	<view class='box' style='height:{{second_height}}'>
+		<view class='box1' wx:for="{{record}}" wx:for-item="item" wx:key="{{index}}">
+			<view class='boxT'>
+				<view class='boxA fl'>{{item.date}}</view>
+				<view class='boxA fr'>￥{{item.settlementCountMoney}}</view>
+			</view>
+			
+		</view>
+		
+	</view>
+	<view class='foot'>
+		<view class='footA fl'>佣金合计：</view>
+		<view class='footA fr'>￥{{moneyCount}}</view>
+	</view>
+
+</view>
+	<view class='chooseData'  wx:if="{{chooseData == true}}" >
+		<view class='riqiBox' style='bottom:187px;'>
+			<view class='fl riqi year'>
+			<text class='yearL' decode='true' bindtap='yearjian'>&lt; </text>
+			<text class='' decode='true' style='vertical-align:middle;color:#FFA20A;'>{{year}}年</text>
+			<text class='yearR' decode='true' bindtap='yearadd'>&gt; </text>
+			</view>
+			<view  class='fl riqi month'>
+				<text class='yearL' decode='true' bindtap='monthjian'>&lt; </text>
+			<text class='' decode='true' style='vertical-align:middle;color:#FFA20A;'>{{month}}月</text>
+			<text class='yearR' decode='true'  bindtap='monthadd'>&gt; </text>
+			</view>
+			<view  class='fl riqi long' wx:if="{{isLong}}">永久</view>
+		</view>
+		<view wx:for="{{dateList}}" wx:key="{{index}}" wx:for-item="dateItem" style='height:100vh' bindtap="noClick">
+			<view class="layout-flex row" id='row1' style="flex-wrap: wrap;margin-top:30rpx;;background:#fff"  data-isL="0" >
+				<view class="date-day {{item.class}} {{item.isA >= firstNum && item.isA <= twoNum ? 'active':''}} {{item.class}} {{item.isA <= firstNum && item.isA >= twoNum ? 'active':''}}" style="width:36px;height:36px;" data-year="{{dateItem.year}}" data-month="{{dateItem.month}}" data-day="{{item.day}}" bindtap="onPressDate" wx:for="{{dateItem.days}}"
+				wx:key="{{index}}"  data-isL="0">
+				<view class='item-days {{item.isA}}'  data-isL="0">
+					<text style='font-size:30rpx;' data-isL="0">{{item.day>0?(item.daytext?item.daytext:item.day):''}}</text>
+					<text style='font-size:30rpx;' wx:if="{{item.inday}}"></text>
+					<text style='font-size:30rpx;' wx:if="{{item.outday}}"></text>
+				</view>
+				</view>
+			</view>
+		</view>
+	</view>

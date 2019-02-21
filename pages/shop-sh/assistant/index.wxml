@@ -1,0 +1,161 @@
+<!--pages/merchants/manage/index.wxml-->
+<view class="container">
+    <view class="body">
+        <!-- 门店选择 -->
+        <view class="chooseMendian" bindtap="editMendian">
+            <view class="mendianName">{{chooseShop}}</view>
+            <view class="iconfont icon-xiajiantou"></view>
+        </view>
+        <!-- tab框 -->
+        <view class="tab-head">
+            <view class="tab-head-item">姓名</view>
+            <view class="tab-head-item">手机号</view>
+            <view class="tab-head-item">状态</view>
+            <view class="tab-head-item">操作</view>
+        </view>
+        <view class="tab-body">
+            <scroll-view class="listBody" scroll-y="true" bindscrolltolower="loadMore" bindscrolltoupper="reFresh">
+                <view class="listBody_li {{item.clerkNumber==active?'active':''}}" wx:for="{{shopList}}" wx:key="{{shopList}}" data-id="{{item.clerkNumber}}">
+                    <view class="nameLine">
+                        <view class="nameLineB">
+                            <view class="assistantname">{{item.clerkName}}</view>
+                            <view class="shopname">{{item.shopName}}</view>
+                        </view>
+                    </view>
+                    <view class="phoneLine">{{item.registeredCell}}</view>
+                    <view class="stateLine">
+                        <switch checked="{{item.enable == '正常'?'checked':''}}" data-id="{{item.clerkNumber}}" bindchange="switch1Change" />
+                    </view>
+                    <view class="operationLine">
+                        <view class="operationLineBtn" data-id="{{item.clerkNumber}}" bindtap="shopOperation">操作</view>
+                    </view>
+                    <view class="operation">
+                        <view class="operationBtn editData" data-id="{{item.clerkNumber}}" data-shopNum="{{item.shopNumber}}" catchtap="editData">编辑</view>
+                        <view class="operationBtn WXpush" data-id="{{item.clerkNumber}}" catchtap="editWXpush">微信推送</view>
+                        <view class="operationBtn editPass" data-id="{{item.clerkNumber}}" catchtap="editPass">修改密码</view>
+                        <view class="operationBtn Pay" data-id="{{item.clerkNumber}}" data-qrCode="{{item.equipmentLinkAddress}}" catchtap="editPay">一码付</view>
+                        <view class="operationBtn editDel" data-name="{{item.clerkName}}" data-id="{{item.clerkNumber}}" catchtap="editDel">删除</view>
+                    </view>
+                </view>
+            </scroll-view>
+            <view class="addClerkBtn" bindtap="toassistantAdd">添加店员</view>
+        </view>
+    </view>
+    <!--弹窗-选择门店-->
+    <view class="modal-mask" bindtap="preventTouchMove" wx:if="{{showModal1}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal1}}">
+        <view class="modal-content" style="height:350px;">
+            <radio-group bindchange="radioChange" class="modal-contentB">
+                <view class="mendianList" wx:for="{{chooseShopList}}" wx:key="{{chooseShopList}}">
+                    <label data-name="{{item.shopNumber}}">
+                        <radio value="{{item.shopNumber}}" checked="{{item.shopName == chooseShop?'true':''}}" />{{item.shopName}}</label>
+                </view>
+            </radio-group>
+        </view>
+    </view>
+    <!--弹窗-修改信息-->
+    <view class="modal-mask" bindtap="preventTouchMove" wx:if="{{showModal2}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal2}}">
+        <view class="modal-title">修改信息</view>
+        <view class="modal-content {{item.clerkNumber==id?'show':'hide'}}" wx:for="{{shopList}}" wx:key="{{shopList}}" data-thisId="{{item.clerkNumber}}">
+            <view class="bodyC">
+                <view class="bodyCli {{status=='shopName'?'active':''}} activeInput" bindtap="chooseMendian">
+                    <label class="bodyClitit">所属门店：
+                    </label>
+                    <input class="bodyCliinput" type="text" cursor-spacing="70" confirm-type="next" disabled="disabled" readonly="readonly" placeholder="请选择所属门店" placeholder-class="placeholder" data-status="shopName" data-shopnum="{{shopEnum}}" bindfocus="focus" bindblur='blur' value="{{shopEname}}"></input>
+                </view>
+                <view class="bodyCli {{status=='clerkName'?'active':''}} activeInput">
+                    <label class="bodyClitit">店员姓名：
+                    </label>
+                    <input class="bodyCliinput" type="text" cursor-spacing="70" confirm-type="next" placeholder="请填写店员姓名" placeholder-class="placeholder" data-status="clerkName" bindfocus="focus" bindblur='blur' value="{{assistantData.clerkName}}"></input>
+                </view>
+                <view class="bodyCli {{status=='registeredCell'?'active':''}} activeInput">
+                    <label class="bodyClitit">店员手机号：
+                    </label>
+                    <input class="bodyCliinput" type="text" cursor-spacing="70" confirm-type="next" placeholder="请填写店员手机号" placeholder-class="placeholder" data-status="registeredCell" bindfocus="focus" bindblur='blur' value="{{assistantData.registeredCell}}"></input>
+                </view>
+            </view>
+        </view>
+        <view class="modal-footer">
+            <view class="btn-cancel" bindtap="onCancel" data-status="cancel2">取消</view>
+            <view class="btn-confirm" bindtap="onConfirm" data-status="confirm2">确定</view>
+        </view>
+    </view>
+    <!--弹窗-微信推送-->
+    <view class="modal-mask" bindtap="preventTouchMove" wx:if="{{showModal3}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal3}}">
+        <!-- <view class="modal-title">设置费率</view> -->
+        <view class="modal-content {{item.clerkNumber==id?'show':'hide'}}" wx:for="{{shopList}}" wx:key="{{shopList}}" data-thisId="{{item.clerkNumber}}">
+            <image src="../../img/wxpush.png" mode="widthFix" class="wxpushImg"></image>
+            <view class="wxpushTips">开通后随时随地查看经营情况</view>
+            <view class="wxpushbing">
+                <view class="wxpushbingTit">
+                    <view>昵称</view>
+                    <view>开通时间</view>
+                    <view>操作</view>
+                </view>
+                <view class="wxpushbingList">
+                    <view class="wxpushbingList-nick">不了了之</view>
+                    <view class="wxpushbingList-time">2018-12-12 15:55:00</view>
+                    <view class="wxpushbingList-operation">
+                        <view class="wxpushbingList-operationBtn">解绑</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="modal-footer">
+            <view class="btn-cancel" bindtap="onCancel" data-status="cancel3">取消</view>
+            <view class="btn-confirm" bindtap="onConfirm" data-status="confirm3">确定</view>
+        </view>
+    </view>
+    <!--弹窗-修改密码-->
+    <view class="modal-mask" bindtap="preventTouchMove" wx:if="{{showModal4}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal4}}">
+        <view class="modal-title">修改密码</view>
+        <view class="modal-content passB {{item.clerkNumber==id?'show':'hide'}}" wx:for="{{shopList}}" wx:key="{{shopList}}" data-thisId="{{item.clerkNumber}}">
+            <view class="bodyC">
+                <view class="bodyCli {{status=='password'?'active':''}} {{shopEdit['password']?'activeInput':''}}">
+                    <label class="bodyClitit">请输入密码：<view class="inline">6-16个字符</view>
+                    </label>
+                    <input class="bodyCliinput" type="password" cursor-spacing="70" confirm-type="next" placeholder="请输入密码" placeholder-class="placeholder" data-status="password" bindfocus="focus" bindblur='blur' value=""></input>
+                </view>
+                <view class="bodyCli {{status=='repassword'?'active':''}} {{shopEdit['repassword']?'activeInput':''}}">
+                    <label class="bodyClitit">请确认密码：<view class="inline">6-16个字符</view>
+                    </label>
+                    <input class="bodyCliinput" type="password" cursor-spacing="70" confirm-type="next" placeholder="请确认密码" placeholder-class="placeholder" data-status="repassword" bindfocus="focus" bindblur='blur' value=""></input>
+                </view>
+            </view>
+        <view class="modal-footer passBtn">
+            <view class="btn-cancel" bindtap="onCancel" data-id="{{item.clerkNumber}}" data-status="cancel4">取消</view>
+            <view class="btn-confirm" bindtap="onConfirm" data-id="{{item.clerkNumber}}" data-status="confirm4">确定</view>
+        </view>
+        </view>
+    </view>
+    <!--弹窗-一码付-->
+    <view class="modal-mask" bindtap="preventTouchMove" wx:if="{{showModal5}}"></view>
+    <view class="modal-dialog pay" wx:if="{{showModal5}}">
+        <view class="modal-content">
+            <image src="../../img/background.png" mode="aspectFit" class="payImg">
+                <canvas class='canvas' canvas-id='canvas' style="width:{{code_w}}px; height:{{code_w}}px;"></canvas>
+                <view class="deviceCode" style="">NO.{{deviceCode}}</view>
+            </image>
+        </view>
+        <view class="modal-footer payBtn">
+            <view class="btn-cancel" bindtap="onCancel" data-status="cancel5">取消</view>
+            <view class="btn-confirm" bindtap="onConfirm" data-status="confirm5">保存到手机</view>
+        </view>
+    </view>
+    <!--弹窗-编辑-选择门店-->
+    <view class="modal-mask" bindtap="preventTouchMove" wx:if="{{showModal6}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal6}}">
+        <!-- <view class="modal-title">设置费率</view> -->
+        <view class="modal-content" style="height:360px;">
+            <radio-group bindchange="radioChangeE" class="modal-contentB">
+                <view class="mendianList" wx:for="{{chooseShopList1}}" wx:key="{{chooseShopList1}}">
+                    <label data-name="{{item.shopNumber}}">
+                        <radio value="{{item.shopNumber}}" checked="{{item.shopName == chooseShop?'true':''}}" />{{item.shopName}}</label>
+                </view>
+            </radio-group>
+        </view>
+    </view>
+</view>

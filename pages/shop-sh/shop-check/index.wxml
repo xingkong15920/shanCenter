@@ -1,0 +1,67 @@
+<!--pages/merchants/register/index.wxml-->
+<view class="container">
+    <view class="body">
+        <form catchsubmit="formSubmit">
+            <scroll-view class="bodyTop" scroll-y>
+                <!-- 商户信息步骤 -->
+                <view class="bodyCK {{steps==0?'':'hide'}}" wx:for="{{shopData}}" wx:key="{{stepsCon}}" wx:if="{{item.stepsNum == 1}}" data-basic="{{item.stepsNum}}">
+                    <view class="bodyC" wx:for="{{item.stepsCon}}" wx:key="{{basic}}" data-basic="{{item.basic}}">
+                        <!-- input循环 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 & item.picker == 0 & index <3}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur'></input>
+                        </view>
+                        <!-- 地址picker循环 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 2}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <picker mode="multiSelector" bindchange="addressPicker" bindcolumnchange="columA" value="{{multiIndex1}}" data-current="{{item.id}}" range="{{provincelist}}">
+                                <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus" bindblur='blur' value="{{multiaddress}}"></input>
+                            </picker>
+                        </view>
+						<view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 & item.picker == 0& index >3}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur'></input>
+                        </view>
+                    </view>
+                </view>
+            </scroll-view>
+            <view class="bodyBottom {{steps!=0?'active':''}}">
+                <button class="bodyBtn" type="primary" bindtap="subInfo">提交</button>
+            </view>
+        </form>
+    </view>
+    <!--弹窗-->
+    <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal}}">
+        <!-- <view class="modal-dialog"> -->
+        <view class="seach">
+            <view class="iconfont icon-xiazai5 sousuoIcon"></view>
+            <input class="seachInput" placeholder="请输入要搜索的开户行"></input>
+            <view class="closeBtn" bindtap="onCancel" data-status="cancel">取消</view>
+        </view>
+        <view class="modal-content">
+            <scroll-view class="listBody" scroll-y="true">
+                <view class="listBody_li" wx:for="{[0，1, 2, 3, 4, 5, 6, 7, 8, 9]}" wx:key="{{item}}" wx:for-index="item" wx:if="{{item < 50}}">
+                    <view class="shopName">鸿搜豆果{{item}}店</view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+    <!--弹窗-->
+    <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal}}">
+        <!-- <view class="modal-dialog"> -->
+        <view class="seach">
+            <view class="iconfont icon-xiazai5 sousuoIcon"></view>
+            <input class="seachInput" placeholder="请输入要搜索的开户支行"></input>
+            <view class="closeBtn" bindtap="onCancel" data-status="cancel">取消</view>
+        </view>
+        <view class="modal-content">
+            <scroll-view class="listBody" scroll-y="true">
+                <view class="listBody_li" wx:for="{[0，1, 2, 3, 4, 5, 6, 7, 8, 9]}" wx:key="{{item}}" wx:for-index="item" wx:if="{{item < 50}}">
+                    <view class="shopName">鸿搜豆果{{item}}店</view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,46 @@
+<!--pages/merchants/register/index.wxml-->
+<view class="container">
+    <view class="body">
+        <form catchsubmit="formSubmit">
+            <scroll-view class="bodyTop" scroll-y>
+                <!-- 商户信息步骤 -->
+                <view class="bodyCK {{steps==0?'':'hide'}}" wx:for="{{assistantData}}" wx:key="{{stepsCon}}" wx:if="{{item.stepsNum == 1}}" data-basic="{{item.stepsNum}}">
+                    <view class="bodyC" wx:for="{{item.stepsCon}}" wx:key="{{basic}}" data-basic="{{item.basic}}">
+                        <!-- 选择门店循环 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{chooseShop?'activeInput':''}}" wx:if="{{item.picker == 2}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <input class="bodyCliinput" type="text" name="{{item.id}}" disabled="disabled" readonly="readonly" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" data-shopnum="{{chooseShopnum}}" bindfocus="focus" bindblur='blur' bindtap='chooseMendian' value="{{chooseShop}}"></input>
+                            <view class="bodyCliicon iconfont icon-xiajiantou"></view>
+                        </view>
+                        <!-- input循环 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 & item.picker == 0 & !item.passType}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur'></input>
+                        </view>
+                        <!-- input循环-密码 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 & item.picker == 0 & item.passType == 1}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="TipsL">(6-12个字符)</view><view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <input class="bodyCliinput" type="password" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur'></input>
+                        </view>
+                    </view>
+                </view>
+            </scroll-view>
+            <view class="bodyBottom">
+                <button class="bodyBtn" type="primary" bindtap="assistantAdd">提交</button>
+            </view>
+        </form>
+    </view>
+    <!--弹窗-->
+    <view class="modal-mask" bindtap="preventTouchMove" wx:if="{{showModal}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal}}">
+        <!-- <view class="modal-title">设置费率</view> -->
+        <view class="modal-content" style="height:350px;">
+            <radio-group bindchange="radioChange" class="modal-contentB">
+                <view class="mendianList" wx:for="{{chooseShopList}}" wx:key="{{chooseShopList}}">
+                    <label data-name="{{item.shopNumber}}">
+                        <radio value="{{item.shopNumber}}" checked="{{item.shopName == chooseShop?'true':''}}" />{{item.shopName}}</label>
+                </view>
+            </radio-group>
+        </view>
+    </view>
+</view>
