@@ -108,7 +108,7 @@ Page({
 					}
 					that.setData({
 						moneyD: res.data.data.newShopList[0].settlementMoney,
-						shopD: res.data.data.newShopList[0].shopCount,
+						shopD: res.data.data.newShopList[0].newShopCount,
 						moneyA: res.data.data.todayMoney,
 						shopA: res.data.data.todayCount,
 						sList: sList
@@ -131,6 +131,16 @@ Page({
         })
     },
 	register: function () {
+		console.log(wx.getStorageSync('saleInfo'))
+		var saleInfo = wx.getStorageSync('saleInfo')
+		if (saleInfo.productSwitch == null || saleInfo.productSwitchD1 == null){
+			wx.showToast({
+				title: '您的默认进件通道没有设置进件费率',
+				icon:'none',
+				duration:2000
+			})
+			return
+		}
 		wx.navigateTo({
 			url: '../merchants/register/index',
 		})

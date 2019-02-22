@@ -111,6 +111,7 @@ Page({
 		console.log(e)
 		var id = e.currentTarget.dataset.id
 		var subNumber = e.currentTarget.dataset.subnumber
+		
 		wx.navigateTo({
 			url: '../../merchants/register/index?id=' + id + '&type=true' + '&subNumber=' + subNumber,
 		})
