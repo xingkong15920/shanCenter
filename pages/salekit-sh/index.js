@@ -58,6 +58,7 @@ Page({
 		this.setData({
 			windowWidth: windowWidth
 		})
+		this.createDateListData()
 		this.getToday()
 		
 		

@@ -65,6 +65,9 @@
             <view class="chooseBtnList">
                 <view class="chooseBtn {{indexStateT==chooseTimgA[index].choosetype?'active':''}}" wx:for="{{chooseTimgA}}" wx:key="{{index}}" data-index="{{chooseTimgA[index].choosetype}}" bindtap="chooseT">{{chooseTimgA[index].choosetit}}</view>
             </view>
+			<view class='timeBox'  wx:if="{{dataTrue == true}}" >
+				<view class='dateBox'>{{startT}} - {{endT}}</view>
+			</view>
             <view class="chooseTit payment">
                 <view class="chooseTiticon"></view>
                 <view>按支付方式筛选</view>
@@ -85,5 +88,33 @@
             <view class="btn-cancel" bindtap="onCancel" data-status="cancel2">重置</view>
             <view class="btn-confirm" bindtap="onConfirm" data-status="confirm2">完成筛选</view>
         </view>
+		<view class='chooseData'  wx:if="{{chooseData == true}}" >
+		<view class='riqiBox' style='bottom:178px;'>
+			<view class='fl riqi year'>
+			<text class='yearL' decode='true' bindtap='yearjian'>&lt; </text>
+			<text class='' decode='true' style='vertical-align:middle;color:#FFA20A;'>{{year}}年</text>
+			<text class='yearR' decode='true' bindtap='yearadd'>&gt; </text>
+			</view>
+			<view  class='fl riqi month'>
+				<text class='yearL' decode='true' bindtap='monthjian'>&lt; </text>
+			<text class='' decode='true' style='vertical-align:middle;color:#FFA20A;'>{{month}}月</text>
+			<text class='yearR' decode='true'  bindtap='monthadd'>&gt; </text>
+			</view>
+			<view  class='fl riqi long' wx:if="{{isLong}}">永久</view>
+		</view>
+		<view wx:for="{{dateList}}" wx:key="{{index}}" wx:for-item="dateItem" style='height:100vh' bindtap="noClick">
+			<view class="layout-flex row" id='row1' style="flex-wrap: wrap;margin-top:30rpx;;background:#fff"  data-isL="0" >
+				<view class="date-day {{item.class}} {{item.isA >= firstNum && item.isA <= twoNum ? 'active':''}} {{item.class}} {{item.isA <= firstNum && item.isA >= twoNum ? 'active':''}}" style="width:36px;height:36px;line-height:36px;" data-year="{{dateItem.year}}" data-month="{{dateItem.month}}" data-day="{{item.day}}" bindtap="onPressDate" wx:for="{{dateItem.days}}"
+				wx:key="{{index}}"  data-isL="0">
+				<view class='item-days {{item.isA}}'  data-isL="0">
+					<text style='font-size:30rpx;' data-isL="0">{{item.day>0?(item.daytext?item.daytext:item.day):''}}</text>
+					<text style='font-size:30rpx;' wx:if="{{item.inday}}"></text>
+					<text style='font-size:30rpx;' wx:if="{{item.outday}}"></text>
+				</view>
+				</view>
+			</view>
+		</view>
+	</view>
     </view>
+	
 </view>

@@ -1,17 +1,14 @@
 {
 	"pages": [
+		"pages/shop-sh/shop-payment/index",
+		"pages/salekit/index",
+		"pages/salekit-sh/index",
 		
 		"pages/login/index",
 		"pages/merchants/manage/index",
-		
 		"pages/index-sh/index",
 		"pages/shop-sh/assistant/index",
-		
-		
 		"pages/merchants/register/index",
-		"pages/salekit-sh/index",
-		
-		"pages/salekit/index",
 		"pages/record/index",
 		"pages/shop/shop-list/index",
 		"pages/index/index",
@@ -19,7 +16,7 @@
 		"pages/merchants/shop-check/index",
 		"pages/logs/logs",
 		"pages/shop-sh/shop-list/index",
-		"pages/shop-sh/shop-payment/index",
+		
 		"pages/shop-sh/details/index",
 		"pages/shop-sh/shop-check/index"
 	],
