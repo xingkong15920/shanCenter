@@ -145,6 +145,7 @@ Page({
         nextT: true,
         isUpdata: false,
 		subNumber:'',
+		orderNumber:''
 
     },
     navOn: function(e) {
@@ -273,6 +274,7 @@ Page({
                 shopInput.institutionNumber = this.data.institutionNumber
                 shopInput.saleNumber = this.data.saleNumber
 				shopInput.subaccountNumber = this.data.subNumber
+				shopInput.orderNumber = this.data.orderNumber
                 var that = this
                 wx.request({
                     url: this.data.server + 'merchantRegister/insertMerchantRegisterInfo',
@@ -287,7 +289,7 @@ Page({
                         console.log(res.data.code == 1000)
                         if (res.data.code == 1000) {
                             that.setData({
-                                merchantNumber: res.data.data.merchantNumber,
+								orderNumber: res.data.data.orderNumber,
                                 steps: 2
                             })
                         }else{
@@ -928,7 +930,7 @@ Page({
                     formData: {
                         type: type,
                         institutionNumber: that.data.institutionNumber,
-						merchantNumber: that.data.merchantNumber
+						orderNumber: that.data.orderNumber
                     },
                     success(res) {
                         wx.showToast({
@@ -966,7 +968,7 @@ Page({
         var imgList = this.data.imagelist
         var type = this.data.merchantType
         var tjData = new Object()
-        tjData.merchantNumber = this.data.merchantNumber
+		tjData.orderNumber = this.data.orderNumber
         tjData.institutionNumber = this.data.institutionNumber
         console.log(imgList)
         if (type == 2) {
@@ -1044,6 +1046,7 @@ Page({
             }
 			wx.showLoading({
 				title: '正在保存，请稍后',
+				mask:true
 			})
             var tjd = JSON.stringify(tjData)
             wx.request({
@@ -1085,7 +1088,7 @@ Page({
         console.log(options)
         var options = options
         this.setData({
-            merchantNumber: options.id,
+			orderNumber: options.id,
             isUpdata: options.type,
 			subNumber: options.subNumber
         })
@@ -1095,7 +1098,7 @@ Page({
                 url: that.data.server + 'merchantRegister/selectMerchantRegisterInfo',
                 method: 'post',
                 data: {
-                    merchantNumber: that.data.merchantNumber
+					orderNumber: that.data.orderNumber
                 },
                 dataType: 'json',
                 header: {
@@ -1186,7 +1189,7 @@ Page({
 				url: that.data.server + 'Sell/getMerPhoto',
 				method: 'post',
 				data: {
-					merchantNumber: that.data.merchantNumber
+					orderNumber: that.data.orderNumber
 				},
 				dataType: 'json',
 				header: {
