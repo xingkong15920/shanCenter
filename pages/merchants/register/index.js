@@ -145,7 +145,8 @@ Page({
         nextT: true,
         isUpdata: false,
 		subNumber:'',
-		orderNumber:''
+		orderNumber:'',
+        merchantNumber:''
 
     },
     navOn: function(e) {
@@ -274,7 +275,8 @@ Page({
                 shopInput.institutionNumber = this.data.institutionNumber
                 shopInput.saleNumber = this.data.saleNumber
 				shopInput.subaccountNumber = this.data.subNumber
-				shopInput.orderNumber = this.data.orderNumber
+                shopInput.orderNumber = this.data.orderNumber
+                shopInput.merchantNumber = this.data.merchantNumber
                 var that = this
                 wx.request({
                     url: this.data.server + 'merchantRegister/insertMerchantRegisterInfo',
@@ -1090,7 +1092,8 @@ Page({
         this.setData({
 			orderNumber: options.id,
             isUpdata: options.type,
-			subNumber: options.subNumber
+			subNumber: options.subNumber,
+            merchantNumber: options.merchantNumber
         })
         var that = this
         if (that.data.isUpdata == 'true') {
