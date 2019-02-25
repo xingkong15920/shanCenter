@@ -183,7 +183,7 @@ Page({
         }
     },
 	onShow:function(){
-		that.getToday()
+		this.getToday()
 	},
     getUserInfo: function(e) {
         console.log(e)
