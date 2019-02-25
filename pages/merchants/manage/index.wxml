@@ -14,12 +14,12 @@
             <view class="tab-head-item {{currentTab==3?'active':''}}" data-current="3" bindtap="swichNav">未完成</view>
         </view>
         <view class="tab-body">
-            <scroll-view class="listBody" scroll-y="true" wx:if="{{empty}}">
+            <scroll-view class="listBody" scroll-y="true" wx:if="{{empty}}" bindscrolltolower="loadMore" bindscrolltoupper="reFresh">
                 <view class="listBody_li {{item.orderNumber==active?'active':''}}" wx:for="{{shopList}}" data-id="{{item.orderNumber}}" bindtap="shopOperation">
                     <view class="shopName">{{item.merchantName}}</view>
                     <view class="listIcon iconfont icon-xiajiantou"></view>
                     <view class="operation">
-                        <view class="operationBtn editData" catchtap="editData" data-subnumber="{{item.subaccountNumber}}" data-id="{{item.orderNumber}}" wx:if="{{currentTab != 1}}">修改资料</view>
+                        <view class="operationBtn editData" catchtap="editData" data-subnumber="{{item.subaccountNumber}}" data-id="{{item.orderNumber}}" data-mernumber="{{item.merchantNumber}}" wx:if="{{currentTab != 1}}">修改资料</view>
                         <view class="operationBtn editRate" catchtap="editRate" data-type="{{item.rateType}}" data-rateCoding="{{item.rateCoding}}" data-id="{{item.orderNumber}}" wx:if="{{currentTab ==2}}">修改费率</view>
                         <view class="operationBtn editShop"  data-id="{{item.orderNumber}}" wx:if="{{currentTab == 2}}" catchtap="editShop">门店管理</view>
                     </view>

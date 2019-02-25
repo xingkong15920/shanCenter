@@ -4,11 +4,14 @@ Page({
 	data: {
 		currentTab: 0,
 		index: 0,
-		showModal: false,
+        showModal: false,
+        requestBreak: false,
 		array: ['0.025%', '0.036%', '0.038%', '0.05%', '0.056%', '0.062%'],
-		shopList: [],
+        shopList: [],
+        shopList1: [],
 		server: config.server,
-		pageNum:1,
+        pageNum: 1,
+        pageCount: 10,
 		limit:10,
 		currentTab:2,
 		empty:true,
@@ -48,7 +51,7 @@ Page({
 				merchantName: this.data.searchText,
 				auditStatus: this.data.currentTab,
 				page: this.data.pageNum,
-				limit: this.data.limit
+				limit: 20
 			},
 			header: {
 				'content-type': 'application/json' // 默认值
@@ -60,14 +63,20 @@ Page({
 
 				} else {
 					console.log(res)
-					if(res.data.data == null){
+                    if (res.data.data == null) {
+                        wx.showToast({
+                            title: '查询为空！',
+                            icon: 'none'
+                        })
 						that.setData({
 							shopList:[],
-							empty:false
+                            empty: false,
+                            requestBreak: false,
 						})
 					}else{
 						that.setData({
-							shopList: res.data.data.merchantList,
+                            shopList: res.data.data.merchantList,
+                            pageNum: 2,
 							empty: true
 						})
 					}
@@ -111,9 +120,10 @@ Page({
 		console.log(e)
 		var id = e.currentTarget.dataset.id
 		var subNumber = e.currentTarget.dataset.subnumber
+        var merchantNumber = e.currentTarget.dataset.mernumber
 		
 		wx.navigateTo({
-			url: '../../merchants/register/index?id=' + id + '&type=true' + '&subNumber=' + subNumber,
+            url: '../../merchants/register/index?id=' + id + '&type=true' + '&subNumber=' + subNumber + '&merchantNumber=' + merchantNumber,
 		})
 	},
 	editShop: function (e) {
@@ -259,7 +269,259 @@ Page({
 				}
 			}
 		})
-	}
+	},
+
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    reFresh: function () {
+        var that = this
+        if (that.data.requestBreak) {
+            return
+        }
+        that.setData({
+            requestBreak: true,
+        })
+        wx.showLoading({
+            title: '正在刷新...',
+            mask: true
+        })
+        wx.request({
+            url: this.data.server + 'merchantManage/getMerchantList', //仅为示例，并非真实的接口地址
+            data: {
+                saleNumber: this.data.saleNumber,
+                merchantName: this.data.searchText,
+                auditStatus: this.data.currentTab,
+                page: 1,
+                limit: this.data.limit
+            },
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function (res) {
+                wx.hideLoading()
+                that.setData({
+                    shopList: []
+                })
+                var data = res.data
+                if (res.data.code != 1000) {
+
+                } else {
+                    if (!res.data.data) {
+                        wx.showToast({
+                            title: '无更多数据！',
+                            icon: 'none'
+                        })
+                    } else {
+                        var shoplist = res.data.data.merchantList
+                        that.setData({
+                            shopList: shoplist,
+                        })
+                        setTimeout(function () {
+                            that.setData({
+                                requestBreak: false,
+                            })
+                        }, 500)
+                    }
+                }
+            }
+        })
+    },
+
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    loadMore: function () {
+        var that = this
+        if (that.data.requestBreak) {
+            return
+        }
+        that.setData({
+            requestBreak: true,
+        })
+        wx.showLoading({
+            title: '正在加载更多...',
+            mask: true
+        })
+        var page = this.data.pageNum
+        page++
+        if (page > this.data.pageCount) {
+            wx.showToast({
+                title: '无更多数据！',
+                image: '../../img/fail.png'
+            })
+            return
+        }
+        wx.request({
+            url: this.data.server + 'merchantManage/getMerchantList', //仅为示例，并非真实的接口地址
+            data: {
+                saleNumber: this.data.saleNumber,
+                merchantName: this.data.searchText,
+                auditStatus: this.data.currentTab,
+                page: page,
+                limit: this.data.limit
+            },
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function (res) {
+                wx.hideLoading()
+                var data = res.data
+                if (res.data.code != 1000) {
+
+                } else {
+                    var pageCount = Math.ceil(count / 10)
+                    var shoplist1 = res.data.data.merchantList
+                    that.setData({
+                        pageNum: page,
+                        pageCount: pageCount,
+                        shopList1: shoplist1,
+                    })
+                    var shopList = that.data.shopList
+                    shopList.push.apply(shopList, shoplist1)
+                    that.setData({
+                        shopList: shopList
+                    })
+                    setTimeout(function () {
+                        that.setData({
+                            requestBreak: false
+                        })
+                    }, 500)
+                }
+            }
+        })
+    },
+
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    reFresh: function () {
+        var that = this
+        console.log(that.data.requestBreak)
+        if (that.data.requestBreak) {
+            return
+        }
+        that.setData({
+            requestBreak: true,
+        })
+        wx.showLoading({
+            title: '正在刷新...',
+            mask: true
+        })
+        wx.request({
+            url: this.data.server + 'merchantManage/getMerchantList', //仅为示例，并非真实的接口地址
+            data: {
+                saleNumber: this.data.saleNumber,
+                merchantName: this.data.searchText,
+                auditStatus: this.data.currentTab,
+                page: 1,
+                limit: 20
+            },
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function (res) {
+                wx.hideLoading()
+                that.setData({
+                    shopList: []
+                })
+                var data = res.data
+                if (res.data.code != 1000) {
+
+                } else {
+                    if (!res.data.data) {
+                        wx.showToast({
+                            title: '无更多数据！',
+                            icon: 'none'
+                        })
+                        setTimeout(function () {
+                            that.setData({
+                                requestBreak: false,
+                            })
+                        }, 500)
+                    } else {
+                        var shoplist = res.data.data.merchantList
+                        that.setData({
+                            shopList: shoplist,
+                            pageNum: 2
+                        })
+                        setTimeout(function () {
+                            that.setData({
+                                requestBreak: false,
+                            })
+                        }, 500)
+                    }
+                }
+            }
+        })
+    },
+
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    loadMore: function () {
+        var that = this
+        if (that.data.requestBreak) {
+            return
+        }
+        that.setData({
+            requestBreak: true,
+        })
+        wx.showLoading({
+            title: '正在加载更多...',
+            mask: true
+        })
+        var page = this.data.pageNum
+        page++
+        if (page > this.data.pageCount) {
+            wx.showToast({
+                title: '无更多数据！',
+                icon: 'none'
+            })
+            that.setData({
+                requestBreak: false,
+            })
+            return
+        }
+        wx.request({
+            url: this.data.server + 'merchantManage/getMerchantList', //仅为示例，并非真实的接口地址
+            data: {
+                saleNumber: this.data.saleNumber,
+                merchantName: this.data.searchText,
+                auditStatus: this.data.currentTab,
+                page: page,
+                limit: this.data.limit
+            },
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function (res) {
+                wx.hideLoading()
+                var data = res.data
+                if (res.data.code != 1000) {
+
+                } else {
+                    var shoplist1 = res.data.data.merchantList
+                    var pageCount = Math.ceil(res.data.data.count / 10)
+                    that.setData({
+                        pageNum: page,
+                        pageCount: pageCount,
+                        shopList1: shoplist1,
+                    })
+                    var shopList = that.data.shopList
+                    shopList.push.apply(shopList, shoplist1)
+                    that.setData({
+                        shopList: shopList
+                    })
+                    setTimeout(function () {
+                        that.setData({
+                            requestBreak: false
+                        })
+                    }, 500)
+                }
+            }
+        })
+    },
 })
 // Component({
 //     /**
