@@ -270,7 +270,7 @@ Page({
                 clerkName: this.data.clerkName,
                 registeredCell: this.data.registeredCell,
                 shopName: this.data.shopName,
-                page: this.data.pageNum,
+                page: 1,
                 limit: this.data.limit
             },
             header: {
