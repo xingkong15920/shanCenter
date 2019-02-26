@@ -81,10 +81,9 @@ Page({
 
                 } else {
                     var batchInfo = data.data
-                    batchInfo.transactionTime = batchInfo.transactionTime.substring(0,19)
-                    if (batchInfo.transactionType == 'Alipay_Pay') {
+                    if (batchInfo.transactionType == '0') {
                         batchInfo.transactionType = '支付宝'
-                    } else if (batchInfo.transactionType == 'WeChat_Pay') {
+                    } else if (batchInfo.transactionType == '1') {
                         batchInfo.transactionType = '微信'
                     }
                     that.setData({

@@ -407,10 +407,6 @@ Page({
                         var transactionListAmount = that.data.transactionListAmount
                         var transactionListCount = that.data.transactionListCount
                         var shoplist = res.data.data.transactionList
-                        for (var i = 0; i < shoplist.length; i++) {
-                            shoplist[i].transactionAmount = shoplist[i].transactionAmount.toFixed(2)
-                            shoplist[i].transactionTime = shoplist[i].transactionTime.split('.')[0]
-                        }
                         that.setData({
                             shopList: shoplist,
                             transactionListAmount: res.data.data.transactionListAmount,
@@ -719,10 +715,6 @@ Page({
                         var transactionListAmount = that.data.transactionListAmount
                         var transactionListCount = that.data.transactionListCount
                         var shoplist = res.data.data.transactionList
-                        for (var i = 0; i < shoplist.length; i++) {
-                            shoplist[i].transactionAmount = shoplist[i].transactionAmount.toFixed(2)
-                            shoplist[i].transactionTime = shoplist[i].transactionTime.split('.')[0]
-                        }
                         that.setData({
                             shopList: shoplist,
                             transactionListAmount: res.data.data.transactionListAmount,
@@ -789,10 +781,6 @@ Page({
                     var transactionListCount = that.data.transactionListCount
                     var pageCount = Math.ceil(transactionListCount / 10)
                     var shoplist1 = res.data.data.transactionList
-                    for (var i = 0; i < shoplist1.length; i++) {
-                        shoplist1[i].transactionAmount = shoplist1[i].transactionAmount.toFixed(2)
-                        shoplist1[i].transactionTime = shoplist1[i].transactionTime.split('.')[0]
-                    }
                     that.setData({
                         pageNum: page,
                         pageCount: pageCount,
