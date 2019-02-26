@@ -50,7 +50,7 @@ Page({
 				saleNumber: this.data.saleNumber,
 				merchantName: this.data.searchText,
 				auditStatus: this.data.currentTab,
-				page: this.data.pageNum,
+				page: 1,
 				limit: 20
 			},
 			header: {

@@ -42,7 +42,7 @@ Page({
                 city: this.data.merchantType,
                 area: this.data.startTime,
                 enable: this.data.endtime,
-                page: this.data.pageNum,
+                page: 1,
                 limit: 20
             },
             header: {
