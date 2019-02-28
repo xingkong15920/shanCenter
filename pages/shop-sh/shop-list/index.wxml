@@ -11,7 +11,7 @@
                     <view class="listIcon iconfont icon-xiajiantou"></view>
                     <view class="operation">
                         <view class="operationBtn editData" data-id="{{item.shopNumber}}" catchtap="editData">门店信息</view>
-                        <view class="operationBtn editDel" data-id="{{item.shopNumber}}" catchtap="editDel">删除</view>
+                        <view class="operationBtn editDel" data-id="{{item.shopNumber}}" data-shopname="{{item.shopName}}" catchtap="editDel">删除</view>
                     </view>
                 </view>
             </scroll-view>

@@ -21,7 +21,7 @@
                     <view class="operation">
                         <view class="operationBtn editData" catchtap="editData" data-subnumber="{{item.subaccountNumber}}" data-id="{{item.orderNumber}}" data-mernumber="{{item.merchantNumber}}" wx:if="{{currentTab != 1}}">修改资料</view>
                         <view class="operationBtn editRate" catchtap="editRate" data-type="{{item.rateType}}" data-rateCoding="{{item.rateCoding}}" data-id="{{item.orderNumber}}" wx:if="{{currentTab ==2}}">修改费率</view>
-                        <view class="operationBtn editShop"  data-id="{{item.orderNumber}}" wx:if="{{currentTab == 2}}" catchtap="editShop">门店管理</view>
+                        <view class="operationBtn editShop"  data-id="{{item.orderNumber}}" data-mernumber="{{item.merchantNumber}}" wx:if="{{currentTab == 2}}" catchtap="editShop">门店管理</view>
                     </view>
                 </view>
             </scroll-view>

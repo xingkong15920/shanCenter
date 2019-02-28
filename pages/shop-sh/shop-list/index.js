@@ -102,15 +102,43 @@ Page({
         })
     },
     editDel: function(e) {
+        var that = this
+        var shopname = e.currentTarget.dataset.shopname;
+        var shopnumber = e.currentTarget.dataset.id;
         wx.showModal({
             title: '是否确认删除？',
-            content: '豆果小二店',
+            content: shopname,
             confirmText: '确定',
             cancelText: '取消',
             success: function(res) {
                 if (res.confirm) {
-                    wx.showToast({
-                        title: '删除成功'
+                    wx.showLoading({
+                        title: '删除中...',
+                    })
+                    wx.request({
+                        url: that.data.server + 'store/modifyShop', //仅为示例，并非真实的接口地址
+                        data: {
+                            merchantNumber: that.data.merchantNumber,
+                            shopNumber: shopnumber,
+                            deletionFlag: 1
+                        },
+                        header: {
+                            'content-type': 'application/json' // 默认值
+                        },
+                        success: function (res) {
+                            if (res.data.code != 1000) {
+
+                            } else {
+                                wx.hideLoading()
+                                wx.showToast({
+                                    title: '删除成功'
+                                })
+                                that.setData({
+                                    shopList: [],
+                                })
+                                that.getData()
+                            }
+                        }
                     })
                 } else if (res.cancel) {
 

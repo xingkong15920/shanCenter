@@ -127,10 +127,11 @@ Page({
 		})
 	},
 	editShop: function (e) {
-		console.log(e)
-		var id = e.currentTarget.dataset.id
+        console.log(e)
+        var id = e.currentTarget.dataset.id
+        var merchantNumber = e.currentTarget.dataset.mernumber
 		wx.navigateTo({
-			url: '../../shop/shop-list/index?id=' + id,
+            url: '../../shop/shop-list/index?id=' + id + '&merchantNumber=' + merchantNumber,
 		})
 	},
 	bindPickerChange(e) {

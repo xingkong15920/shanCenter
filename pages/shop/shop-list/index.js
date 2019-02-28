@@ -5,11 +5,12 @@ Page({
 		server: config.server,
 		pageNum: 1,
 		limit: 10,
+        merchantNumber:'',
 		shopNumber:'',
 		shopList:[],
 		searchText:"",
 		empty:true,
-	},
+    },
 	wxSearchinput: function (e) {
 		var sousuozhi = this.removeAllSpace(e.detail.value);
 		this.setData({
@@ -119,7 +120,8 @@ Page({
 		})
 		console.log(e)
 		this.setData({
-			shopNumber:e.id
+			shopNumber:e.id,
+            merchantNumber: e.merchantNumber
 		})
 		this.getData()
 	},
@@ -149,7 +151,7 @@ Page({
 		wx.request({
 			url: this.data.server + 'merchantManage/getshopList', //仅为示例，并非真实的接口地址
 			data: {
-				 merchantNumber: this.data.shopNumber,
+                merchantNumber: this.data.merchantNumber,
 				// merchantNumber: '180630165567858b',
 				shopName: this.data.searchText,
 				page: this.data.pageNum,
