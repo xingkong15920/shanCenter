@@ -273,4 +273,7 @@ Page({
             }
         })
     },
+	onShow:function(){
+		this.getData()
+	}
 })

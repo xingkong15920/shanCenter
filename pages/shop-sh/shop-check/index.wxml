@@ -7,9 +7,13 @@
                 <view class="bodyCK {{steps==0?'':'hide'}}" wx:for="{{shopData}}" wx:key="{{stepsCon}}" wx:if="{{item.stepsNum == 1}}" data-basic="{{item.stepsNum}}">
                     <view class="bodyC" wx:for="{{item.stepsCon}}" wx:key="{{basic}}" data-basic="{{item.basic}}">
                         <!-- input循环 -->
-                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 & item.picker == 0 & index <3}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 & item.picker == 0 & index <3 }}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
-                            <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur'></input>
+                            <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur' value="{{shopInput[item.id]}}"></input>
+                        </view>
+						<view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 1 &  add == false }}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur' value="{{shopInput[item.id]}}"></input>
                         </view>
                         <!-- 地址picker循环 -->
                         <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 2}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
@@ -20,7 +24,7 @@
                         </view>
 						<view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 & item.picker == 0& index >3}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
-                            <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur'></input>
+                            <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur' value="{{shopInput[item.id]}}"></input>
                         </view>
                     </view>
                 </view>

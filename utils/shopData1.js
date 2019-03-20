@@ -15,10 +15,11 @@ var data = [{
             "type": "0",
             "shoplabel": "管理员姓名",
             "id": "BLname",
-            "picker": "0",
+            "picker": "1",
             "placeholder": "请输入管理员姓名",
             "tipstype": "1",
             "tips": "管理员姓名不能为空！",
+			"idea":"name"
         }, {
             "type": "0",
             "shoplabel": "联系电话",

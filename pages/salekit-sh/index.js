@@ -39,6 +39,8 @@ Page({
 		saleNumber: '',
 		transactionAmount:0,
 		transactionCount:0,
+		todayCount:0,
+		transicationAmount:0
 	},
 	
 	onLoad: function (e) {
@@ -227,6 +229,28 @@ Page({
 				twoNum: year.toString() + month + day,
 				endT: year.toString() + '-' + month + '-' + day,
 			})
+			var st = that.data.startT.split('-')[0] + that.data.startT.split('-')[1] + that.data.startT.split('-')[2]
+			var et = that.data.endT.split('-')[0] + that.data.endT.split('-')[1] + that.data.endT.split('-')[2]
+			console.log(st, et)
+			if (st > et) {
+				console.log('1111')
+				var a = that.data.startT
+				var b = that.data.endT
+
+				that.setData({
+					startT: b,
+					endT: a,
+					startTime: b + '00:00:00',
+					endTime: a + '23:59:59'
+				})
+			} else {
+				var a = that.data.startT
+				var b = that.data.endT
+				that.setData({
+					startTime: a + ' ' + '00:00:00',
+					endTime: b + ' ' + '23:59:59'
+				})
+			}
 			setTimeout(function(){
 				that.setData({
 					
@@ -276,6 +300,7 @@ Page({
 		})
 	},
 	chooseDate: function (e) {
+		console.log(e)
 		this.setData({
 			chooseData: true,
 		})
@@ -293,16 +318,16 @@ Page({
 				'content-type': 'application/json' // 默认值
 			},
 			success: function (res) {
-				console.log(res.data.data.newShopList)
+				console.log(res.data.data.dayTransicationList)
 
 				if (res.data.code != 1000) {
 
 				} else {
 					console.log(res)
 					that.setData({
-						record: res.data.data.newShopList,
-						money: res.data.data.settlementMoney,
-						shop: res.data.data.shopCount,
+						record: res.data.data.dayTransicationList,
+						// money: res.data.data.settlementMoney,
+						// shop: res.data.data.shopCount,
 					})
 					that.updateData()
 				}
@@ -332,11 +357,12 @@ Page({
 						// record: res.data.data.newShopList,
 						transactionAmount: res.data.data.backOrderInfo.transactionAmount,
 						transactionCount: res.data.data.backOrderInfo.transactionCount,
-						transicationAmount: res.data.data.dayTransicationList.transicationAmount,
+						transicationAmount: res.data.data.dayTransicationList[0].transicationAmount,
 						transactionAmount1: res.data.data.transicationInfo.transactionAmount,
 						settlementAmount: res.data.data.transicationInfo.settlementAmount,
 						transactionCount: res.data.data.transicationInfo.transactionCount,
 						shopPoundage: res.data.data.transicationInfo.shopPoundage,
+						record: res.data.data.dayTransicationList,
 					})
 					that.draw1()
 				}
@@ -452,35 +478,34 @@ Page({
 		console.log(record)
 		if(this.data.lineType == 0){
 			if (record.length <= 8) {
-				for (var i = 0; i < record.length; i++) {
+				for (let i = 0; i < record.length; i++) {
 					categories.push(record[i].date);
-					data.push(record[i].settlementCountMoney + 100);
+					data.push(record[i].transicationAmount + 100);
 				}
 			} else {
 				var num = Math.floor(record.length / 7)
 				console.log(num)
-				for (var j = 0; j < 7; j++) {
+				for (let j = 0; j < 7; j++) {
 					categories.push(record[j * num].date);
-					data.push(record[j * num].settlementCountMoney + 100);
+					data.push(record[j * num].transicationAmount + 100);
 				}
 			}
 		} else if (this.data.lineType == 1){
-			if (record.length <= 8) {
-				for (var i = 0; i < record.length; i++) {
-					categories.push(record[i].date);
-					data.push(record[i].newShopCount + 10);
-				}
-			} else {
-				var num = Math.floor(record.length / 7)
-				console.log(num)
-				for (var j = 0; j < 7; j++) {
-					categories.push(record[j * num].date);
-					data.push(record[j * num].newShopCount + 10);
-				}
-			}
+			//if (record.length <= 8) {
+				// for (let i = 0; i < record.length; i++) {
+				// 	categories.push(record[i].date);
+				// 	data.push(record[i].newShopCount + 10);
+				// }
+			//} else {
+				// var num = Math.floor(record.length / 7)
+				// console.log(num)
+				// for (let j = 0; j < 7; j++) {
+				// 	categories.push(record[j * num].date);
+				// 	data.push(record[j * num].newShopCount + 10);
+				// }
+		//	}
 		}
 		
-		console.log(record.length)
 		
 		// data[4] = null;
 		return {

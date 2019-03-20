@@ -70,6 +70,14 @@ var shopData = [{
         "name": "其他"
     },
 ]
+var yirongmaList = []
+var yirongmaIdList = []
+for(var i = 0 ; i < shopData.length;i++){
+	yirongmaList.push(shopData[i].name)
+	yirongmaIdList.push(shopData[i].id)
+}
 module.exports = {
-    yirongma: shopData,
+	yirongma: yirongmaList,
+	yirongmaCode: yirongmaIdList,
+	yirongmaL:shopData
 }

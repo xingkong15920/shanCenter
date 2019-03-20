@@ -33,29 +33,32 @@
 		<view class="btnLeft fl {{lineType == 0?'btnC':''}}" bindtap="money">佣金收益</view>
 		<view class="btnRight fr {{lineType == 1?'btnC':''}}" bindtap="shop">新增店铺</view>
 	</view>
-	<view class='imgT'>新增店铺走势图</view>
-	<view class="container1">
-		<canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
-		<!-- <button type="primary" bindtap="updateData">更新数据</button> -->
-	</view>
+	<view class='imgT'>{{zheName}}</view>
+	<scroll-view style='width:750rpx' class="" scroll-x bindscroll='scrollCanvas'>
+		<view class="container1"  wx:if="{{zhe == true}}" style='transform: translateX(-{{canvasLen}}px);'>
+			<canvas canvas-id="lineCanvas"  disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+			<!-- <button type="primary" bindtap="updateData">更新数据</button> -->
+		</view>
+	</scroll-view>
+	
 	<view class='date'></view>
 </view>
 <view class='chooseData'  wx:if="{{chooseData == true}}" >
 		<view class='riqiBox' style='bottom:187px;'>
 			<view class='fl riqi year'>
-			<text class='yearL' decode='true' bindtap='yearjian'>&lt; </text>
+			<text class='yearL iconfont icon icon-triangle-left' decode='true' bindtap='yearjian'></text>
 			<text class='' decode='true' style='vertical-align:middle;color:#FFA20A;'>{{year}}年</text>
-			<text class='yearR' decode='true' bindtap='yearadd'>&gt; </text>
+			<text class='yearR iconfont icon icon-triangle-right' decode='true' bindtap='yearadd'></text>
 			</view>
 			<view  class='fl riqi month'>
-				<text class='yearL' decode='true' bindtap='monthjian'>&lt; </text>
+				<text class='yearL iconfont icon icon-triangle-left' decode='true' bindtap='monthjian'></text>
 			<text class='' decode='true' style='vertical-align:middle;color:#FFA20A;'>{{month}}月</text>
-			<text class='yearR' decode='true'  bindtap='monthadd'>&gt; </text>
+			<text class='yearR iconfont icon icon-triangle-right' decode='true'  bindtap='monthadd'></text>
 			</view>
 			<view  class='fl riqi long' wx:if="{{isLong}}">永久</view>
 		</view>
-		<view wx:for="{{dateList}}" wx:key="{{index}}" wx:for-item="dateItem" style='height:100vh' bindtap="noClick">
-			<view class="layout-flex row" id='row1' style="flex-wrap: wrap;margin-top:30rpx;;background:#fff"  data-isL="0" >
+		<view wx:for="{{dateList}}" wx:key="{{index}}" wx:for-item="dateItem" style='height:100vh;' bindtap="noClick">
+			<view class="layout-flex row" id='row1' style="flex-wrap: wrap;margin-top:30rpx;;background-color:#fff !important;z-index:9999;;"  data-isL="0" >
 				<view class="date-day {{item.class}} {{item.isA >= firstNum && item.isA <= twoNum ? 'active':''}} {{item.class}} {{item.isA <= firstNum && item.isA >= twoNum ? 'active':''}}" style="width:36px;height:36px;line-height:36px;" data-year="{{dateItem.year}}" data-month="{{dateItem.month}}" data-day="{{item.day}}" bindtap="onPressDate" wx:for="{{dateItem.days}}"
 				wx:key="{{index}}"  data-isL="0">
 				<view class='item-days {{item.isA}}'  data-isL="0">

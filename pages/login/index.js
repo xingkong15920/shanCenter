@@ -14,8 +14,8 @@ Page({
         btn: "登录",
         saleloginName: "",
         saleloginPass: "",
-		shoploginName: "13081112121a",
-		shoploginPass: "112121",
+		shoploginName: "",
+		shoploginPass: "",
         saleRem: false,
         shopRem: false,
 		num:'获取验证码',
@@ -25,6 +25,12 @@ Page({
 		repass:'',
     },
     shop: function() {
+		wx.showToast({
+			title:'暂未开放功能',
+			icon:'none',
+			duration:2000
+		})
+		return
         this.setData({
             login: 1,
             typeName: "商户登录",
@@ -47,6 +53,15 @@ Page({
 
         })
     },
+	backLogin:function(e){
+		var login = this.data.login
+		if(this.data.login == 2){
+			login = login - 1
+			this.setData({
+				login: login,
+			})
+		}
+	},
     forget: function() {
         this.setData({
             login: 2,
@@ -177,6 +192,29 @@ Page({
 				saleloginPass: saleRember.loginPass
 			})
 		}
+		if (!!wx.getStorageSync('shopRember')) {
+			var shopRember = wx.getStorageSync('shopRember')
+			this.setData({
+				shopRem: shopRember.saleRem,
+				shoploginName: shopRember.loginName,
+				shoploginPass: shopRember.loginPass
+			})
+		}
+		var that = this
+		wx.request({
+			url: this.data.server + 'merchantRegister/getAreajson',
+			method: 'post',
+			dataType: 'json',
+			header: {
+				'content-type': 'application/json' // 默认值
+			},
+			success:res=>{
+				console.log(res)
+				that.setData({
+					proCode: JSON.parse(res.data.data)
+				})
+			}
+		})
     },
 
     /**
@@ -300,6 +338,29 @@ Page({
                         })
                     } else {
                         console.log(res)
+						var province = res.data.data.province
+						var city = res.data.data.city
+						var area = res.data.data.area
+						console.log(that.data.proCode)
+						var code = that.data.proCode
+						console.log(province,city,area)
+						console.log(code)
+						for (let i = 0; i < code.length;i++ ){
+							if(code[i].value == province){
+								res.data.data.pro = code[i].text
+								for(let k = 0 ; k < code[i].children.length;k++){
+									if(code[i].children[k].value == city){
+										res.data.data.cit = code[i].children[k].text
+										var iii = code[i].children[k].children
+										for (let m = 0; m < iii.length;m++ ){
+											if(iii[m].value == area){
+												res.data.data.are = iii[m].text
+											}
+										}
+									}
+								}
+							}
+						}
                         wx.setStorageSync('saleInfo', res.data.data);
                         wx.showToast({
                             title: '登录成功',
@@ -308,6 +369,9 @@ Page({
                               
                             }
                         })
+						wx.removeStorageSync('shopInput')
+						wx.removeStorageSync('multihangye')
+						wx.removeStorageSync('multiaddress')
 						setTimeout(function () {
 							wx.navigateTo({
 								url: '../index/index',

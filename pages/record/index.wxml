@@ -34,14 +34,14 @@
 	<view class='chooseData'  wx:if="{{chooseData == true}}" >
 		<view class='riqiBox' style='bottom:187px;'>
 			<view class='fl riqi year'>
-			<text class='yearL' decode='true' bindtap='yearjian'>&lt; </text>
+			<text class='yearL iconfont icon icon-triangle-left' decode='true' bindtap='yearjian'></text>
 			<text class='' decode='true' style='vertical-align:middle;color:#FFA20A;'>{{year}}年</text>
-			<text class='yearR' decode='true' bindtap='yearadd'>&gt; </text>
+			<text class='yearR iconfont icon icon-triangle-right' decode='true' bindtap='yearadd'></text>
 			</view>
 			<view  class='fl riqi month'>
-				<text class='yearL' decode='true' bindtap='monthjian'>&lt; </text>
+				<text class='yearL iconfont icon icon-triangle-left' decode='true' bindtap='monthjian'></text>
 			<text class='' decode='true' style='vertical-align:middle;color:#FFA20A;'>{{month}}月</text>
-			<text class='yearR' decode='true'  bindtap='monthadd'>&gt; </text>
+			<text class='yearR iconfont icon icon-triangle-right' decode='true'  bindtap='monthadd'></text>
 			</view>
 			<view  class='fl riqi long' wx:if="{{isLong}}">永久</view>
 		</view>

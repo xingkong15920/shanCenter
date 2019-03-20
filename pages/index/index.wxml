@@ -11,7 +11,7 @@
         </view>
 		<view class='topL aL' bindtap='record'>
 			<view class='topZ'></view>
-            <view class='topC iconfont icon-xinjianmendian'></view>
+            <view class='topC iconfont icon-touzijilu'></view>
             <view class='topB'>佣金记录</view>
 			<view class='pL'></view>
         </view>

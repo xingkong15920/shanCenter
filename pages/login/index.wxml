@@ -16,7 +16,7 @@
     <view wx:if="{{login==1}}" style='display:block;width:100%'>
 		<view class='lTop'>
 			<view class="typeName fl {{type=='shop'?'typeName':'typeName1'}}" style='width:50%'>{{typeName}}</view>
-			<view class="back1 fr {{type=='shop'?'back1':'back2'}}" wx:if="{{login!=0}}" style='width:30%' bindtap="back">返回</view>
+			
 		</view>
         
 		
@@ -30,7 +30,7 @@
                     <view class="foText">密码</view>
                     <input name="password" value="{{type=='shop'?shoploginPass:saleloginPass}}"  type='password' placeholder="请输入" class='inp' data-type="mima" placeholder-class="inputP"  bindinput='setZ'/>
                 </view>
-				<view class='pass'>
+				<view class='pass' style='padding-left:20rpx;'>
 					<view class='fl'>
 						<!-- <input type='check'></input> -->
 						<checkbox-group bindchange="rember">
@@ -42,9 +42,10 @@
 					</view>
 					<view class="fr forget {{type=='shop'?'forget':'forget1'}}" bindtap="forget">忘记密码？</view>
 				</view>
-                <view class="btn-area {{ type=='shop'?'btn-area':'btn-area1'}}" style='width:100%'>
+                <view class="btn-area {{ type=='shop'?'btn-area':'btn-area1'}}" style='width:100%;margin-bottom:80rpx'>
                     <view bindtap="salelogin" class='subT'>登录</view>
                 </view>
+				<view class="back1 fr {{type=='shop'?'back1':'back2'}}" wx:if="{{login!=0}}" style='width:100%;text-align:center;padding:15rpx 0;z-index:9999' bindtap="back">返回</view>
             </form>
         </view>
 		
@@ -52,7 +53,7 @@
 	<view wx:if="{{login==2}}" style='display:block;width:100%'>
        <view class='lTop'>
 			<view class="typeName fl {{type=='shop'?'typeName':'typeName1'}}" style='width:50%'>忘记密码</view>
-			<view class="back1 fr {{type=='shop'?'back1':'back2'}}" wx:if="{{login!=0}}" style='width:30%' bindtap="back">返回</view>
+			
 		</view>
         <view  class='fo'>
             <form bindsubmit="formSubmit" bindreset="formReset" class='fo'>
@@ -76,12 +77,16 @@
                     <view class="foText">确认密码</view>
                     <input name="repassword" type='password' placeholder="请再次输入新密码" class='inp'  bindinput='setRepass'  placeholder-class="inputP"/>
                 </view>
-                <view class="btn-area {{ type=='shop'?'btn-area':'btn-area1'}}" style='width:100%'>
+                <view class="btn-area {{ type=='shop'?'btn-area':'btn-area1'}}" style='width:100%;margin-bottom:50rpx'>
                     <view bindtap='updataPass' class='subT'>{{btn}}</view>
                 </view>
+				
             </form>
+			<view class="back1 fr {{type=='shop'?'back1':'back2'}}" wx:if="{{login!=0}}" style='width:100%;text-align:center;z-index:99999' bindtap="back">返回</view>
         </view>
 		
     </view>
-    <view class='bot'></view>
+    <view class='bot' style='' bindtap='backLogin'>
+		<view class='banquan' style="position:absolute;left:0;bottom:30rpx;"></view>
+	</view>
 </view>

@@ -7,31 +7,98 @@
 		<view class="nvaL {{steps==2?'nvaL1':''}} " data-id="2" bindtap="navOn">图片信息</view>
 	</view>
         <form catchsubmit="formSubmit">
-            <scroll-view class="{{isUpdata?'bodyTop1':'bodyTop'}}" scroll-y>
+            <scroll-view class="{{isUpdata?'bodyTop1':'bodyTop'}}" scroll-y scroll-top="{{Stop}}">
                 <!-- 商户信息步骤 -->
                 <view class="bodyCK {{steps==0?'':'hide'}}" wx:for="{{shopData}}" wx:key="{{stepsCon}}" wx:if="{{item.stepsNum == 1}}" data-basic="{{item.stepsNum}}">
                     <view class="bodyC" wx:for="{{item.stepsCon}}" wx:key="{{basic}}" data-basic="{{item.basic}}" wx:if="{{item.isS}}">
                         <!-- input循环 -->
-                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 && item.picker == 0}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                        <view style='position:relative;left:0;right:0' class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 && item.picker == 0}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
                             <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" value="{{shopInput[item.id]}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur'></input>
+							<view style='position:absolute;right:0;bottom:60rpx;font-size:20rpx;width:100rpx;text-align:center;color:red;z-index:999' wx:if="{{item.id == 'juridicalpersonName'}}">{{jurInfo}}</view>
+							<view style='position:absolute;right:0;bottom:10rpx;font-size:48rpx;z-index:999;width:100rpx;text-align:center;' catchtap='getJurInfo' wx:if="{{item.id == 'juridicalpersonName'}}" class='icon iconfont icon-xiangji'></view>
+							<view style='position:absolute;right:0;bottom:60rpx;font-size:20rpx;width:100rpx;text-align:center;color:red;z-index:999' wx:if="{{item.id == 'businessLicenseName'}}">{{buiInfo}}</view>
+							<view style='position:absolute;right:0;bottom:10rpx;font-size:48rpx;z-index:999;width:100rpx;text-align:center;' catchtap='getJurInfo1' wx:if="{{item.id == 'businessLicenseName'}}" class='icon iconfont icon-xiangji'></view>
+							
                         </view>
                         <!-- radio循环 -->
                         <view class="bodyCli activeInput" wx:if="{{item.type == 1}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit">{{item.shoplabel}}：</label>
-                            <radio-group class="bodyCliradio" name="{{item.id}}" bindchange="radioChange">
+                            <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange">
                                 <label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}">
                                     <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
                             </radio-group>
                         </view>
-                        <!-- 日期picker循环 -->
-                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 1}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
-                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+						<view class="bodyCli activeInput" wx:if="{{item.type == 2 && jiesuanType == true}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：</label>
+                            <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange1" >
+                                <label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}"   wx:if="{{item.isShow == true}}">
+                                    <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
+                            </radio-group>
+                        </view>
+						<view class="bodyCli activeInput" wx:if="{{item.type == 3 && youzhiType==true}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：</label>
+                            <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange3">
+                                <label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}">
+                                    <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
+                            </radio-group>
+                        </view>
+						 <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" bindtap="getaaaaa" wx:if="{{item.picker == 1 && item.startTime == 1}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit;">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
                             <picker mode="date" value="{{shopInput[item.id]}}" start="1199-01-01" end="2200-12-31" bindchange="bindDateChange" data-current="{{item.id}}">
                                 <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus"
                                     bindblur='blur' value="{{shopInput[item.id]}}"></input>
                             </picker>
                         </view>
+						<view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" bindtap="getaaaaa" wx:if="{{item.picker == 11 && item.startTime == 1}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit;">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <picker mode="date" value="{{shopInput[item.id]}}" start="1199-01-01" end="2200-12-31" bindchange="bindDateChange" data-current="{{item.id}}">
+                                <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus"
+                                    bindblur='blur' value="{{shopInput[item.id]}}"></input>
+                            </picker>
+                        </view>
+						<view class="bodyCli activeInput" wx:if="{{item.type ==4}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：</label>
+                            <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange4">
+                                <label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}">
+                                    <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
+                            </radio-group>
+                        </view><view class="bodyCli activeInput" wx:if="{{item.type ==5}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：</label>
+                            <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange5">
+                                <label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}">
+                                    <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
+                            </radio-group>
+                        </view>
+						<view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 4 &&feilvType==true}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <picker value="{{shopInput[item.id]}}" range="{{rateList}}" bindchange="bindPickerChange" data-current="{{item.id}}">
+                                <input class="bodyCliinput" type="text"  name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus"
+                                    bindblur='blur' value="{{shopInput[item.id]}}"></input>
+                            </picker>
+                        </view>
+                        <!-- 日期picker循环 -->
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" bindtap="getaaaaa" wx:if="{{item.picker == 1 && jurIs == true && item.startTime == 2}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit;">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <picker mode="date" value="{{shopInput[item.id]}}" start="1199-01-01" end="2200-12-31" bindchange="bindDateChange" data-current="{{item.id}}">
+                                <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus"
+                                    bindblur='blur' value="{{shopInput[item.id]}}"></input>
+                            </picker>
+                        </view>
+						<view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" bindtap="getaaaaa" wx:if="{{item.picker == 11 && busIs == true && item.startTime == 2}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit;">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <picker mode="date" value="{{shopInput[item.id]}}" start="1199-01-01" end="2200-12-31" bindchange="bindDateChange" data-current="{{item.id}}">
+                                <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus"
+                                    bindblur='blur' value="{{shopInput[item.id]}}"></input>
+                            </picker>
+                        </view>
+						 <!-- <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" bindtap="getaaaaa" wx:if="{{item.picker == 2 && busIs == true && index >2 && index<=4}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit;">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <picker mode="date" value="{{shopInput[item.id]}}" start="1199-01-01" end="2200-12-31" bindchange="bindDateChange" data-current="{{item.id}}">
+                                <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus"
+                                    bindblur='blur' value="{{shopInput[item.id]}}"></input>
+                            </picker>
+                        </view> -->
                         <!-- 行业picker循环 -->
                         <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 3}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}" >
                             <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
@@ -39,12 +106,17 @@
                                 <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus" bindblur='blur' value="{{multihangye}}"></input>
                             </picker>
                         </view>
+						
                         <!-- 地址picker循环 -->
                         <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 2}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
                             <picker mode="multiSelector" bindchange="addressPicker" bindcolumnchange="columA" value="{{multiIndex1}}" data-current="{{item.id}}" range="{{provincelist}}">
                                 <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus" bindblur='blur' value="{{multiaddress}}"></input>
                             </picker>
+                        </view>
+						<view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 && item.picker ==110}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
+                            <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" value="{{shopInput[item.id]}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur'></input>
                         </view>
                     </view>
                 </view>
@@ -60,9 +132,11 @@
                             </radio-group>
                         </view>
                         <!-- input循环 -->
-                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 & item.picker == 0}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 & item.picker == 0}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}" style='position:relative;left:0;right:0'>
                             <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
                             <input class="bodyCliinput" type="text" name="{{item.id}}" value="{{shopInput[item.id]}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" bindfocus="focus" bindblur='blur'></input>
+							<view style='position:absolute;right:0;bottom:60rpx;font-size:20rpx;width:100rpx;text-align:center;color:red;z-index:999' wx:if="{{item.id == 'bankCardNo'}}">{{bankInfo}}</view>
+							<view style='position:absolute;right:0;bottom:10rpx;font-size:48rpx;z-index:999;width:100rpx;text-align:center;' catchtap='getJurInfo2' wx:if="{{item.id == 'bankCardNo'}}" class='icon iconfont icon-xiangji'></view>
                         </view>
                         <!-- 银行picker循环 -->
                         <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 5}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
@@ -71,13 +145,13 @@
                                 bindfocus="focus" bindblur='blur' value="{{shopInput[item.id]}}"></input>
                         </view>
                         <!-- 费率picker循环 -->
-                        <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 4}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                        <!-- <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 4}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>
                             <picker value="{{shopInput[item.id]}}" range="{{rateList}}" bindchange="bindPickerChange" data-current="{{item.id}}">
                                 <input class="bodyCliinput" type="text"  name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus"
                                     bindblur='blur' value="{{shopInput[item.id]}}"></input>
                             </picker>
-                        </view>
+                        </view> -->
                     </view>
                 </view>
                 <!-- 图片步骤 -->
@@ -108,7 +182,10 @@
                         <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 5 && index <= 7 }}" >
                             <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
                         </view>
-						<view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 7 && index <= 9 && merchantType==2}}" >
+						<view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 7 && index <= 9 && merchantType==2 && channelType !=3}}" >
+                            <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
+                        </view>
+						<view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 7 && index <= 9 &&  channelType ==3}}" >
                             <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
                         </view>
                     </view>
@@ -137,7 +214,7 @@
             <view class="closeBtn" bindtap="onCancel" data-status="cancel">取消</view>
         </view>
         <view class="modal-content">
-            <scroll-view class="listBody" scroll-y="true">
+            <scroll-view class="listBody" style='height:{{scrollHeight}}px'  scroll-y="true" bindscrolltoupper="loadHang" bindscroll="loadHang2" bindscrolltolower="loadHang1">
                 <view class="listBody_li" wx:for="{{branch}}" >
                     <view class="shopName" data-num="{{item.lbnkNo}}" data-name="{{item.lbnkNm}}" bindtap="chooseHang1" >{{item.lbnkNm}}</view>
                 </view>
@@ -164,4 +241,5 @@
             </scroll-view>
         </view>
     </view>
+	<canvas style="width: {{cw}}px; height: {{ch}}px;position: absolute; z-index: -1; left: -10000rpx;; top: -10000rpx;" canvas-id="firstCanvas"></canvas>
 </view>

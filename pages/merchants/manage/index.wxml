@@ -19,9 +19,11 @@
                     <view class="shopName">{{item.merchantName}}</view>
                     <view class="listIcon iconfont icon-xiajiantou"></view>
                     <view class="operation">
-                        <view class="operationBtn editData" catchtap="editData" data-subnumber="{{item.subaccountNumber}}" data-id="{{item.orderNumber}}" data-mernumber="{{item.merchantNumber}}" wx:if="{{currentTab != 1}}">修改资料</view>
-                        <view class="operationBtn editRate" catchtap="editRate" data-type="{{item.rateType}}" data-rateCoding="{{item.rateCoding}}" data-id="{{item.orderNumber}}" wx:if="{{currentTab ==2}}">修改费率</view>
+                        <view class="operationBtn editData" catchtap="editData" data-subnumber="{{item.subaccountNumber}}" data-id="{{item.orderNumber}}" data-mernumber="{{item.merchantNumber}}" wx:if="{{currentTab != 1 && item.paymentType!=3 && currentTab != 0 && currentTab !=3}}">修改资料</view>
+						<view class="operationBtn editData" catchtap="editData" data-subnumber="{{item.subaccountNumber}}" data-id="{{item.orderNumber}}" data-mernumber="{{item.merchantNumber}}" wx:if="{{currentTab ==0 || currentTab == 3}}">修改资料</view>
+                        <view class="operationBtn editRate" catchtap="editRate" data-type="{{item.rateType}}" data-rateCoding="{{item.rateCoding}}" data-id="{{item.orderNumber}}" wx:if="{{currentTab ==2 && item.paymentType!=3}}" data-aid="{{item.merchantNumber}}">修改费率</view>
                         <view class="operationBtn editShop"  data-id="{{item.orderNumber}}" data-mernumber="{{item.merchantNumber}}" wx:if="{{currentTab == 2}}" catchtap="editShop">门店管理</view>
+						<view class="operationBtn editShop"  data-msg="{{item.msg}}" data-mernumber="{{item.merchantNumber}}" wx:if="{{currentTab == 0}}" catchtap="msg">未通过原因</view>
                     </view>
                 </view>
             </scroll-view>
@@ -35,6 +37,7 @@
 		
         <view class="modal-content">
 		<view style='font-size:30rpx;line-height:32rpx;margin-top:10rpx;margin-bottom:10rpx'>当前费率: <text style='color:red'>{{rateCoding}}</text></view>
+		
             <picker class="modal-input" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
                 <view class="selectRate">{{choRate}}</view>
             </picker>

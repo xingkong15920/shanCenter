@@ -36,7 +36,9 @@ Page({
 		windowWidth:300,
 		lineType:0,
 		institutionNumber: '',
-		saleNumber: ''
+		saleNumber: '',
+		zhe:true,
+		zheName:"佣金收益走势图",
 	},
 	
 	onLoad: function (e) {
@@ -225,10 +227,33 @@ Page({
 				twoNum: year.toString() + month + day,
 				endT: year.toString() + '-' + month + '-' + day,
 			})
+			var st = that.data.startT.split('-')[0] + that.data.startT.split('-')[1] + that.data.startT.split('-')[2]
+			var et = that.data.endT.split('-')[0] + that.data.endT.split('-')[1] + that.data.endT.split('-')[2]
+			console.log(st, et)
+			if (st > et) {
+				console.log('1111')
+				var a = that.data.startT
+				var b = that.data.endT
+
+				that.setData({
+					startT: b,
+					endT: a,
+					startTime: b + '00:00:00',
+					endTime: a + '23:59:59'
+				})
+			} else {
+				var a = that.data.startT
+				var b = that.data.endT
+				that.setData({
+					startTime: a + ' ' + '00:00:00',
+					endTime: b + ' ' + '23:59:59'
+				})
+			}
 			setTimeout(function(){
 				that.setData({
 					
-					chooseData: false
+					chooseData: false,
+					zhe:true
 				})
 				that.getData()
 			},500)
@@ -266,7 +291,9 @@ Page({
 
 		this.setData({
 			chooseData: false,
+			zhe:true
 		})
+		this.getData()
 	},
 	day:function(){
 		wx.navigateTo({
@@ -276,6 +303,7 @@ Page({
 	chooseDate: function (e) {
 		this.setData({
 			chooseData: true,
+			zhe:false
 		})
 	},
 	getData: function () {
@@ -459,18 +487,22 @@ Page({
 					data.push(record[j * num].settlementCountMoney + 100);
 				}
 			}
+			for (var i = 0; i < record.length; i++) {
+				categories.push(record[i].date);
+				data.push(record[i].settlementCountMoney);
+			}
 		} else if (this.data.lineType == 1){
 			if (record.length <= 8) {
 				for (var i = 0; i < record.length; i++) {
 					categories.push(record[i].date);
-					data.push(record[i].newShopCount + 10);
+					data.push(record[i].newShopCount);
 				}
 			} else {
 				var num = Math.floor(record.length / 7)
 				console.log(num)
 				for (var j = 0; j < 7; j++) {
 					categories.push(record[j * num].date);
-					data.push(record[j * num].newShopCount + 10);
+					data.push(record[j * num].newShopCount);
 				}
 			}
 		}
@@ -489,7 +521,8 @@ Page({
 			name: ' ',
 			data: simulationData.data,
 			format: function (val, name) {
-				return val.toFixed(2)  ;
+				console.log(val,name)
+				return val ;
 			}
 		}];
 		lineChart.updateData({
@@ -507,13 +540,15 @@ Page({
 	},
 	money:function(){
 		this.setData({
-			lineType:0
+			lineType:0,
+			zheName: '佣金收益走势图'
 		})
 		this.getData()
 	},
 	shop: function () {
 		this.setData({
-			lineType: 1
+			lineType: 1,
+			zheName:'新增店铺走势图'
 		})
 		this.getData()
 	}

@@ -3,6 +3,8 @@
 const app = getApp()
 var Moment = require("../../utils/moment.js");
 const config = require('../../utils/config.js')
+var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
+var qqmapsdk;
 Page({
     data: {
         motto: 'Hello World',
@@ -53,7 +55,22 @@ Page({
     },
     onLoad: function() {
 		var that = this
+		qqmapsdk = new QQMapWX({
+			key: 'PTABZ-B2TRX-7C643-TAKNM-KED36-24BUQ'
+		});
+		that.getPermission()
 		that.getTT()
+		// wx.getLocation({
+		// 	type: 'wgs84',
+		// 	success(res) {
+		// 		console.log(res)
+		// 		const latitude = res.latitude
+		// 		const longitude = res.longitude
+		// 		const speed = res.speed
+		// 		const accuracy = res.accuracy
+		// 	}
+		// })
+		
         if (app.globalData.userInfo) {
             this.setData({
                 userInfo: app.globalData.userInfo,
@@ -117,6 +134,83 @@ Page({
 			}
 		})
 	},
+	getPermission: function (obj) {
+		var that = this
+		wx.getLocation({
+			success: function (res) {
+				console.log(res)
+				that.getLocal(res.latitude,res.longitude)
+			},
+			fail: function () {
+				wx.getSetting({
+					success: function (res) {
+						var statu = res.authSetting;
+						if (!statu['scope.userLocation']) {
+							wx.showModal({
+								title: '是否授权当前位置',
+								content: '需要获取您的地理位置，请确认授权',
+								success: function (tip) {
+									if (tip.confirm) {
+										wx.openSetting({
+											success: function (data) {
+												if (data.authSetting["scope.userLocation"] === true) {
+													wx.showToast({
+														title: '授权成功',
+														icon: 'success',
+														duration: 1000
+													})
+													//授权成功之后，再调用chooseLocation选择地方
+													wx.getLocation({
+														success: function (res) {
+															console.log(res)
+														},
+													})
+												} else {
+													wx.showToast({
+														title: '授权失败',
+														icon: 'success',
+														duration: 1000
+													})
+												}
+											}
+										})
+									}
+								}
+							})
+						}
+					},
+					fail: function (res) {
+						wx.showToast({
+							title: '调用授权窗口失败',
+							icon: 'success',
+							duration: 1000
+						})
+					}
+				})
+			}
+		})
+	},
+	getLocal:function(lat,lon){
+		let that = this
+		
+		qqmapsdk.reverseGeocoder({
+			location:{
+				latitude:lat,
+				longitude:lon
+			},
+			success:function(res){
+				console.log(res)
+				var obj = new Object()
+				obj.pro = res.result.ad_info.province
+				obj.cit = res.result.ad_info.city
+				obj.are = res.result.ad_info.district
+				wx.setStorageSync('location', obj)
+			},
+			fail:res=>{
+				console.log(res)
+			}
+		})
+	},
     getUserInfo: function(e) {
         console.log(e)
         app.globalData.userInfo = e.detail.userInfo
@@ -133,17 +227,74 @@ Page({
 	register: function () {
 		console.log(wx.getStorageSync('saleInfo'))
 		var saleInfo = wx.getStorageSync('saleInfo')
-		if (saleInfo.productSwitch == null || saleInfo.productSwitchD1 == null){
-			wx.showToast({
-				title: '您的默认进件通道没有设置进件费率',
-				icon:'none',
-				duration:2000
-			})
-			return
-		}
-		wx.navigateTo({
-			url: '../merchants/register/index',
+		wx.getSetting({
+			success: function (res) {
+				if (saleInfo.productSwitch == null || saleInfo.productSwitchD1 == null) {
+					wx.showToast({
+						title: '您的默认进件通道没有设置进件费率',
+						icon: 'none',
+						duration: 2000
+					})
+					return
+				}
+				wx.navigateTo({
+					url: '../merchants/register/index',
+				})
+				var statu = res.authSetting;
+				if (!statu['scope.userLocation']) {
+					wx.showModal({
+						title: '是否授权当前位置',
+						content: '需要获取您的地理位置，请确认授权',
+						success: function (tip) {
+							if (tip.confirm) {
+								wx.openSetting({
+									success: function (data) {
+										if (data.authSetting["scope.userLocation"] === true) {
+											wx.showToast({
+												title: '授权成功',
+												icon: 'success',
+												duration: 1000
+											})
+											//授权成功之后，再调用chooseLocation选择地方
+											wx.getLocation({
+												success: function (res) {
+													console.log(res)
+												},
+											})
+											if (saleInfo.productSwitch == null || saleInfo.productSwitchD1 == null) {
+												wx.showToast({
+													title: '您的默认进件通道没有设置进件费率',
+													icon: 'none',
+													duration: 2000
+												})
+												return
+											}
+											wx.navigateTo({
+												url: '../merchants/register/index',
+											})
+										} else {
+											wx.showToast({
+												title: '授权失败',
+												icon: 'success',
+												duration: 1000
+											})
+										}
+									}
+								})
+							}
+						}
+					})
+				}
+			},
+			fail: function (res) {
+				wx.showToast({
+					title: '调用授权窗口失败',
+					icon: 'success',
+					duration: 1000
+				})
+			}
 		})
+		
 	},
     salekit: function() {
         wx.navigateTo({

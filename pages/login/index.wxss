@@ -135,7 +135,7 @@ checkbox-group{
 .forget{
 	font-size:24rpx;
 	line-height:34rpx;
-	color:#ffa20a
+	color:#ffa20a;
 }
 .forget1{
 	color:#DF6363
@@ -162,7 +162,7 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 	height:80rpx;
 	background:linear-gradient(85deg,rgba(255,193,39,1) 0%,rgba(255,133,25,1) 100%);
 	opacity:1;
-	border-radius:12px;
+	border-radius:12rpx;
 	z-index:9999;
 	position:relative;
 	padding-left:20rpx
@@ -191,4 +191,13 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 .codeBtn1{
 	color:#DF6363;
 	border:2px solid #DF6363;
+}
+.banquan{
+	width:750rpx;
+height:40rpx;
+	font-size:28rpx;
+font-family:PingFang SC;
+font-weight:400;
+text-align:center;
+color:rgba(190,190,190,1);
 }

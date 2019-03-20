@@ -1,16 +1,17 @@
 {
 	"pages": [
+		
 		"pages/login/index",
+		"pages/merchants/manage/index",
+		"pages/merchants/register/index",
+		"pages/index/index",
 		"pages/shop-sh/shop-payment/index",
 		"pages/salekit/index",
 		"pages/salekit-sh/index",
-		"pages/merchants/manage/index",
 		"pages/index-sh/index",
 		"pages/shop-sh/assistant/index",
-		"pages/merchants/register/index",
 		"pages/record/index",
 		"pages/shop/shop-list/index",
-		"pages/index/index",
 		"pages/shop/shop-check/index",
 		"pages/merchants/shop-check/index",
 		"pages/logs/logs",
@@ -23,5 +24,11 @@
 		"navigationBarBackgroundColor": "#FFA20A",
 		"navigationBarTitleText": "WeChat",
 		"navigationBarTextStyle": "white"
+	},
+	
+	"permission": {
+		"scope.userLocation": {
+			"desc": "你的位置信息将用于小程序位置接口的效果展示"
+		}
 	}
 }

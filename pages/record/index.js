@@ -33,7 +33,7 @@ Page({
 	},
 	onLoad: function (options) {
 		// 页面初始化 options为页面跳转所带来的参数
-		var saleInfo = wx.getStorageSync('shopInfo')
+		var saleInfo = wx.getStorageSync('saleInfo')
 		console.log(saleInfo)
 		this.setData({
 			institutionNumber: saleInfo.institutionNumber,
@@ -290,6 +290,28 @@ Page({
 				endT: year.toString() + '-' + month + '-' + day,
 				
 			})
+			var st = that.data.startT.split('-')[0] + that.data.startT.split('-')[1] + that.data.startT.split('-')[2]
+			var et = that.data.endT.split('-')[0] + that.data.endT.split('-')[1] + that.data.endT.split('-')[2]
+			console.log(st, et)
+			if (st > et) {
+				console.log('1111')
+				var a = that.data.startT
+				var b = that.data.endT
+
+				that.setData({
+					startT: b,
+					endT: a,
+					startTime: b + '00:00:00',
+					endTime: a + '23:59:59'
+				})
+			} else {
+				var a = that.data.startT
+				var b = that.data.endT
+				that.setData({
+					startTime: a + ' ' + '00:00:00',
+					endTime: b + ' ' + '23:59:59'
+				})
+			}
 			setTimeout(function () {
 				that.setData({
 
