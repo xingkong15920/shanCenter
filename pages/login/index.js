@@ -25,12 +25,12 @@ Page({
 		repass:'',
     },
     shop: function() {
-		wx.showToast({
-			title:'暂未开放功能',
-			icon:'none',
-			duration:2000
-		})
-		return
+		// wx.showToast({
+		// 	title:'暂未开放功能',
+		// 	icon:'none',
+		// 	duration:2000
+		// })
+		// return
         this.setData({
             login: 1,
             typeName: "商户登录",

@@ -13,23 +13,6 @@ var data = [{
             "tips": "门店名称不能为空！",
         }, {
             "type": "0",
-            "shoplabel": "管理员姓名",
-            "id": "BLname",
-            "picker": "1",
-            "placeholder": "请输入管理员姓名",
-            "tipstype": "1",
-            "tips": "管理员姓名不能为空！",
-			"idea":"name"
-        }, {
-            "type": "0",
-            "shoplabel": "联系电话",
-            "id": "BLnumber",
-            "picker": "0",
-            "placeholder": "请输入联系电话",
-            "tipstype": "1",
-            "tips": "联系电话不能为空！",
-        }, {
-            "type": "0",
             "shoplabel": "门店地址",
             "id": "region",
             "picker": "2",
@@ -55,7 +38,27 @@ var data = [{
         }]
     }]
 }]
-
+var data1 = [
+	{
+		"type": "0",
+		"shoplabel": "管理员姓名",
+		"id": "BLname",
+		"picker": "1",
+		"placeholder": "请输入管理员姓名",
+		"tipstype": "1",
+		"tips": "管理员姓名不能为空！",
+		"idea": "name"
+	}, {
+		"type": "0",
+		"shoplabel": "联系电话",
+		"id": "BLnumber",
+		"picker": "0",
+		"placeholder": "请输入联系电话",
+		"tipstype": "1",
+		"tips": "联系电话不能为空！",
+	},
+]
 module.exports = {
-    shopData: data
+    shopData: data,
+	shopData1: data1
 }

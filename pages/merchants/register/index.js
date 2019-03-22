@@ -211,7 +211,9 @@ Page({
             shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS = true
             // shopData[1].stepsCon[1].basicsetup[0].isS = true
             if (e.detail.value == 2) {
+				console.log(this.data.channelType)
                 if (this.data.channelType == 3) {
+					console.log('13132')
                     for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
                         shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = false
                         shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
@@ -290,9 +292,30 @@ Page({
         var cur = e.currentTarget.dataset.name
         var shopData = this.data.shopData
         if (cur == 'settlementLogo') {
-            this.setData({
-                settlementLogo: e.detail.value
-            })
+			if (e.detail.value == '对公'){
+				for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
+					// shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = false
+					shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
+				}
+				shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS = true
+				shopData[1].stepsCon[0].basicsetup[0].radiolist[1].checked = true
+				this.setData({
+					"settlementLogo": '对公',
+					shopData: shopData
+				})
+			}else{
+				for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
+					shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = true
+					shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
+				}
+				shopData[1].stepsCon[0].basicsetup[0].radiolist[0].checked = true
+				this.setData({
+					"settlementLogo": '对私',
+					shopData: shopData
+				})
+			}
+			
+            
         }
         if (cur == 'Settleway') {
             if (e.detail.value == 'D0') {
