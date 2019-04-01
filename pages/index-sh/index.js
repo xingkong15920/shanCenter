@@ -22,7 +22,7 @@ Page({
             icon: "icon-dianpuguanli",
             color: "#ffba00",
 			tap:"shop",
-			num:155
+			num:0
         }, {
             name: "店员管理",
             icon: "icon-renyuan",

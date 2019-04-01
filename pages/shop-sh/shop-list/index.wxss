@@ -188,3 +188,26 @@ input-holder {
     color: #ec5300;
     text-align: center;
 }
+.noMove{
+	position:relative;
+	width:100%;
+	float:left;
+}
+.move{
+	width:80%
+}
+.delbox{
+	width:0;
+	height:50px;
+	float:left;
+	background: red;
+	font-size:28rpx;
+	text-align:center;
+	line-height:50px;
+	color:white;
+	
+}
+.delboxMove{
+	width:20%
+}
+/* // 滑动 */

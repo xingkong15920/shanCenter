@@ -22,7 +22,8 @@ Page({
         server: config.server,
         pageNum: 1,
         pageCount: 10,
-        limit: 10
+        limit: 10,
+		start:0
     },
     onLoad: function() {
         var saleInfo = wx.getStorageSync('shopInfo')
@@ -101,6 +102,32 @@ Page({
             url: '../../shop-sh/shop-check/index?shopNumber=' + shopNumber,
         })
     },
+	start:function(e){
+		this.setData({
+			start: e.changedTouches[0].pageX
+		})
+	},
+	move:function(e){
+		var that = this
+		var s = this.data.start
+		var ee = e.changedTouches[0].pageX
+		if (s - ee >= 15){
+			var id = e.currentTarget.dataset.id;
+			if (id == that.data.active) {
+				that.setData({
+					'move': 0
+				})
+			} else {
+				that.setData({
+					'move': id
+				})
+			}
+		}else{
+			that.setData({
+				'move': 0
+			})
+		}
+	},
     editDel: function(e) {
         var that = this
         var shopname = e.currentTarget.dataset.shopname;

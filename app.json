@@ -1,6 +1,6 @@
 {
 	"pages": [
-		
+	
 		"pages/login/index",
 		"pages/merchants/manage/index",
 		"pages/merchants/register/index",

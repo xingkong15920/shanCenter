@@ -8,10 +8,10 @@ var data = [{
             "shoplabel": "门店名称",
             "id": "merchantName",
             "picker": "0",
-            "placeholder": "请输入门店名称",
+            "placeholder": "请填写门店名称",
             "tipstype": "1",
             "tips": "门店名称不能为空！",
-        }, {
+		}, {
             "type": "0",
             "shoplabel": "门店地址",
             "id": "region",
@@ -24,41 +24,46 @@ var data = [{
 				"shoplabel": "详细地址",
 				"id": "address",
 				"picker": "0",
-				"placeholder": "请输入详细地址",
+				"placeholder": "请填写门店详细地址",
 				"tipstype": "1",
 				"tips": "详细地址不能为空！",
 			}, {
             "type": "0",
             "shoplabel": "备注",
             "id": "BLaddress",
-            "picker": "0",
-            "placeholder": "请输入备注",
+            "picker": "1",
+            "placeholder": "请填写备注",
             "tipstype": "1",
             "tips": "备注不能为空！",
-        }]
+			}]
     }]
 }]
-var data1 = [
-	{
-		"type": "0",
-		"shoplabel": "管理员姓名",
-		"id": "BLname",
-		"picker": "1",
-		"placeholder": "请输入管理员姓名",
-		"tipstype": "1",
-		"tips": "管理员姓名不能为空！",
-		"idea": "name"
-	}, {
-		"type": "0",
-		"shoplabel": "联系电话",
-		"id": "BLnumber",
-		"picker": "0",
-		"placeholder": "请输入联系电话",
-		"tipstype": "1",
-		"tips": "联系电话不能为空！",
-	},
-]
+var data1 = [{
+	"stepsNum": "1",
+	"stepsCon": [{
+		"basic": "1",
+		"basicsetup": [{
+			"type": "0",
+			"shoplabel": "店员姓名",
+			"id": "BLname",
+			"picker": "0",
+			"placeholder": "请填写店员姓名",
+			"tipstype": "1",
+			"tips": "店员姓名不能为空！",
+			"idea": "name"
+		}, {
+				"type": "0",
+				"shoplabel": "手机号",
+				"id": "BLnumber",
+				"picker": "0",
+				"placeholder": "请填写店员手机号",
+				"tipstype": "1",
+				"tips": "联系电话不能为空！",
+			},]
+	}]
+}]
+
 module.exports = {
     shopData: data,
-	shopData1: data1
+	shopData1:data1
 }

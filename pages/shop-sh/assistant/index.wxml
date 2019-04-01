@@ -86,19 +86,23 @@
     <view class="modal-dialog" wx:if="{{showModal3}}">
         <!-- <view class="modal-title">设置费率</view> -->
         <view class="modal-content {{item.clerkNumber==id?'show':'hide'}}" wx:for="{{shopList}}" wx:key="{{shopList}}" data-thisId="{{item.clerkNumber}}">
-            <image src="../../img/wxpush.png" mode="widthFix" class="wxpushImg"></image>
-            <view class="wxpushTips">开通后随时随地查看经营情况</view>
-            <view class="wxpushbing">
+            <!-- <image src="{{codeImg}}" mode="widthFix" class="wxpushImg"></image> -->
+			<view style="width: 516rpx;height: 516rpx;position:relative;margin:0 auto"  wx:if="{{isBind==false}}">
+				<image src="../../img/shanhe.png" style='width:140rpx;height:140rpx;position:absolute;left:188rpx;top:188rpx;z-index:9999'></image>
+				<canvas   style="width:516rpx; height:516rpx;background:#f1f1f1;position:absolute;left:0;top:0" canvas-id="canvas1"/>
+			</view>
+            <view class="wxpushTips"   wx:if="{{isBind==false}}">开通后随时随地查看经营情况</view>
+            <view class="wxpushbing" wx:if="{{isBind}}">
                 <view class="wxpushbingTit">
                     <view>昵称</view>
                     <view>开通时间</view>
                     <view>操作</view>
                 </view>
                 <view class="wxpushbingList">
-                    <view class="wxpushbingList-nick">不了了之</view>
-                    <view class="wxpushbingList-time">2018-12-12 15:55:00</view>
+                    <view class="wxpushbingList-nick">{{name}}</view>
+                    <view class="wxpushbingList-time">{{time}}</view>
                     <view class="wxpushbingList-operation">
-                        <view class="wxpushbingList-operationBtn">解绑</view>
+                        <view class="wxpushbingList-operationBtn" data-iid="{{item.clerkNumber}}" catchtap="unBind">解绑</view>
                     </view>
                 </view>
             </view>

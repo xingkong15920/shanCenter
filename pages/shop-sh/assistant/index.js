@@ -1,11 +1,12 @@
 // pages/merchants/manage/index.js
 const config = require('../../../utils/config.js')
 var QRCode = require('../../../utils/weapp-qrcode.js')
-var qrcode
+var qrcode, qrcode1
 const W = wx.getSystemInfoSync().windowWidth;
 const rate = 750.0 / W;
 // 300rpx 在6s上为 150px
 const code_w = 350 / rate;
+const code_ww = 343 / rate;
 Page({
     data: {
         shopEdit: {},
@@ -19,6 +20,7 @@ Page({
         //二维码信息
         deviceCode: '',
         code_w: code_w,
+		code_ww: code_ww,
         //编辑店员信息
         shopEname: '',
         shopEnum: '',
@@ -47,6 +49,8 @@ Page({
         server: config.server,
         pageNum: 1,
         limit: 10,
+		codeImg:'',
+		isBind:false
     },
     onLoad: function() {
         var that = this
@@ -101,6 +105,14 @@ Page({
             colorLight: "white",
             correctLevel: QRCode.CorrectLevel.H,
         });
+		qrcode1 = new QRCode('canvas1', {
+			//usingIn: this,
+			
+			text: that.data.codeImg,
+			colorDark: "black",
+			colorLight: "white",
+			correctLevel: QRCode.CorrectLevel.H,
+		});
     },
     onShow: function() {
         this.getData()
@@ -372,13 +384,88 @@ Page({
 
     //弹窗-微信推送
     editWXpush: function(e) {
+		this.getName(e.currentTarget.dataset.id)
+		// isBind
         var that = this
         var id = e.currentTarget.dataset.id;
-        this.setData({
+		that.setData({
             showModal3: true,
-            id: id
+            id: id,
+			codeImg:'http://user.51shanhe.com/oneCode/getCode.html?clerkNumber=' + id
         })
+		setTimeout(function () {
+			qrcode1.makeCode(that.data.codeImg)
+		}, 10)
     },
+	getName:function(e){
+		var that = this
+		wx.request({
+			url: that.data.server +'clerk/getClerkInfo',
+			data: {
+				clerkNumber: e,
+			},
+			method: "POST",
+			header: {
+				'content-type': 'application/x-www-form-urlencoded' // 默认值
+			},
+			success: function (res) {
+				console.log(res)
+				if (res.data.data.code == 1000 || res.data.data.openId == '未绑定'){
+					that.setData({
+						isBind: false,
+						name: '',
+						time: ''
+					})
+					setTimeout(function () {
+						qrcode1.makeCode(that.data.codeImg)
+					}, 10)
+				}else{
+					that.setData({
+						isBind: true,
+						name: res.data.data.nickName,
+						time: res.data.data.bindTime
+					})
+				}
+
+				
+			}
+		})
+	},
+	unBind:function(e){
+		console.log(e)
+		var that = this
+		wx.showModal({
+			title: '提示',
+			content: '确定要解绑微信推送吗',
+			success(res) {
+				if (res.confirm) {
+					
+					wx.request({
+						url: that.data.server +'/clerk/relievePushBind',
+						data: {
+							clerkNumber: e.currentTarget.dataset.iid,
+						},
+						method: "POST",
+						header: {
+							'content-type': 'application/x-www-form-urlencoded' // 默认值
+						},
+						success: function (res) {
+							if (res.data.code == 1000) {
+								wx.showToast({
+									title: '解绑成功',
+									icon: 'none'
+								})
+							}
+							that.getName(e.currentTarget.dataset.iid)
+						}
+					})
+				} else if (res.cancel) {
+					console.log('用户点击取消')
+				}
+			}
+		})
+		
+	},
     //弹窗-修改密码
     editPass: function(e) {
         var that = this
@@ -518,10 +605,10 @@ Page({
             })
         }
         if (status == "confirm3") {
-            wx.showToast({
-                title: "推送" + chooseShopNum,
-                icon: 'none'
-            })
+            // wx.showToast({
+            //     title: "推送" + chooseShopNum,
+            //     icon: 'none'
+            // })
         }
         if (status == "confirm4") {
             if (shopEdit.password == shopEdit.repassword) {

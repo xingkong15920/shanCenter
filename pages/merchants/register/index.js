@@ -70,7 +70,8 @@ Page({
             name: "businessLicense",
             isS: false,
             ty: 1,
-            yrm: 1
+            yrm: 1,
+            text: "营业执照"
         }, {
             //开户许可
             imgSrc: '../../img/pic2.png',
@@ -78,7 +79,8 @@ Page({
             name: "openingPermit",
             isS: false,
             ty: 2,
-            yrm: 2
+            yrm: 2,
+            text: "开户许可"
         }, {
             //身份证正面
             imgSrc: '../../img/pic3.png',
@@ -86,15 +88,17 @@ Page({
             name: "juridicalpersonIdPositive",
             isS: false,
             ty: 0,
-            yrm: 0
+            yrm: 0,
+            text: "身份证正面"
         }, {
-            //身份证反
+            //身份证反面
             imgSrc: '../../img/pic4.png',
             type: 3,
             name: "juridicalpersonIdReverseside",
             isS: false,
             ty: 0,
-            yrm: 0
+            yrm: 0,
+            text: "身份证反面"
         }, {
             //手持身份证
             imgSrc: '../../img/pic5.png',
@@ -102,7 +106,8 @@ Page({
             name: "holdId",
             isS: false,
             ty: 0,
-            yrm: 0
+            yrm: 0,
+            text: "手持身份证"
         }, {
             //银行卡正面
             imgSrc: '../../img/pic6.png',
@@ -110,7 +115,8 @@ Page({
             name: "bankCardPositive",
             isS: false,
             ty: 0,
-            yrm: 0
+            yrm: 0,
+            text: "银行卡正面"
         }, {
             //门店门头
             imgSrc: '../../img/pic7.png',
@@ -118,7 +124,8 @@ Page({
             name: "doorheadPhoto",
             isS: false,
             ty: 0,
-            yrm: 0
+            yrm: 0,
+            text: "门店门头"
         }, {
             //门店门脸
             imgSrc: '../../img/pic11.png',
@@ -126,7 +133,8 @@ Page({
             name: "facePhoto",
             isS: false,
             ty: 0,
-            yrm: 0
+            yrm: 0,
+            text: "门店门脸"
         }, {
             //门店收银台
             imgSrc: '../../img/pic8.png',
@@ -134,7 +142,8 @@ Page({
             name: "cashier",
             isS: false,
             ty: 2,
-            yrm: 0
+            yrm: 0,
+            text: "门店收银台"
         }, {
             //门店经营场所
             imgSrc: '../../img/pic9.png',
@@ -142,7 +151,8 @@ Page({
             name: "placeBusiness",
             isS: false,
             ty: 2,
-            yrm: 0
+            yrm: 0,
+            text: "门店经营场所"
         }, {
             //其他
             imgSrc: '../../img/pic10.png',
@@ -150,7 +160,8 @@ Page({
             name: "rests",
             isS: true,
             ty: 0,
-            yrm: 0
+            yrm: 0,
+            text: "其他"
         }],
         hangbie: hangbie.hangbie,
         pageNum: 1,
@@ -211,9 +222,9 @@ Page({
             shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS = true
             // shopData[1].stepsCon[1].basicsetup[0].isS = true
             if (e.detail.value == 2) {
-				console.log(this.data.channelType)
+                console.log(this.data.channelType)
                 if (this.data.channelType == 3) {
-					console.log('13132')
+                    console.log('13132')
                     for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
                         shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = false
                         shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
@@ -292,30 +303,30 @@ Page({
         var cur = e.currentTarget.dataset.name
         var shopData = this.data.shopData
         if (cur == 'settlementLogo') {
-			if (e.detail.value == '对公'){
-				for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
-					// shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = false
-					shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
-				}
-				shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS = true
-				shopData[1].stepsCon[0].basicsetup[0].radiolist[1].checked = true
-				this.setData({
-					"settlementLogo": '对公',
-					shopData: shopData
-				})
-			}else{
-				for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
-					shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = true
-					shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
-				}
-				shopData[1].stepsCon[0].basicsetup[0].radiolist[0].checked = true
-				this.setData({
-					"settlementLogo": '对私',
-					shopData: shopData
-				})
-			}
-			
-            
+            if (e.detail.value == '对公') {
+                for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
+                    // shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = false
+                    shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
+                }
+                shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS = true
+                shopData[1].stepsCon[0].basicsetup[0].radiolist[1].checked = true
+                this.setData({
+                    "settlementLogo": '对公',
+                    shopData: shopData
+                })
+            } else {
+                for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
+                    shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = true
+                    shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
+                }
+                shopData[1].stepsCon[0].basicsetup[0].radiolist[0].checked = true
+                this.setData({
+                    "settlementLogo": '对私',
+                    shopData: shopData
+                })
+            }
+
+
         }
         if (cur == 'Settleway') {
             if (e.detail.value == 'D0') {
@@ -561,9 +572,9 @@ Page({
                 if (shopInput.rate1 != undefined) {
                     var rate1 = shopInput.rate1
                     console.log(rate1)
-					if(this.data.channelType == 3 && this.data.qualityClient == 0){
-						rate1 = '0.38%'
-					}
+                    if (this.data.channelType == 3 && this.data.qualityClient == 0) {
+                        rate1 = '0.38%'
+                    }
                     if (rate1.indexOf('%') > -1) {
                         var ratea = rate1.replace('%', '') / 100
                         ratea = ratea * 10000
@@ -595,6 +606,7 @@ Page({
                 shopInput.saleNumber = this.data.saleNumber
                 shopInput.subaccountNumber = this.data.subNumber
                 shopInput.orderNumber = this.data.orderNumber
+				shopInput.bankCardNo = shopInput.bankCardNo.replace(/\s/g, '')
                 console.log(this.data.merchantNumber == "null")
                 if (this.data.merchantNumber == "null") {
 
@@ -606,7 +618,7 @@ Page({
                     console.log('123123')
                     shopInput.merchantNumber = ''
                 }
-				
+
                 console.log(shopInput.merchantNumber)
                 shopInput.paymentType = this.data.channelType
                 shopInput.qualityClient = this.data.qualityClient
@@ -1139,7 +1151,11 @@ Page({
     blur: function(e) {
         console.log(e)
         var data = e.detail.value
+
         var cur = e.target.dataset.current;
+        if (cur == 'bankCardNo') {
+            data = e.detail.value.replace(/\s/g, '').replace(/(.{4})/g, "$1 ");
+        }
         var that = this
         // if (cur == 'merchantName' && data != '') {
         //     wx.request({
@@ -1204,6 +1220,7 @@ Page({
         //         }
         //     })
         // }
+        console.log('123132')
         if (data == '') {
             var shopInput = this.data.shopInput
             shopInput[cur] = data
@@ -1574,6 +1591,7 @@ Page({
 
     },
     subImage: function() {
+		var that = this
         var imgList = this.data.imagelist
         var type = this.data.merchantType
         var tjData = new Object()
@@ -1734,11 +1752,11 @@ Page({
             }
         }
 
-		if (this.data.rateType == 'D1') {
-			tjData.paymentChannel = wx.getStorageSync('saleInfo').paymentChannelD1
-		} else {
-			tjData.paymentChannel = wx.getStorageSync('saleInfo').paymentChannel
-		}
+        if (this.data.rateType == 'D1') {
+            tjData.paymentChannel = wx.getStorageSync('saleInfo').paymentChannelD1
+        } else {
+            tjData.paymentChannel = wx.getStorageSync('saleInfo').paymentChannel
+        }
         console.log(this.data.imgTrue)
         console.log(tjData)
 
@@ -1790,6 +1808,46 @@ Page({
                     console.log(res)
                     wx.hideLoading()
                     if (res.data.code == 1000) {
+						var saleI = wx.getStorageSync('saleInfo')
+						var loca = wx.getStorageSync('location')
+						var newO = new Object()
+						newO.orderNumber = that.data.orderNumber
+						if (that.data.rateType == 'D1') {
+							newO.paymentChannel = wx.getStorageSync('saleInfo').paymentChannelD1
+							newO.paymentType = wx.getStorageSync('saleInfo').channelTypeOne
+						} else {
+							newO.paymentChannel = wx.getStorageSync('saleInfo').paymentChannel
+							newO.paymentType = wx.getStorageSync('saleInfo').channelTypeTwo
+						}
+						newO.typeInfo = 0
+						if (saleI.agentType == 1) {
+							if (saleI.pro != loca.pro) {
+								newO.typeInfo = 1
+							}
+							if (shopInput.province != loca.pro) {
+								newO.typeInfo = 1
+							}
+						}
+						if (saleI.agentType == 2) {
+							if (saleI.cit != loca.cit) {
+								newO.typeInfo = 1
+							}
+							if (shopInput.city != loca.cit) {
+								newO.typeInfo = 1
+							}
+						}
+						console.log(newO)
+						wx.request({
+							url: that.data.server + 'submit/intoSubmission',
+							method: 'post',
+							data: newO,
+							header: {
+								'Content-Type': 'application/x-www-form-urlencoded' // 默认值
+							},
+							success:function(res){
+								console.log(res)
+							}
+						})	
                         wx.showModal({
                             title: '提示',
                             content: res.data.msg,
@@ -1863,7 +1921,7 @@ Page({
 
                         var multihangye = name
                         var iii = data1.qualityClient == "0" ? 1 : 0
-						console.log(iii)
+                        console.log(iii)
                         if (iii == 0) {
                             that.setData({
                                 feilvType: true,
@@ -2579,7 +2637,9 @@ Page({
                                     })
                                     return
                                 }
-                                shopInput.bankCardNo = res.data.result.bank_card_number.replace(/\s/g, "")
+                                shopInput.bankCardNo = res.data.result.bank_card_number.replace(/\s/g, "").replace(/(.{4})/g, "$1 ");
+
+
                                 var hang = that.data.hangbie
                                 for (let i = 0; i < hang.length; i++) {
                                     if (hang[i].text.indexOf(res.data.result.bank_name) > -1) {
@@ -2823,11 +2883,11 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide: function() {
-		if (!this.data.orderNumber) {
-			wx.setStorageSync('shopInput', this.data.shopInput)
-			wx.setStorageSync('multihangye', this.data.multihangye)
-			wx.setStorageSync('multiaddress', this.data.multiaddress)
-		}
+        if (!this.data.orderNumber) {
+            wx.setStorageSync('shopInput', this.data.shopInput)
+            wx.setStorageSync('multihangye', this.data.multihangye)
+            wx.setStorageSync('multiaddress', this.data.multiaddress)
+        }
     },
 
     /**

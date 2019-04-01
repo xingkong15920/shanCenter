@@ -229,17 +229,7 @@ Page({
 		var saleInfo = wx.getStorageSync('saleInfo')
 		wx.getSetting({
 			success: function (res) {
-				if (saleInfo.productSwitch == null || saleInfo.productSwitchD1 == null) {
-					wx.showToast({
-						title: '您的默认进件通道没有设置进件费率',
-						icon: 'none',
-						duration: 2000
-					})
-					return
-				}
-				wx.navigateTo({
-					url: '../merchants/register/index',
-				})
+				
 				var statu = res.authSetting;
 				if (!statu['scope.userLocation']) {
 					wx.showModal({
@@ -283,6 +273,18 @@ Page({
 								})
 							}
 						}
+					})
+				}else{
+					if (saleInfo.productSwitch == null || saleInfo.productSwitchD1 == null) {
+						wx.showToast({
+							title: '您的默认进件通道没有设置进件费率',
+							icon: 'none',
+							duration: 2000
+						})
+						return
+					}
+					wx.navigateTo({
+						url: '../merchants/register/index',
 					})
 				}
 			},

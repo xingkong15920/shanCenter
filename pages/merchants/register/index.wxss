@@ -259,18 +259,27 @@ button.bodyBtn{
     justify-content: center;
     align-items: center;
     width: calc(50% - 5px);
-    height: 125px;
+    height: 145px;
     margin-bottom: 10px;
-    border: 1px solid #eee;
+   
     border-radius: 4px;
     overflow: hidden;
+	flex-direction: column
 }
-
+.texTips{
+	border-top:1px solid #eee;
+	color:rgb(148, 143, 143);
+	width:100%;
+	text-align:center;
+	line-height:25px;
+	font-size:14px;
+}
 .picList:nth-child(odd) {
     float: right;
 }
 
 .picList image {
-    width: 100%;
+    width: 98%;
     height: 100%;
+	border: 1px solid #eee;
 }

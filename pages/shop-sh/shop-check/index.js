@@ -9,6 +9,7 @@ Page({
      */
     data: {
         shopData: shopData.shopData,
+		shopData1: shopData.shopData1,
         shopInput: {},
         setp0: [],
         statusTips: '',
@@ -76,6 +77,9 @@ Page({
 		var that = this
         this.verify(this.data.step0)
         console.log(this.verify(this.data.step0))
+		wx.showLoading({
+			title: '',
+		})
         if (this.verify(this.data.step0)) {
             if (that.data.add == false) {
                 var addData = new Object()
@@ -83,9 +87,9 @@ Page({
                 addData.merchantNumber = this.data.saleNumber
                 addData.adminName = shop.BLname
                 addData.shopName = shop.merchantName
-                addData.province = this.data.multiaddress.split('-')[0]
-                addData.city = this.data.multiaddress.split('-')[1]
-                addData.area = this.data.multiaddress.split('-')[2]
+				addData.province = shop.region.split('-')[0]
+				addData.city = shop.region.split('-')[1]
+				addData.area = shop.region.split('-')[2]
                 addData.storePhone = shop.BLnumber
                 addData.address = shop.address
                 if (shop.BLaddress) {
@@ -102,6 +106,7 @@ Page({
                         'content-type': 'application/x-www-form-urlencoded' // 默认值
                     },
                     success: function(res) {
+						wx.hideLoading()
                         if (res.data.code == 1000) {
                             wx.showToast({
                                 title: res.data.msg,
@@ -130,9 +135,9 @@ Page({
 				// addData.adminName = shop.BLname
 				addData.shopName = shop.merchantName
 				addData.shopNumber = shop.shopNumber
-				addData.province = this.data.multiaddress.split('-')[0]
-				addData.city = this.data.multiaddress.split('-')[1]
-				addData.area = this.data.multiaddress.split('-')[2]
+				addData.province = shop.region.split('-')[0]
+				addData.city = shop.region.split('-')[1]
+				addData.area = shop.region.split('-')[2]
 				addData.storePhone = shop.BLnumber
 				addData.address = shop.address
 				if (shop.BLaddress) {
@@ -149,6 +154,7 @@ Page({
 						'content-type': 'application/x-www-form-urlencoded' // 默认值
 					},
 					success: function (res) {
+						wx.hideLoading()
 						if (res.data.code == 1000) {
 							wx.showToast({
 								title: res.data.msg,
@@ -178,12 +184,17 @@ Page({
     verify: function(data) {
         var veNum = 0
         var that = this
+		console.log(data)
         var shopInput = that.data.shopInput
         if (that.data.add == true) {
             for (let i = 0; i < data.length; i++) {
                 if (data[i] == 'BLname') {
                     data.splice(data[i], 1)
                 }
+				if (data[i] == "BLnumber") {
+					data.splice(data[i], 1)
+				}
+				
             }
         }
         for (var i = 0; i < data.length; i++) {
@@ -259,9 +270,9 @@ Page({
             var addresslist1 = [],
                 addresslistc1 = []
             var num1 = e.detail.value
-            for (let i = 0; i < that.data.proCode[num].children[that.data.citycode].children.length; i++) {
-                addresslist1.push(that.data.proCode[num].children[that.data.citycode].children[i].text)
-                addresslistc1.push(that.data.proCode[num].children[that.data.citycode].children[i].value)
+            for (let i = 0; i < that.data.proCode[num].children[0].children.length; i++) {
+                addresslist1.push(that.data.proCode[num].children[0].children[i].text)
+                addresslistc1.push(that.data.proCode[num].children[0].children[i].value)
             }
             provincelist[2] = addresslist1
             provincelistc[2] = addresslistc1
@@ -432,6 +443,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+		
         var saleInfo = wx.getStorageSync('shopInfo')
         console.log(saleInfo)
         this.setData({
@@ -442,96 +454,175 @@ Page({
         console.log(shopnumber)
         var shopNumber = this.data.shopNumber
         var shopData = this.data.shopData[0].stepsCon[0].basicsetup
-        console.log(shopData)
+		var shopData1 = this.data.shopData1[0].stepsCon[0].basicsetup
+        console.log(shopData1)
         var step0 = [],
             step1 = []
-        for (let i = 0; i < shopData.length - 1; i++) {
+        for (let i = 0; i < shopData.length; i++) {
             step0.push(shopData[i].id)
         }
+		for (let i = 0; i < shopData1.length ; i++) {
+			step0.push(shopData1[i].id)
+		}
         this.setData({
             step0: step0,
             step1: step1,
             shopNumber: shopnumber
         })
         var that = this
-        if (shopnumber) {
-            wx.request({
-                url: that.data.server + 'merchantManage/getShopInfo',
-                method: 'post',
-                data: {
-                    shopNumber: shopnumber,
-                },
-                dataType: 'json',
-                header: {
-                    'content-type': 'application/json' // 默认值
-                },
-                success: function(res) {
-                    console.log(res)
-                    var data = res.data.data
-                    var shopInput = that.data.shopInput
-                    // shopInput.BLname = data.adminName
-                    shopInput.merchantName = data.shopName
-					shopInput.shopNumber = data.shopNumber
-                    shopInput.region = data.province + '-' + data.city + '-' + data.area
-                    var multiaddress = that.data.multiaddress
-                    multiaddress = data.province + '-' + data.city + '-' + data.area
-                    shopInput.BLnumber = data.storePhone
-                    shopInput.address = data.address
-                    that.setData({
-                        shopInput: shopInput,
-                        multiaddress: multiaddress,
-                        add: true
-                    })
-                }
-            })
-        }
-        wx.request({
-            url: that.data.server + 'merchantRegister/getAreajson',
-            method: 'post',
-            dataType: 'json',
-            header: {
-                'content-type': 'application/json' // 默认值
-            },
-            success: function(res) {
-                if (res.data.code == '1000') {
-                    console.log(JSON.parse(res.data.data))
-                    that.setData({
-                        proCode: JSON.parse(res.data.data)
-                    })
-                    var provincelist = that.data.provincelist
-                    var provincelistc = that.data.provincelistc
-                    var addresslist = [],
-                        addresslistc = []
-                    for (let i = 0; i < that.data.proCode.length; i++) {
-                        addresslist.push(that.data.proCode[i].text)
-                        addresslistc.push(that.data.proCode[i].value)
-                    }
-                    provincelist.push(addresslist)
-                    provincelistc.push(addresslistc)
+		wx.request({
+			url: that.data.server + 'merchantRegister/getAreajson',
+			method: 'post',
+			dataType: 'json',
+			header: {
+				'content-type': 'application/json' // 默认值
+			},
+			success: function (res) {
+				if (res.data.code == '1000') {
+					console.log(JSON.parse(res.data.data))
+					that.setData({
+						proCode: JSON.parse(res.data.data)
+					})
+					var provincelist = that.data.provincelist
+					var provincelistc = that.data.provincelistc
+					var addresslist = [],
+						addresslistc = []
+					for (let i = 0; i < that.data.proCode.length; i++) {
+						addresslist.push(that.data.proCode[i].text)
+						addresslistc.push(that.data.proCode[i].value)
+					}
+					provincelist.push(addresslist)
+					provincelistc.push(addresslistc)
 
-                    var addresslist1 = [],
-                        addresslistc1 = []
-                    for (let i = 0; i < that.data.proCode[0].children.length; i++) {
-                        addresslist1.push(that.data.proCode[0].children[i].text)
-                        addresslistc1.push(that.data.proCode[0].children[i].value)
-                    }
-                    provincelist.push(addresslist1)
-                    provincelistc.push(addresslistc1)
-                    var addresslist2 = [],
-                        addresslistc2 = []
-                    for (let i = 0; i < that.data.proCode[0].children[0].children.length; i++) {
-                        addresslist2.push(that.data.proCode[0].children[0].children[i].text)
-                        addresslistc2.push(that.data.proCode[0].children[0].children[i].value)
-                    }
-                    provincelist.push(addresslist2)
-                    provincelistc.push(addresslistc2)
-                    that.setData({
-                        provincelist: provincelist,
-                        provincelistc: provincelistc
-                    })
-                }
-            }
-        })
+					var addresslist1 = [],
+						addresslistc1 = []
+					for (let i = 0; i < that.data.proCode[0].children.length; i++) {
+						addresslist1.push(that.data.proCode[0].children[i].text)
+						addresslistc1.push(that.data.proCode[0].children[i].value)
+					}
+					provincelist.push(addresslist1)
+					provincelistc.push(addresslistc1)
+					var addresslist2 = [],
+						addresslistc2 = []
+					for (let i = 0; i < that.data.proCode[0].children[0].children.length; i++) {
+						addresslist2.push(that.data.proCode[0].children[0].children[i].text)
+						addresslistc2.push(that.data.proCode[0].children[0].children[i].value)
+					}
+					provincelist.push(addresslist2)
+					provincelistc.push(addresslistc2)
+					that.setData({
+						provincelist: provincelist,
+						provincelistc: provincelistc
+					})
+				}
+				if (shopnumber) {
+					wx.request({
+						url: that.data.server + 'merchantManage/getShopInfo',
+						method: 'post',
+						data: {
+							shopNumber: shopnumber,
+						},
+						dataType: 'json',
+						header: {
+							'content-type': 'application/json' // 默认值
+						},
+						success: function (res) {
+							console.log(res)
+							var data = res.data.data
+							var shopInput = that.data.shopInput
+							// shopInput.BLname = data.adminName
+							shopInput.merchantName = data.shopName
+							shopInput.shopNumber = data.shopNumber
+							shopInput.region = data.province + '-' + data.city + '-' + data.area
+							var multiaddress = that.data.multiaddress
+							
+							var pv, ct, ae;
+							var pList = that.data.proCode
+							console.log(pList)
+							for (let i = 0; i < pList.length; i++) {
+								if (pList[i].value == data.province) {
+									pv = pList[i].text
+									for (let k = 0; k < pList[i].children.length; k++) {
+										if (pList[i].children[k].value == data.city) {
+											ct = pList[i].children[k].text
+											var cccList = pList[i].children[k].children
+											for (let m = 0; m < cccList.length; m++) {
+												if (cccList[m].value == data.area) {
+													ae = cccList[m].text
+												}
+											}
+										}
+									}
+								}
+							}
+							console.log(pv, ct, ae)
+							multiaddress = pv + '-' + ct + '-' + ae
+							shopInput.BLnumber = data.storePhone
+							shopInput.address = data.address
+							shopInput.BLaddress = data.remark1
+							that.setData({
+								shopInput: shopInput,
+								multiaddress: multiaddress,
+								add: true
+							})
+						}
+					})
+				}
+			}
+		})
+        // if (shopnumber) {
+        //     wx.request({
+        //         url: that.data.server + 'merchantManage/getShopInfo',
+        //         method: 'post',
+        //         data: {
+        //             shopNumber: shopnumber,
+        //         },
+        //         dataType: 'json',
+        //         header: {
+        //             'content-type': 'application/json' // 默认值
+        //         },
+        //         success: function(res) {
+        //             console.log(res)
+        //             var data = res.data.data
+        //             var shopInput = that.data.shopInput
+        //             // shopInput.BLname = data.adminName
+        //             shopInput.merchantName = data.shopName
+		// 			shopInput.shopNumber = data.shopNumber
+        //             shopInput.region = data.province + '-' + data.city + '-' + data.area
+        //             var multiaddress = that.data.multiaddress
+        //             multiaddress = data.province + '-' + data.city + '-' + data.area
+		// 			var pv,ct,ae;
+		// 			var pList = that.data.proCode
+		// 			console.log(pList)
+		// 			for(let i = 0 ; i < pList.length;i++){
+		// 				if(pList[i].value == data.province){
+		// 					pv = pList[i].text
+		// 					for(let k = 0 ; k < pList[i].children.length;k++){
+		// 						if(pList[i].children[k].value == data.city){
+		// 							ct = pList[i].children[k].text
+		// 							var cccList = pList[i].children[k].children
+		// 							for(let m = 0 ; m < cccList.length;m++){
+		// 								if(cccList[m].value == data.area){
+		// 									ae = cccList[m].text
+		// 								}
+		// 							}
+		// 						}
+		// 					}
+		// 				}
+		// 			}
+		// 			console.log(pv,ct,ae)
+        //             shopInput.BLnumber = data.storePhone
+        //             shopInput.address = data.address
+		// 			shopInput.BLaddress = data.remark1
+        //             that.setData({
+        //                 shopInput: shopInput,
+        //                 multiaddress: multiaddress,
+        //                 add: true
+        //             })
+        //         }
+        //     })
+        // }
+        
         // wx.request({
         //     url: that.data.server + 'merchantRegister/selectArea',
         //     method: 'post',

@@ -63,6 +63,9 @@ Page({
 		}
 	},
     forget: function() {
+		wx.showToast({
+			title: '暂未开放，请联系管理员',
+		})
         this.setData({
             login: 2,
 			btn:'去登陆'
