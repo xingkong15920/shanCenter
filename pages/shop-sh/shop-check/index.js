@@ -77,9 +77,7 @@ Page({
 		var that = this
         this.verify(this.data.step0)
         console.log(this.verify(this.data.step0))
-		wx.showLoading({
-			title: '',
-		})
+		
         if (this.verify(this.data.step0)) {
             if (that.data.add == false) {
                 var addData = new Object()
@@ -97,6 +95,9 @@ Page({
                 } else {
                     addData.remark1 = ''
                 }
+				wx.showLoading({
+					title: '',
+				})
                 wx.request({
                     url: this.data.server + 'store/addShop',
                     method: 'post',
@@ -145,6 +146,9 @@ Page({
 				} else {
 					addData.remark1 = ''
 				}
+				wx.showLoading({
+					title: '',
+				})
 				wx.request({
 					url: this.data.server + 'store/modifyShop',
 					method: 'post',
