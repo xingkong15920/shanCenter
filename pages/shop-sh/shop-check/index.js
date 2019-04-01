@@ -189,6 +189,12 @@ Page({
         var veNum = 0
         var that = this
 		console.log(data)
+		for(let i = 0 ; i < data.length;i++){
+			if (data[i] == 'BLaddress'){
+				data.splice(i,1)
+			}
+		}
+		console.log(data)
         var shopInput = that.data.shopInput
         if (that.data.add == true) {
             for (let i = 0; i < data.length; i++) {
