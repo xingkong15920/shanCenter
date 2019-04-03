@@ -1982,6 +1982,7 @@ Page({
                             data3.merchantType = 2
                             break;
                     }
+
                     var rate = data3.rate * 100
                     console.log(rate)
                     data3.rate1 = rate.toFixed(2) + '%'
@@ -2071,7 +2072,8 @@ Page({
                     that.setData({
                         shopInput: data3,
                         multihangye: multihangye,
-                        multiaddress: multiaddress
+                        multiaddress: multiaddress,
+						qualityClient: data3.qualityClient
                     })
                 }
             })
