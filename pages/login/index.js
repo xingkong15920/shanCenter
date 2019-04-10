@@ -266,6 +266,7 @@ Page({
 					login: that.data.shoploginName,
 					loginPass: that.data.shoploginPass,
 					loginClass: '3',
+                    institutionNumber: wx.getStorageSync('shopInfo').institutionNumber
 				},
 				header: {
 					'content-type': 'application/json' // 默认值
@@ -327,6 +328,7 @@ Page({
                     login: that.data.saleloginName,
                     loginPass: that.data.saleloginPass,
                     loginClass: '2',
+                    institutionNumber: wx.getStorageSync('shopInfo').institutionNumber
                 },
                 header: {
                     'content-type': 'application/json' // 默认值
