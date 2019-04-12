@@ -2,11 +2,11 @@
 	<view class='bg'></view>
 	<view class='top'>
 		<view class='topL fl'>
-			<view class='topA'>￥{{transicationAmount}}</view>
+			<view class='topA'>￥{{transicationAmountT}}</view>
 			<view class='topB'>今日交易金额(元)</view>
 		</view>
 		<view class='topL br fl'>
-			<view class='topA'>{{todayCount}}</view>
+			<view class='topA'>{{transactionCountT}}</view>
 			<view class='topB'>今日交易笔数</view>
 		</view>
 	</view>
@@ -22,20 +22,20 @@
 	<view class='boxA' >
 		<view class='boxA1'>
 			<view class='boxA2'>实收金额合计(元)</view>
-			<view class='boxA3'>￥{{}}</view>
+			<view class='boxA3'>￥{{transicationAmountR}}</view>
 		</view>
 		<view class='boxA1'>
 			<view class='boxA4'>
 				<view class='boxA2'>交易金额</view>
-				<view class='boxA3'>￥{{transactionAmount1}}</view>
+				<view class='boxA3'>￥{{transicationAmount}}</view>
 			</view>
 			<view class='boxA4 boxA5'>
 				<view class='boxA2'>实收金额</view>
-				<view class='boxA3'>￥{{settlementAmount}}</view>
+				<view class='boxA3'>￥{{transicationAmountR}}</view>
 			</view>
 			<view class='boxA4'>
 				<view class='boxA2'>交易笔数</view>
-				<view class='boxA3'>--</view>
+				<view class='boxA3'>{{transactionCountR}}</view>
 			</view>
 		</view>
 		<view class='boxA1'>
@@ -45,11 +45,11 @@
 			</view>
 			<view class='boxA4 boxA5'>
 				<view class='boxA2'>退款金额</view>
-				<view class='boxA3'>￥{{transactionAmount}}</view>
+				<view class='boxA3'>￥{{transicationAmountB}}</view>
 			</view>
 			<view class='boxA4'>
 				<view class='boxA2'>退款笔数</view>
-				<view class='boxA3'>{{transactionCount}}</view>
+				<view class='boxA3'>{{transactionCountB}}</view>
 			</view>
 		</view>
 	</view>

@@ -36,11 +36,16 @@ Page({
 		windowWidth:300,
 		lineType:0,
 		institutionNumber: '',
-		saleNumber: '',
-		transactionAmount:0,
-		transactionCount:0,
-		todayCount:0,
-		transicationAmount:0
+        saleNumber: '',
+        todayCount: 0,
+        transactionAmount: 0,
+        transicationAmountT: 0,
+        transactionCountT: 0,
+        transicationAmount: 0,
+        transicationAmountR: 0,
+        transactionCountR: 0,
+        transicationAmountB: 0,
+        transactionCountB: 0,
 	},
 	
 	onLoad: function (e) {
@@ -60,8 +65,8 @@ Page({
 		this.setData({
 			windowWidth: windowWidth
 		})
-		this.createDateListData()
-		this.getToday()
+        this.getToday()
+        this.createDateListData()
 		
 		
 		
@@ -308,7 +313,7 @@ Page({
 	getData: function () {
 		var that = this
 		wx.request({
-			url: this.data.server + 'merchantManage/getTransicationList', //仅为示例，并非真实的接口地址
+            url: this.data.server + 'merchantManage/getMerBulletinList', //仅为示例，并非真实的接口地址
 			data: {
 				merchantNumber: that.data.saleNumber,
 				startTime: that.data.startT + ' ' + '00:00:00',
@@ -318,57 +323,61 @@ Page({
 				'content-type': 'application/json' // 默认值
 			},
 			success: function (res) {
-				console.log(res.data.data.dayTransicationList)
+                console.log(res.data.data.transicationList)
 
 				if (res.data.code != 1000) {
 
 				} else {
 					console.log(res)
-					that.setData({
-						record: res.data.data.dayTransicationList,
-						// money: res.data.data.settlementMoney,
-						// shop: res.data.data.shopCount,
+                    that.setData({
+                        transicationAmount: res.data.data.transicationMap.transactionAmount,
+                        transicationAmountR: res.data.data.transicationMap.realAmount,
+                        transactionCountR: res.data.data.transicationMap.transactionCount,
+                        transicationAmountB: res.data.data.transicationMap.refundAmount,
+                        transactionCountB: res.data.data.transicationMap.refundCount,
+                        shopPoundage: res.data.data.transicationMap.shopPoundage,
+                        record: res.data.data.transicationList,
 					})
 					that.updateData()
 				}
 			}
 		})
-	},
-	getToday:function(){
-		var that = this
-		wx.request({
-			url: this.data.server + 'merchantManage/getTransicationList', //仅为示例，并非真实的接口地址
-			data: {
-				merchantNumber: that.data.saleNumber,
-				startTime: that.data.startT + ' ' + '00:00:00',
-				endTime: that.data.startT + ' ' + '23:59:59'
-			},
-			header: {
-				'content-type': 'application/json' // 默认值
-			},
-			success: function (res) {
-				console.log(res)
+    },
+    getToday: function () {
+        var that = this
+        wx.request({
+            url: this.data.server + 'merchantManage/getTransicationToday', //仅为示例，并非真实的接口地址
+            data: {
+                merchantNumber: that.data.saleNumber,
+                startTime: that.data.startT + ' ' + '00:00:00',
+                endTime: that.data.startT + ' ' + '23:59:59'
+            },
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function (res) {
+                console.log(res)
 
-				if (res.data.code != 1000) {
+                if (res.data.code != 1000) {
 
-				} else {
-					// console.log(res.data.data.newShopList[0])
-					that.setData({
-						// record: res.data.data.newShopList,
-						transactionAmount: res.data.data.backOrderInfo.transactionAmount,
-						transactionCount: res.data.data.backOrderInfo.transactionCount,
-						transicationAmount: res.data.data.dayTransicationList[0].transicationAmount,
-						transactionAmount1: res.data.data.transicationInfo.transactionAmount,
-						settlementAmount: res.data.data.transicationInfo.settlementAmount,
-						transactionCount: res.data.data.transicationInfo.transactionCount,
-						shopPoundage: res.data.data.transicationInfo.shopPoundage,
-						record: res.data.data.dayTransicationList,
-					})
-					that.draw1()
-				}
-			}
-		})
-	},
+                } else {
+                    console.log(res.data.data.transicationList)
+                    that.setData({
+                        transicationAmountT: res.data.data.transicationMap.realAmount,
+                        transactionCountT: res.data.data.transicationMap.transactionCount,
+                        transicationAmount: res.data.data.transicationMap.transactionAmount,
+                        transicationAmountR: res.data.data.transicationMap.realAmount,
+                        transactionCountR: res.data.data.transicationMap.transactionCount,
+                        transicationAmountB: res.data.data.transicationMap.refundAmount,
+                        transactionCountB: res.data.data.transicationMap.refundCount,
+                        shopPoundage: res.data.data.transicationMap.shopPoundage,
+                        record: res.data.data.transicationList,
+                    })
+                    that.draw1()
+                }
+            }
+        })
+    },
 	day:function(){
 		this.setData({
 			type: 0,
@@ -429,6 +438,7 @@ Page({
 		console.log(this.data.record)
 		this.createDateListData();
 		var simulationData = this.createSimulationData();
+        console.log(simulationData)
 		lineChart = new wxCharts({
 			canvasId: 'lineCanvas',
 			type: 'line',
@@ -476,18 +486,25 @@ Page({
 		var data = [];
 		var record = this.data.record
 		console.log(record)
+        // if(record.length <= 0){
+        //     return {
+        //         categories: ['2019-04-03'],
+        //         data:[0]
+        //     }
+        // }
 		if(this.data.lineType == 0){
 			if (record.length <= 8) {
 				for (let i = 0; i < record.length; i++) {
-					categories.push(record[i].date);
-					data.push(record[i].transicationAmount + 100);
-				}
+                    categories.push(record[i].date);
+                    data.push(parseFloat(record[i].transactionAmount));
+                }
+                console.log(record)
 			} else {
 				var num = Math.floor(record.length / 7)
 				console.log(num)
 				for (let j = 0; j < 7; j++) {
 					categories.push(record[j * num].date);
-					data.push(record[j * num].transicationAmount + 100);
+					data.push(record[j * num].transicationAmount);
 				}
 			}
 		} else if (this.data.lineType == 1){
@@ -515,6 +532,7 @@ Page({
 	},
 	updateData: function () {
 		var simulationData = this.createSimulationData();
+        console.log(simulationData)
 		var series = [{
 			name: ' ',
 			data: simulationData.data,

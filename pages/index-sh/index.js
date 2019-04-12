@@ -81,7 +81,7 @@ Page({
 		var that = this
 		var sList = that.data.sList
 		wx.request({
-			url: this.data.server + 'merchantManage/getTransicationList', //仅为示例，并非真实的接口地址
+            url: this.data.server + 'merchantManage/getTransicationToday', //仅为示例，并非真实的接口地址
 			data: {
 				merchantNumber: that.data.saleNumber,
 				startTime: that.data.startT + ' ' + '00:00:00',
@@ -97,15 +97,15 @@ Page({
 
 				} else {
 					// console.log(res.data.data.newShopList[0])
-					console.log(res.data.data.shopCount)
+                    console.log(res.data.data.shopCount)
 					for (var i = 0; i < sList.length;i++){
 						if (sList[i].tap == 'shop'){
-							sList[i].num = res.data.data.shopCount
+                            sList[i].num = res.data.data.shopCount
 						}
-					}
+                    }
 					that.setData({
-						"moneyD": res.data.data.dayTransicationList[0].transicationAmount,
-						"shopD": res.data.data.transicationInfo.transactionCount,
+                        "moneyD": res.data.data.transicationMap.transactionAmount,
+                        "shopD": res.data.data.transicationMap.transactionCount,
 						sList: sList
 					})
 					

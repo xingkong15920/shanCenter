@@ -3,8 +3,10 @@
     <view class="body">
         <view class="Top">
             <view class="orderstatus iconfont icon-zhifuchenggong {{batchInfo.orderState==1?'':'hide'}}"></view>
-            <view class="orderstatus iconfont icon-yudingshibai {{batchInfo.orderState==2?'':'hide'}}"></view>
-            <view class="orderstatus iconfont icon-tuikuan {{batchInfo.orderState==3?'':'hide'}}"></view>
+            <view class="orderstatus iconfont icon-zhifuchenggong {{batchInfo.orderState==2?'':'hide'}}"></view>
+            <view class="orderstatus iconfont icon-yudingshibai {{batchInfo.orderState==3?'':'hide'}}"></view>
+            <view class="orderstatus iconfont icon-tuikuan {{batchInfo.orderState==4?'':'hide'}}"></view>
+            <view class="orderstatus iconfont icon-tuikuan {{batchInfo.orderState==5?'':'hide'}}"></view>
             <view class="price">¥
                 <view class="priceC">{{batchInfo.transactionAmount}}</view>
             </view>
@@ -14,6 +16,10 @@
                 <view class="detailsLi">
                     <view class="detailsLiL">支付状态：</view>
                     <view class="detailsLiR">{{orderstatus[batchInfo.orderState]}}</view>
+                </view>
+                <view class="detailsLi">
+                    <view class="detailsLiL">可退金额：</view>
+                    <view class="detailsLiR">¥ {{batchInfo.ketuiAmount}}</view>
                 </view>
                 <view class="detailsLi">
                     <view class="detailsLiL">收款门店：</view>
@@ -37,10 +43,26 @@
                 </view>
             </view>
         </view>
-        <view class="detailsBtn tuikuan {{batchInfo.orderState==2?'show':'hide'}}" bindtap="synchronous">同步</view>
-        <view class="detailsBtn tuikuan {{batchInfo.orderState==1?'show':'hide'}}" bindtap="passwordInput">退款</view>
-        <passwordInput wx:if="{{showPassword}}" bindhidePassBord="hidePassBord" bindvalueSix="valueSix" input_value="{{inputData.input_value}}" value_length="{{inputData.value_length}}" isNext="{{inputData.isNext}}" get_focus="{{inputData.get_focus}}" focus_class="{{inputData.focus_class}}"
-            value_num="{{inputData.value_num}}" height="{{inputData.height}}" width="{{inputData.width}}" see="{{inputData.see}}" interval="{{inputData.interval}}">
-        </passwordInput>
+        <view class="detailsBtnBody">
+            <!-- <view class="detailsBtn tuikuan {{batchInfo.orderState==2?'show':'hide'}}" bindtap="synchronous">同步</view> -->
+            <view class="detailsBtn tuikuan {{detailsBtnstate}}" bindtap="refund">退款</view>
+        </view>
+        <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+        <!--弹窗-->
+        <view class="modal-dialog" wx:if="{{showModal}}">
+            <view class="modal-title">退 款</view>
+            <view class="modal-content">
+                <view class="modal-input">
+                    <input placeholder-class="input-holder" type="digit" bindinput="refundAInput" class="input" cursor-spacing="50" placeholder="请输入退款金额" value="{{refundAmount}}"></input>
+                </view>
+                <view class="modal-input">
+                    <input placeholder-class="input-holder" type="password" bindinput="passWdInput" class="input" focus="true" cursor-spacing="50" placeholder="请输入退款密码"></input>
+                </view>
+            </view>
+            <view class="modal-footer">
+                <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+                <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+            </view>
+        </view>
     </view>
 </view>
