@@ -20,7 +20,7 @@ Page({
         //二维码信息
         deviceCode: '',
         code_w: code_w,
-		code_ww: code_ww,
+        code_ww: code_ww,
         //编辑店员信息
         shopEname: '',
         shopEnum: '',
@@ -49,8 +49,8 @@ Page({
         server: config.server,
         pageNum: 1,
         limit: 10,
-		codeImg:'',
-		isBind:false
+        codeImg: '',
+        isBind: false
     },
     onLoad: function() {
         var that = this
@@ -105,14 +105,14 @@ Page({
             colorLight: "white",
             correctLevel: QRCode.CorrectLevel.H,
         });
-		qrcode1 = new QRCode('canvas1', {
-			//usingIn: this,
-			
-			text: that.data.codeImg,
-			colorDark: "black",
-			colorLight: "white",
-			correctLevel: QRCode.CorrectLevel.H,
-		});
+        qrcode1 = new QRCode('canvas1', {
+            //usingIn: this,
+
+            text: that.data.codeImg,
+            colorDark: "black",
+            colorLight: "white",
+            correctLevel: QRCode.CorrectLevel.H,
+        });
     },
     onShow: function() {
         this.getData()
@@ -171,14 +171,14 @@ Page({
             },
             success: function(res) {
                 if (res.data.code != 1000) {
-					wx.showToast({
-						title: '查询为空！',
-						icon: 'none'
-					})
-					that.setData({
-						requestBreak: false,
-						shopList: [],
-					})
+                    wx.showToast({
+                        title: '查询为空！',
+                        icon: 'none'
+                    })
+                    that.setData({
+                        requestBreak: false,
+                        shopList: [],
+                    })
                 } else {
                     if (!res.data.data) {
                         wx.showToast({
@@ -300,10 +300,10 @@ Page({
                     shopList: [],
                 })
                 if (res.data.code != 1000) {
-					wx.hideLoading()
-					wx.showToast({
-						title:res.data.msg,
-					})
+                    wx.hideLoading()
+                    wx.showToast({
+                        title: res.data.msg,
+                    })
                 } else {
                     wx.hideLoading()
                     wx.showToast({
@@ -394,125 +394,125 @@ Page({
 
     //弹窗-微信推送
     editWXpush: function(e) {
-		this.getName(e.currentTarget.dataset.id)
-		// isBind
+        this.getName(e.currentTarget.dataset.id)
+        // isBind
         var that = this
         var id = e.currentTarget.dataset.id;
-		that.setData({
+        that.setData({
             showModal3: true,
             id: id,
-			codeImg:'http://user.51shanhe.com/oneCode/getCode.html?clerkNumber=' + id
+            codeImg: 'http://user.51shanhe.com/oneCode/getCode.html?clerkNumber=' + id
         })
-		setTimeout(function () {
-			qrcode1.makeCode(that.data.codeImg)
-		}, 10)
+        setTimeout(function() {
+            qrcode1.makeCode(that.data.codeImg)
+        }, 10)
     },
-	getName:function(e){
-		var that = this
-		wx.request({
-			url: that.data.server +'clerk/getClerkInfo',
-			data: {
-				clerkNumber: e,
-			},
-			method: "POST",
-			header: {
-				'content-type': 'application/x-www-form-urlencoded' // 默认值
-			},
-			success: function (res) {
-				console.log(res)
-				if (res.data.data.code == 1000 || res.data.data.openId == '未绑定'){
-					that.setData({
-						isBind: false,
-						name: '',
-						time: ''
-					})
-					setTimeout(function () {
-						qrcode1.makeCode(that.data.codeImg)
-					}, 10)
-				}else{
-					that.setData({
-						isBind: true,
-						name: res.data.data.nickName,
-						time: res.data.data.bindTime
-					})
-				}
+    getName: function(e) {
+        var that = this
+        wx.request({
+            url: that.data.server + 'clerk/getClerkInfo',
+            data: {
+                clerkNumber: e,
+            },
+            method: "POST",
+            header: {
+                'content-type': 'application/x-www-form-urlencoded' // 默认值
+            },
+            success: function(res) {
+                console.log(res)
+                if (res.data.data.code == 1000 || res.data.data.openId == '未绑定') {
+                    that.setData({
+                        isBind: false,
+                        name: '',
+                        time: ''
+                    })
+                    setTimeout(function() {
+                        qrcode1.makeCode(that.data.codeImg)
+                    }, 10)
+                } else {
+                    that.setData({
+                        isBind: true,
+                        name: res.data.data.nickName,
+                        time: res.data.data.bindTime
+                    })
+                }
 
-				
-			}
-		})
-	},
-	unBind:function(e){
-		console.log(e)
-		var that = this
-		wx.showModal({
-			title: '提示',
-			content: '确定要解绑微信推送吗',
-			success(res) {
-				if (res.confirm) {
-					
-					wx.request({
-						url: that.data.server +'/clerk/relievePushBind',
-						data: {
-							clerkNumber: e.currentTarget.dataset.iid,
-						},
-						method: "POST",
-						header: {
-							'content-type': 'application/x-www-form-urlencoded' // 默认值
-						},
-						success: function (res) {
-							if (res.data.code == 1000) {
-								wx.showToast({
-									title: '解绑成功',
-									icon: 'none'
-								})
-							}
-							that.getName(e.currentTarget.dataset.iid)
-						}
-					})
-				} else if (res.cancel) {
-					console.log('用户点击取消')
-				}
-			}
-		})
-		
-	},
+
+            }
+        })
+    },
+    unBind: function(e) {
+        console.log(e)
+        var that = this
+        wx.showModal({
+            title: '提示',
+            content: '确定要解绑微信推送吗',
+            success(res) {
+                if (res.confirm) {
+
+                    wx.request({
+                        url: that.data.server + '/clerk/relievePushBind',
+                        data: {
+                            clerkNumber: e.currentTarget.dataset.iid,
+                        },
+                        method: "POST",
+                        header: {
+                            'content-type': 'application/x-www-form-urlencoded' // 默认值
+                        },
+                        success: function(res) {
+                            if (res.data.code == 1000) {
+                                wx.showToast({
+                                    title: '解绑成功',
+                                    icon: 'none'
+                                })
+                            }
+                            that.getName(e.currentTarget.dataset.iid)
+                        }
+                    })
+                } else if (res.cancel) {
+                    console.log('用户点击取消')
+                }
+            }
+        })
+
+    },
     //弹窗-修改密码
     editPass: function(e) {
-		console.log(e)
+        console.log(e)
         var that = this
         var id = e.currentTarget.dataset.id;
-		wx.request({
-			url: that.data.server + 'clerk/getClerkQrcode', //仅为示例，并非真实的接口地址
-			data: {
-				clerkNumber: clerkNumber,
-				deletionFlag: 1,
-				merchantNumber: that.data.merchantNumber,
-				shopName: e.currentTarget.dataset.shopname,
-				shopNumber: e.currentTarget.dataset.shopnumber,
-			},
-			header: {
-				'content-type': 'application/json' // 默认值
-			},
-			success: function (res) {
-				if (res.data.code != 1000) {
-					wx.showToast({
-						title: res.data.msg,
-						icon: 'none'
-					})
-				} else {
-					wx.hideLoading()
-					that.setData({
-						shopList: [],
-					})
-					that.getData()
-				}
-			}
-		})
+        wx.request({
+            url: that.data.server + 'clerk/getClerkQrcode', //仅为示例，并非真实的接口地址
+            data: {
+                clerkNumber: clerkNumber,
+                deletionFlag: 1,
+                merchantNumber: that.data.merchantNumber,
+                shopName: e.currentTarget.dataset.shopname,
+                shopNumber: e.currentTarget.dataset.shopnumber,
+            },
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function(res) {
+                if (res.data.code != 1000) {
+                    wx.showToast({
+                        title: res.data.msg,
+                        icon: 'none'
+                    })
+                } else {
+                    wx.hideLoading()
+                    that.setData({
+                        shopList: [],
+                    })
+                    that.getData()
+                }
+            }
+        })
         this.setData({
             showModal4: true,
             id: id,
-			shopN:e.currentTarget.dataset.shopname,
-			shopM: e.currentTarget.dataset.shopnumber,
+            shopN: e.currentTarget.dataset.shopname,
+            shopM: e.currentTarget.dataset.shopnumber,
         })
     },
     //弹窗-一码付
@@ -521,12 +521,36 @@ Page({
         var id = e.currentTarget.dataset.id;
         var qrcodeLink = e.currentTarget.dataset.qrcode;
         var deviceCode = qrcodeLink.split('outTradeNo=')[1]
+        wx.request({
+            url: that.data.server + 'clerk/getClerkQrcode', //仅为示例，并非真实的接口地址
+            data: {
+                clerkNumber: id,
+                merchantNumber: that.data.merchantNumber,
+            },
+            header: {
+                'content-type': 'application/json' // 默认值
+            },
+            success: function(data) {
+                console.log(data)
+                if (data.data.code != 1000) {
+                    wx.showToast({
+                        title: data.data.msg,
+                        icon: 'none'
+                    })
+                    return
+
+                }
+                that.setData({
+                    codeImg: data.data.data,
+                    showModal5: true,
+                    id: id,
+                })
+            }
+        })
         // console.log(deviceCode)
         // this.setData({
-        //     showModal5: true,
-        //     id: id,
-        //     paymentCode: qrcodeLink,
-        //     deviceCode: deviceCode
+
+
         // })
         // setTimeout(function() {
         //     qrcode.makeCode(that.data.paymentCode)
@@ -535,7 +559,7 @@ Page({
     },
     //弹窗-删除
     editDel: function(e) {
-		console.log(e)
+        console.log(e)
         var that = this
         var clerkName = e.currentTarget.dataset.name;
         var clerkNumber = e.currentTarget.dataset.id;
@@ -554,19 +578,19 @@ Page({
                         data: {
                             clerkNumber: clerkNumber,
                             deletionFlag: 1,
-							merchantNumber: that.data.merchantNumber,
-							shopName: e.currentTarget.dataset.shopname,
-							shopNumber: e.currentTarget.dataset.shopnumber,
+                            merchantNumber: that.data.merchantNumber,
+                            shopName: e.currentTarget.dataset.shopname,
+                            shopNumber: e.currentTarget.dataset.shopnumber,
                         },
                         header: {
                             'content-type': 'application/json' // 默认值
                         },
                         success: function(res) {
                             if (res.data.code != 1000) {
-								wx.showToast({
-									title:res.data.msg,
-									icon:'none'
-								})
+                                wx.showToast({
+                                    title: res.data.msg,
+                                    icon: 'none'
+                                })
                             } else {
                                 wx.hideLoading()
                                 that.setData({
@@ -612,7 +636,7 @@ Page({
     },
     //对话框确认按钮点击事件
     onConfirm: function(e) {
-		console.log(e)
+        console.log(e)
         var that = this
         var shopEdit = this.data.shopEdit
         var status = e.target.dataset.status
@@ -665,20 +689,20 @@ Page({
                     data: {
                         clerkNumber: clerkNumber,
                         password: shopEdit.password,
-						merchantNumber: that.data.merchantNumber,
-						shopName : that.data.shopN,
-						shopNumber: that.data.shopM,
-						deletionFlag: 0
+                        merchantNumber: that.data.merchantNumber,
+                        shopName: that.data.shopN,
+                        shopNumber: that.data.shopM,
+                        deletionFlag: 0
                     },
                     header: {
                         'content-type': 'application/json' // 默认值
                     },
                     success: function(res) {
                         if (res.data.code != 1000) {
-							wx.showToast({
-								title: res.data.msg,
-								icon:"none"
-							})
+                            wx.showToast({
+                                title: res.data.msg,
+                                icon: "none"
+                            })
                         } else {
                             wx.showToast({
                                 title: "修改成功"
@@ -695,12 +719,155 @@ Page({
             }
         }
         if (status == "confirm5") {
-            wx.showToast({
-                title: "一码付" + chooseShopNum,
-                icon: 'none'
-            })
+           
+			wx.openSetting({
+				success(settingdata) {
+					console.log(settingdata)
+					if (settingdata.authSetting['scope.writePhotosAlbum']) {
+						console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+						wx.showLoading()
+						wx.downloadFile({
+                            url: that.data.codeImg,
+                            success: function(res) {
+                                console.log(res);
+                                //图片保存到本地
+                                wx.saveImageToPhotosAlbum({
+                                    filePath: res.tempFilePath,
+                                    success: function(data) {
+                                        wx.showToast({
+                                            title: '保存成功',
+                                            icon: 'success',
+                                            duration: 2000
+                                        })
+                                    },
+									fail:function(){
+										wx.hideLoading()
+									}
+								})
+							}
+						})
+					} else {
+						wx.showModal({
+							title: '提示',
+							content: '没有获取到相册权限，无法保存到手机',
+							showCancel: false,
+						})
+					}
+				}
+			})
+			return
+            // wx.openSetting({
+            //     success(settingdata) {
+            //         console.log(settingdata)
+            //         if (settingdata.authSetting['scope.writePhotosAlbum']) {
+            //             console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+			// 			wx.authorize({
+			// 				scope: 'scope.writePhotosAlbum',
+			// 				success() {
+			// 					// 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+			// 					// wx.startRecord()
+			// 				}
+			// 			})
+            //             // wx.downloadFile({
+            //             //     url: that.data.codeImg,
+            //             //     success: function(res) {
+            //             //         console.log(res);
+            //             //         //图片保存到本地
+            //             //         wx.saveImageToPhotosAlbum({
+            //             //             filePath: res.tempFilePath,
+            //             //             success: function(data) {
+            //             //                 wx.showToast({
+            //             //                     title: '保存成功',
+            //             //                     icon: 'success',
+            //             //                     duration: 2000
+            //             //                 })
+            //             //             },
+            //             //             fail: function(err) {
+            //             //                 console.log(err);
+            //             //                 if (err.errMsg === "saveImageToPhotosAlbum:fail auth deny") {
+            //             //                     console.log("当初用户拒绝，再次发起授权")
+            //             //                     wx.openSetting({
+            //             //                         success(settingdata) {
+            //             //                             console.log(settingdata)
+            //             //                             if (settingdata.authSetting['scope.writePhotosAlbum']) {
+            //             //                                 console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+            //             //                             } else {
+            //             //                                 console.log('获取权限失败，给出不给权限就无法正常使用的提示')
+            //             //                             }
+            //             //                         }
+            //             //                     })
+            //             //                 }
+            //             //             },
+            //             //             complete(res) {
+            //             //                 console.log(res);
+            //             //             }
+            //             //         })
+            //             //     }
+            //             // })
+
+            //         } else {
+            //             wx.showModal({
+            //                 title: '提示',
+            //                 content: '没有获取到相册权限，无法保存到手机',
+            //                 showCancel: false,
+            //             })
+            //         }
+            //     }
+            // })
+            // return
+            // wx.downloadFile({
+            //     url: that.data.codeImg,
+            //     success: function(res) {
+            //         console.log(res);
+            //         //图片保存到本地
+            //         wx.saveImageToPhotosAlbum({
+            //             filePath: res.tempFilePath,
+            //             success: function(data) {
+            //                 wx.showToast({
+            //                     title: '保存成功',
+            //                     icon: 'success',
+            //                     duration: 2000
+            //                 })
+            //             },
+            //             fail: function(err) {
+            //                 console.log(err);
+            //                 if (err.errMsg === "saveImageToPhotosAlbum:fail auth deny") {
+            //                     console.log("当初用户拒绝，再次发起授权")
+            //                     wx.openSetting({
+            //                         success(settingdata) {
+            //                             console.log(settingdata)
+            //                             if (settingdata.authSetting['scope.writePhotosAlbum']) {
+            //                                 console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+            //                             } else {
+            //                                 console.log('获取权限失败，给出不给权限就无法正常使用的提示')
+            //                             }
+            //                         }
+            //                     })
+            //                 }
+            //             },
+            //             complete(res) {
+            //                 console.log(res);
+            //             }
+            //         })
+            //     }
+            // })
+            // wx.downloadFile({
+            // 	url: that.data.codeImg, // 仅为示例，并非真实的资源
+            // 	success(res) {
+            // 		console.log(res)
+            // 		// 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+            // 		if (res.statusCode === 200) {
+            // 			wx.playVoice({
+            // 				filePath: res.tempFilePath
+            // 			})
+            // 			wx.saveImageToPhotosAlbum({
+            // 				success(res) { }
+            // 			})
+            // 		}
+            // 	}
+            // })
         }
-        this.hideModal();
+        //this.hideModal();
     },
     //店员添加
     toassistantAdd: function(e) {
@@ -745,10 +912,10 @@ Page({
                 })
                 var data = res.data
                 if (res.data.code != 1000) {
-					wx.showToast({
-						title: '无更多数据！',
-						icon: 'none'
-					})
+                    wx.showToast({
+                        title: '无更多数据！',
+                        icon: 'none'
+                    })
                 } else {
                     if (!res.data.data) {
                         wx.showToast({
@@ -819,7 +986,7 @@ Page({
                 wx.hideLoading()
                 var data = res.data
                 if (res.data.code != 1000) {
-					
+
                 } else {
                     var shoplist1 = res.data.data.result
                     var pageCount = Math.ceil(res.data.data.count / 10)

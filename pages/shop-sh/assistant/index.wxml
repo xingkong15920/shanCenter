@@ -139,9 +139,9 @@
     <view class="modal-mask" bindtap="preventTouchMove" wx:if="{{showModal5}}"></view>
     <view class="modal-dialog pay" wx:if="{{showModal5}}">
         <view class="modal-content">
-            <image src="../../img/background.png" mode="aspectFit" class="payImg">
-                <canvas class='canvas' canvas-id='canvas' style="width:{{code_w}}px; height:{{code_w}}px;"></canvas>
-                <view class="deviceCode" style="">{{deviceCode}}</view>
+            <image src="{{codeImg}}" mode="aspectFit" class="payImg">
+                
+                <!-- <view class="deviceCode" style="">{{deviceCode}}</view> -->
             </image>
         </view>
         <view class="modal-footer payBtn">
