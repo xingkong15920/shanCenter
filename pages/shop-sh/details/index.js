@@ -89,9 +89,7 @@ Page({
                         batchInfo.transactionType = '微信'
                         batchInfo.payType = 'WECHAT'
                     }
-                    console.log(orderTimeA)
-                    console.log(todayTime)
-                    if (parseInt(data.data.ketuiAmount) > 0){
+                    if (parseFloat(data.data.ketuiAmount) > 0){
                         if (orderTimeA == todayTime || that.data.orderState == '1' || that.data.orderState == '2' || that.data.orderState == '5') {
                             that.setData({
                                 detailsBtnstate: 'show'
@@ -111,8 +109,6 @@ Page({
                         equipmentType: equipmentType,
                         orderTime: orderTime
                     })
-                    console.log(that.data.orderState)
-                    console.log(that.data.detailsBtnstate)
                 }
             }
         })
