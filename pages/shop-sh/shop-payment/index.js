@@ -56,10 +56,10 @@ Page({
             choosetype: '1'
         }, {
             choosetit: '全部退款',
-            choosetype: '3'
+            choosetype: '4'
         }, {
 			choosetit: '部分退款',
-            choosetype: '4'
+            choosetype: '5'
         }],
         shopListM: [],
         shopList: [],

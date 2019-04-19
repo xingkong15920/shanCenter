@@ -194,7 +194,7 @@ Page({
         saleNumber: '',
         nextT: true,
         //是否更新
-        isUpdata: true,
+        isUpdata: false,
         subNumber: '',
         orderNumber: '',
         merchantNumber: '',

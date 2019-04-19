@@ -481,6 +481,33 @@ Page({
 		console.log(e)
         var that = this
         var id = e.currentTarget.dataset.id;
+		wx.request({
+			url: that.data.server + 'clerk/getClerkQrcode', //仅为示例，并非真实的接口地址
+			data: {
+				clerkNumber: clerkNumber,
+				deletionFlag: 1,
+				merchantNumber: that.data.merchantNumber,
+				shopName: e.currentTarget.dataset.shopname,
+				shopNumber: e.currentTarget.dataset.shopnumber,
+			},
+			header: {
+				'content-type': 'application/json' // 默认值
+			},
+			success: function (res) {
+				if (res.data.code != 1000) {
+					wx.showToast({
+						title: res.data.msg,
+						icon: 'none'
+					})
+				} else {
+					wx.hideLoading()
+					that.setData({
+						shopList: [],
+					})
+					that.getData()
+				}
+			}
+		})
         this.setData({
             showModal4: true,
             id: id,
@@ -494,16 +521,16 @@ Page({
         var id = e.currentTarget.dataset.id;
         var qrcodeLink = e.currentTarget.dataset.qrcode;
         var deviceCode = qrcodeLink.split('outTradeNo=')[1]
-        console.log(deviceCode)
-        this.setData({
-            showModal5: true,
-            id: id,
-            paymentCode: qrcodeLink,
-            deviceCode: deviceCode
-        })
-        setTimeout(function() {
-            qrcode.makeCode(that.data.paymentCode)
-        }, 10)
+        // console.log(deviceCode)
+        // this.setData({
+        //     showModal5: true,
+        //     id: id,
+        //     paymentCode: qrcodeLink,
+        //     deviceCode: deviceCode
+        // })
+        // setTimeout(function() {
+        //     qrcode.makeCode(that.data.paymentCode)
+        // }, 10)
 
     },
     //弹窗-删除
