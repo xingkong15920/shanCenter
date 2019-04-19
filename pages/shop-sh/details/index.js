@@ -89,11 +89,13 @@ Page({
                         batchInfo.transactionType = '微信'
                         batchInfo.payType = 'WECHAT'
                     }
-                    if (parseFloat(data.data.ketuiAmount) > 0){
-                        if (orderTimeA == todayTime || that.data.orderState == '1' || that.data.orderState == '2' || that.data.orderState == '5') {
-                            that.setData({
-                                detailsBtnstate: 'show'
-                            })
+                    if (parseFloat(data.data.ketuiAmount) > 0) {
+                        if (orderTimeA == todayTime) {
+                            if (that.data.orderState == '1' || that.data.orderState == '2' || that.data.orderState == '5') {
+                                that.setData({
+                                    detailsBtnstate: 'show'
+                                });
+                            }
                         }
                     }
                     that.setData({
