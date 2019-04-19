@@ -50,7 +50,7 @@
         </view>
 		
     </view>
-	<view wx:if="{{login==2}}" style='display:block;width:100%'>
+	<view wx:if="{{login==2}}" style='display:block;width:100%;z-index:999'>
        <view class='lTop'>
 			<view class="typeName fl {{type=='shop'?'typeName':'typeName1'}}" style='width:50%'>忘记密码</view>
 			
@@ -86,7 +86,7 @@
         </view>
 		
     </view>
-    <view class='bot' style='' bindtap='backLogin'>
+    <view class='bot' style='z-index:555'>
 		<view class='banquan' style="position:absolute;left:0;bottom:30rpx;"></view>
 	</view>
 </view>

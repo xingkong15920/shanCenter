@@ -171,7 +171,14 @@ Page({
             },
             success: function(res) {
                 if (res.data.code != 1000) {
-
+					wx.showToast({
+						title: '查询为空！',
+						icon: 'none'
+					})
+					that.setData({
+						requestBreak: false,
+						shopList: [],
+					})
                 } else {
                     if (!res.data.data) {
                         wx.showToast({
@@ -293,7 +300,10 @@ Page({
                     shopList: [],
                 })
                 if (res.data.code != 1000) {
-
+					wx.hideLoading()
+					wx.showToast({
+						title:res.data.msg,
+					})
                 } else {
                     wx.hideLoading()
                     wx.showToast({
@@ -468,11 +478,14 @@ Page({
 	},
     //弹窗-修改密码
     editPass: function(e) {
+		console.log(e)
         var that = this
         var id = e.currentTarget.dataset.id;
         this.setData({
             showModal4: true,
-            id: id
+            id: id,
+			shopN:e.currentTarget.dataset.shopname,
+			shopM: e.currentTarget.dataset.shopnumber,
         })
     },
     //弹窗-一码付
@@ -495,6 +508,7 @@ Page({
     },
     //弹窗-删除
     editDel: function(e) {
+		console.log(e)
         var that = this
         var clerkName = e.currentTarget.dataset.name;
         var clerkNumber = e.currentTarget.dataset.id;
@@ -512,14 +526,20 @@ Page({
                         url: that.data.server + 'clerk/modifyClerk', //仅为示例，并非真实的接口地址
                         data: {
                             clerkNumber: clerkNumber,
-                            deletionFlag: 1
+                            deletionFlag: 1,
+							merchantNumber: that.data.merchantNumber,
+							shopName: e.currentTarget.dataset.shopname,
+							shopNumber: e.currentTarget.dataset.shopnumber,
                         },
                         header: {
                             'content-type': 'application/json' // 默认值
                         },
                         success: function(res) {
                             if (res.data.code != 1000) {
-
+								wx.showToast({
+									title:res.data.msg,
+									icon:'none'
+								})
                             } else {
                                 wx.hideLoading()
                                 that.setData({
@@ -565,6 +585,7 @@ Page({
     },
     //对话框确认按钮点击事件
     onConfirm: function(e) {
+		console.log(e)
         var that = this
         var shopEdit = this.data.shopEdit
         var status = e.target.dataset.status
@@ -616,14 +637,21 @@ Page({
                     url: this.data.server + 'clerk/modifyClerk', //仅为示例，并非真实的接口地址
                     data: {
                         clerkNumber: clerkNumber,
-                        password: shopEdit.password
+                        password: shopEdit.password,
+						merchantNumber: that.data.merchantNumber,
+						shopName : that.data.shopN,
+						shopNumber: that.data.shopM,
+						deletionFlag: 0
                     },
                     header: {
                         'content-type': 'application/json' // 默认值
                     },
                     success: function(res) {
                         if (res.data.code != 1000) {
-
+							wx.showToast({
+								title: res.data.msg,
+								icon:"none"
+							})
                         } else {
                             wx.showToast({
                                 title: "修改成功"
@@ -690,7 +718,10 @@ Page({
                 })
                 var data = res.data
                 if (res.data.code != 1000) {
-
+					wx.showToast({
+						title: '无更多数据！',
+						icon: 'none'
+					})
                 } else {
                     if (!res.data.data) {
                         wx.showToast({
@@ -761,7 +792,7 @@ Page({
                 wx.hideLoading()
                 var data = res.data
                 if (res.data.code != 1000) {
-
+					
                 } else {
                     var shoplist1 = res.data.data.result
                     var pageCount = Math.ceil(res.data.data.count / 10)

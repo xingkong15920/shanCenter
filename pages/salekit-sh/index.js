@@ -291,13 +291,16 @@ Page({
 		});
 	},
 	noClick: function (e) {
+		console.log(e)
 		if (e.target.dataset.isl != undefined) {
+			
 			return
 		}
 
 		this.setData({
 			chooseData: false,
 		})
+		this.getData()
 	},
 	day:function(){
 		wx.navigateTo({
@@ -504,7 +507,7 @@ Page({
 				console.log(num)
 				for (let j = 0; j < 7; j++) {
 					categories.push(record[j * num].date);
-					data.push(record[j * num].transicationAmount);
+					data.push(record[j * num].transactionAmount);
 				}
 			}
 		} else if (this.data.lineType == 1){

@@ -221,7 +221,14 @@
                             <view class='texTips'>{{item.text}}</view>
                         </view>
                     </view>
-                    <view class="basicpic">
+					<!-- <view class="basicpic" wx:if="{{channelType == 4}}">
+                        <view class="basicpicTit">*商户信息</view>
+                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 10}}">
+                            <image src="{{imagelist[index].imgSrc}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
+                            <view class='texTips'>{{item.text}}</view>
+                        </view>
+                    </view> -->
+                    <view class="basicpic" >
                         <view class="basicpicTit">*其他资料</view>
                         <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 9 && index <= 10}}">
                             <image src="{{imagelist[index].imgSrc}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>

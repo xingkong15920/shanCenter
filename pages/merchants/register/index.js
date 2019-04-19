@@ -162,7 +162,27 @@ Page({
             ty: 0,
             yrm: 0,
             text: "其他"
-        }],
+			}
+			// , {
+			// 	//商户信息表
+			// 	imgSrc: '../../img/pic12.png',
+			// 	type: 17,
+			// 	name: "rests",
+			// 	isS: true,
+			// 	ty: 0,
+			// 	yrm: 0,
+			// 	text: "商户信息表"
+			// }, {
+			// 	//支付协议
+			// 	imgSrc: '../../img/pic13.png',
+			// 	type: 18,
+			// 	name: "rests",
+			// 	isS: true,
+			// 	ty: 0,
+			// 	yrm: 0,
+			// 	text: "支付协议"
+			// }
+			],
         hangbie: hangbie.hangbie,
         pageNum: 1,
         geren: false,
@@ -174,7 +194,7 @@ Page({
         saleNumber: '',
         nextT: true,
         //是否更新
-        isUpdata: false,
+        isUpdata: true,
         subNumber: '',
         orderNumber: '',
         merchantNumber: '',
@@ -1599,6 +1619,17 @@ Page({
         tjData.institutionNumber = this.data.institutionNumber
         tjData.saleNumber = wx.getStorageSync('saleInfo').number
         console.log(imgList)
+		// if(this.data.channelType != 4){
+		// 	for(let i = 0 ; i < imgList.length;i++){
+		// 		if(imgList[i].type == 17){
+		// 			imgList.splice(i,1)
+		// 		}
+		// 		if (imgList[i].type == 18) {
+		// 			imgList.splice(i, 1)
+		// 		}
+		// 	}
+		// }
+		console.log(imgList)
         if (this.data.channelType != 3) {
             if (type == 2) {
                 for (var i = 0; i < imgList.length; i++) {
@@ -2381,6 +2412,17 @@ Page({
                 wx.setStorageSync('saleInfo', sI)
             }
         })
+		var that = this
+		wx.request({
+			url: 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=BIuEzeLr4mZaCGuDjEeLvSCp&client_secret=q5XFY7XBaZ48ccbMpdebqsU1hurMLxsB&',
+			method: 'post',
+			
+			success:function(data){
+				that.setData({
+					accesstoken: data.data.access_token
+				})
+			}
+		})
     },
     getJurInfo: function(e) {
         console.log(e)
@@ -2407,7 +2449,7 @@ Page({
                     success: res => { //成功的回调
                         var imgBase = res.data
                         wx.request({
-                            url: 'https://aip.baidubce.com/rest/2.0/ocr/v1/idcard?access_token="24.a0fb9fa44301bc5cc2c294fab424bfe3.2592000.1554618078.282335-15712319"',
+							url: 'https://aip.baidubce.com/rest/2.0/ocr/v1/idcard?access_token=' + that.data.accesstoken,
                             data: {
                                 "id_card_side": "front",
                                 "detect_direction": "true",
@@ -2505,7 +2547,7 @@ Page({
                     success: res => { //成功的回调
                         var imgBase = res.data
                         wx.request({
-                            url: 'https://aip.baidubce.com/rest/2.0/ocr/v1/business_license?access_token="24.a0fb9fa44301bc5cc2c294fab424bfe3.2592000.1554618078.282335-15712319"',
+							url: 'https://aip.baidubce.com/rest/2.0/ocr/v1/business_license?access_token=' + that.data.accesstoken,
                             data: {
                                 "detect_direction": "true",
                                 image: imgBase
@@ -2620,7 +2662,7 @@ Page({
                     success: res => { //成功的回调
                         var imgBase = res.data
                         wx.request({
-                            url: 'https://aip.baidubce.com/rest/2.0/ocr/v1/bankcard?access_token="24.a0fb9fa44301bc5cc2c294fab424bfe3.2592000.1554618078.282335-15712319"',
+							url: 'https://aip.baidubce.com/rest/2.0/ocr/v1/bankcard?access_token=' + that.data.accesstoken,
                             data: {
                                 image: imgBase
                             },

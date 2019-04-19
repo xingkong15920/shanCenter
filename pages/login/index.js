@@ -25,12 +25,12 @@ Page({
 		repass:'',
     },
     shop: function() {
-		wx.showToast({
-			title:'暂未开放功能',
-			icon:'none',
-			duration:2000
-		})
-		return
+		// wx.showToast({
+		// 	title:'暂未开放功能',
+		// 	icon:'none',
+		// 	duration:2000
+		// })
+		// return
         this.setData({
             login: 1,
             typeName: "商户登录",
@@ -63,9 +63,9 @@ Page({
 		}
 	},
     forget: function() {
-		wx.showToast({
-			title: '暂未开放，请联系管理员',
-		})
+		// wx.showToast({
+		// 	title: '暂未开放，请联系管理员',
+		// })
         this.setData({
             login: 2,
 			btn:'去登陆'
@@ -95,7 +95,37 @@ Page({
 			})
 			return
 		}
-		this.Countdown()
+		var that = this
+		wx.request({
+			url: this.data.server + 'Verify/salePhone',
+			method: 'post',
+			dataType: 'json',
+			header: {
+				'content-type': 'application/x-www-form-urlencoded' // 默认值
+			},
+			data:{
+				"phone": this.data.tell
+			},
+			success: res => {
+				console.log(res)
+				// wx.showToast({
+				// 	title: '发送验证码成功',
+				// })
+				if(res.data.code == 1000){
+					that.setData({
+						photoCode: res.data.data
+					})
+					this.Countdown()
+				}else{
+					wx.showToast({
+						title:res.data.msg,
+						icon:'none'
+					})
+				}
+				
+			}
+		})
+		
 	},
     rember: function(e) {
         if (this.data.type == 'shop') {
@@ -266,7 +296,7 @@ Page({
 					login: that.data.shoploginName,
 					loginPass: that.data.shoploginPass,
 					loginClass: '3',
-                    institutionNumber: wx.getStorageSync('shopInfo').institutionNumber
+					institutionNumber: '1004'
 				},
 				header: {
 					'content-type': 'application/json' // 默认值
@@ -328,7 +358,7 @@ Page({
                     login: that.data.saleloginName,
                     loginPass: that.data.saleloginPass,
                     loginClass: '2',
-                    institutionNumber: wx.getStorageSync('shopInfo').institutionNumber
+                    institutionNumber: '1004'
                 },
                 header: {
                     'content-type': 'application/json' // 默认值
@@ -389,7 +419,8 @@ Page({
         }
 
     },
-	updataPass:function(){
+	updataPass:function(e){
+		console.log(e)
 		if(this.data.tell == ''){
 			wx.showToast({
 				title:'请输入手机号',
@@ -408,6 +439,13 @@ Page({
 		if (this.data.code == '') {
 			wx.showToast({
 				title: '请输入验证码',
+				icon: 'none'
+			})
+			return
+		}
+		if (this.data.code != this.data.photoCode) {
+			wx.showToast({
+				title: '请输入正确的验证码',
 				icon: 'none'
 			})
 			return
@@ -433,6 +471,44 @@ Page({
 			})
 			return
 		}
+		var that = this
+		wx.request({
+			url: this.data.server + 'login/updatePas',
+			method: 'post',
+			dataType: 'json',
+			header: {
+				'content-type': 'application/x-www-form-urlencoded' // 默认值
+			},
+			data: {
+				"loginClass": that.data.type != 'sale'? '3':'2',
+				"login": that.data.tell,
+				"code":that.data.photoCode,
+				"loginPass": that.data.repass,
+				"institutionNumber":1004
+			},
+			success: res => {
+				console.log(res)
+				if(res.data.code == 1000){
+					wx.showToast({
+						title: '修改密码成功',
+					})
+					setTimeout(function(){
+						that.setData({
+							photoCode: '',
+							num:'获取验证码',
+							login:'0'
+						})
+					},500)
+				}else{
+					wx.showToast({
+						title:res.data.msg,
+						icon:'none'
+					})
+				}
+				
+				
+			}
+		})
 	},
     /**
      * 生命周期函数--监听页面隐藏

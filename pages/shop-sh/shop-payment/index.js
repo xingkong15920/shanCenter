@@ -55,11 +55,11 @@ Page({
             choosetit: '已成功',
             choosetype: '1'
         }, {
-            choosetit: '已退款',
+            choosetit: '全部退款',
             choosetype: '3'
         }, {
-            choosetit: '交易失败',
-            choosetype: '2'
+			choosetit: '部分退款',
+            choosetype: '4'
         }],
         shopListM: [],
         shopList: [],
@@ -257,8 +257,8 @@ Page({
 				that.setData({
 					startT: b,
 					endT: a,
-					startTime:b + '00:00:00',
-					endTime:a + '23:59:59'
+					startTime: b + ' ' + '00:00:00',
+					endTime: a + ' ' + '23:59:59'
 				})
 			}else{
 				var a = that.data.startT
@@ -426,16 +426,16 @@ Page({
         var startTime = that.data.startTime
         var endTime = that.data.endTime
         if (index == 'Today') {
-            var starttime = that.getDateStr(null, 0) + ' 00:00:00'
-            var endtime = that.getDateStr(null, 0) + ' 23:59:59'
+            var starttime = that.getDateStr(null, 0) + ' '+ ' 00:00:00'
+			var endtime = that.getDateStr(null, 0) + ' ' + ' 23:59:59'
         }
         if (index == 'Yesterday') {
-            var starttime = that.getDateStr(null, -1) + ' 00:00:00'
-            var endtime = that.getDateStr(null, -1) + ' 23:59:59'
+			var starttime = that.getDateStr(null, -1) + ' ' + ' 00:00:00'
+			var endtime = that.getDateStr(null, -1) + ' ' + ' 23:59:59'
         }
         if (index == 'Recently') {
-            var starttime = that.getDateStr(null, -6) + ' 00:00:00'
-            var endtime = that.getDateStr(null, 0) + ' 23:59:59'
+			var starttime = that.getDateStr(null, -6) + ' ' + ' 00:00:00'
+			var endtime = that.getDateStr(null, 0) + ' ' + ' 23:59:59'
         }
         if (index == 'custom') {
 			console.log('123')

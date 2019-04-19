@@ -51,7 +51,14 @@ Page({
             },
             success: function(res) {
                 if (res.data.code != 1000) {
-
+					wx.showToast({
+						title: '查询为空！',
+						icon: 'none'
+					})
+					that.setData({
+						requestBreak: false,
+						shopList: [],
+					})
                 } else {
                     if (!res.data.data) {
                         wx.showToast({
@@ -73,6 +80,13 @@ Page({
             }
         })
     },
+	wxSearchinput:function(e){
+		this.setData({
+			shopName:e.detail.value
+		})
+		this.getData() 
+
+	},
     swichNav: function(e) {
         var cur = e.target.dataset.current;
         if (this.data.currentTaB == cur) {

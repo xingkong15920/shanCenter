@@ -59,7 +59,7 @@
 		<view class="btnRight fr {{lineType == 1?'btnC':''}}" bindtap="shop">新增店铺</view>
 	</view>
 	<view class='imgT'>新增店铺走势图</view> -->
-	<view class="container1">
+	<view class="container1" wx:if="{{!chooseData}}">
 		<canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
 		<!-- <button type="primary" bindtap="updateData">更新数据</button> -->
 	</view>
