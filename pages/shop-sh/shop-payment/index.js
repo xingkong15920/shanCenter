@@ -93,9 +93,11 @@ Page({
         this.setData({
             merchantNumber: saleInfo.Number
         })
+    },
+    onShow:function(){
         this.getData()
         var that = this
-		this.createDateListData()
+        this.createDateListData()
         wx.request({
             url: this.data.server + 'store/getShops', //仅为示例，并非真实的接口地址
             data: {
@@ -106,7 +108,7 @@ Page({
             header: {
                 'content-type': 'application/json' // 默认值
             },
-            success: function(res) {
+            success: function (res) {
                 if (res.data.code != 1000) {
 
                 } else {

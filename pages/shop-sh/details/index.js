@@ -212,12 +212,18 @@ Page({
                         image: '../../img/fail.png'
                     })
                 } else {
-                    wx.hideLoading()
-                    that.hideModal();
+                    that.hideModal()
                     wx.showToast({
-                        title: "退款成功!"
+                        title: "退款成功!",
+                        success: function () {
+                            // that.batchInfo()
+                            setTimeout(function () {
+                                wx.navigateBack({
+                                    delta: 1
+                                })
+                            }, 1000)
+                        }
                     })
-                    that.batchInfo()
                 }
             }
         })
