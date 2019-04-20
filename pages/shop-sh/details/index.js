@@ -14,7 +14,7 @@ Page({
         detailsBtnstate:'hide',
         todayDate: Moment(new Date()).format('YYYY-MM-DD'),
         batchInfo: [],
-        orderstatus: ['支付中', '交易成功', '交易成功', '交易失败', '全部退款', '部分退款', '退款中', '异常订单'],
+        orderstatus: ['支付中', '交易成功', '交易成功', '交易失败', '全部退款', '部分退款', '异常订单', '退款中'],
         server: config.server,
         pageNum: 1,
         limit: 10,
