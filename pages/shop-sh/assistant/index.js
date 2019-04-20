@@ -484,7 +484,7 @@ Page({
         wx.request({
             url: that.data.server + 'clerk/getClerkQrcode', //仅为示例，并非真实的接口地址
             data: {
-                clerkNumber: clerkNumber,
+				clerkNumber: id,
                 deletionFlag: 1,
                 merchantNumber: that.data.merchantNumber,
                 shopName: e.currentTarget.dataset.shopname,
