@@ -145,8 +145,8 @@
             </image>
         </view>
         <view class="modal-footer payBtn">
-            <view class="btn-cancel" bindtap="onCancel" data-status="cancel5">取消</view>
-            <view class="btn-confirm" bindtap="onConfirm" data-status="confirm5">保存到手机</view>
+            <view class="btn-cancel" bindtap="onCancel" style='width:100%' data-status="cancel5">返回</view>
+            <!-- <view class="btn-confirm" bindtap="onConfirm" data-status="confirm5" >保存到手机</view> -->
         </view>
     </view>
     <!--弹窗-编辑-选择门店-->

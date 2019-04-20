@@ -719,153 +719,44 @@ Page({
             }
         }
         if (status == "confirm5") {
-           
-			wx.openSetting({
-				success(settingdata) {
-					console.log(settingdata)
-					if (settingdata.authSetting['scope.writePhotosAlbum']) {
-						console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
-						wx.showLoading()
-						wx.downloadFile({
-                            url: that.data.codeImg,
-                            success: function(res) {
-                                console.log(res);
-                                //图片保存到本地
-                                wx.saveImageToPhotosAlbum({
-                                    filePath: res.tempFilePath,
-                                    success: function(data) {
-                                        wx.showToast({
-                                            title: '保存成功',
-                                            icon: 'success',
-                                            duration: 2000
-                                        })
-                                    },
-									fail:function(){
-										wx.hideLoading()
-									}
-								})
-							}
-						})
-					} else {
-						wx.showModal({
-							title: '提示',
-							content: '没有获取到相册权限，无法保存到手机',
-							showCancel: false,
-						})
-					}
-				}
-			})
-			return
-            // wx.openSetting({
-            //     success(settingdata) {
-            //         console.log(settingdata)
-            //         if (settingdata.authSetting['scope.writePhotosAlbum']) {
-            //             console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
-			// 			wx.authorize({
-			// 				scope: 'scope.writePhotosAlbum',
-			// 				success() {
-			// 					// 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-			// 					// wx.startRecord()
+			wx
+			// wx.openSetting({
+			// 	success(settingdata) {
+			// 		console.log(settingdata)
+			// 		if (settingdata.authSetting['scope.writePhotosAlbum']) {
+			// 			console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+			// 			wx.showLoading()
+			// 			wx.downloadFile({
+            //                 url: that.data.codeImg,
+            //                 success: function(res) {
+            //                     console.log(res);
+            //                     //图片保存到本地
+            //                     wx.saveImageToPhotosAlbum({
+            //                         filePath: res.tempFilePath,
+            //                         success: function(data) {
+            //                             wx.showToast({
+            //                                 title: '保存成功',
+            //                                 icon: 'success',
+            //                                 duration: 2000
+            //                             })
+            //                         },
+			// 						fail:function(){
+			// 							wx.hideLoading()
+			// 						}
+			// 					})
 			// 				}
 			// 			})
-            //             // wx.downloadFile({
-            //             //     url: that.data.codeImg,
-            //             //     success: function(res) {
-            //             //         console.log(res);
-            //             //         //图片保存到本地
-            //             //         wx.saveImageToPhotosAlbum({
-            //             //             filePath: res.tempFilePath,
-            //             //             success: function(data) {
-            //             //                 wx.showToast({
-            //             //                     title: '保存成功',
-            //             //                     icon: 'success',
-            //             //                     duration: 2000
-            //             //                 })
-            //             //             },
-            //             //             fail: function(err) {
-            //             //                 console.log(err);
-            //             //                 if (err.errMsg === "saveImageToPhotosAlbum:fail auth deny") {
-            //             //                     console.log("当初用户拒绝，再次发起授权")
-            //             //                     wx.openSetting({
-            //             //                         success(settingdata) {
-            //             //                             console.log(settingdata)
-            //             //                             if (settingdata.authSetting['scope.writePhotosAlbum']) {
-            //             //                                 console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
-            //             //                             } else {
-            //             //                                 console.log('获取权限失败，给出不给权限就无法正常使用的提示')
-            //             //                             }
-            //             //                         }
-            //             //                     })
-            //             //                 }
-            //             //             },
-            //             //             complete(res) {
-            //             //                 console.log(res);
-            //             //             }
-            //             //         })
-            //             //     }
-            //             // })
-
-            //         } else {
-            //             wx.showModal({
-            //                 title: '提示',
-            //                 content: '没有获取到相册权限，无法保存到手机',
-            //                 showCancel: false,
-            //             })
-            //         }
-            //     }
-            // })
-            // return
-            // wx.downloadFile({
-            //     url: that.data.codeImg,
-            //     success: function(res) {
-            //         console.log(res);
-            //         //图片保存到本地
-            //         wx.saveImageToPhotosAlbum({
-            //             filePath: res.tempFilePath,
-            //             success: function(data) {
-            //                 wx.showToast({
-            //                     title: '保存成功',
-            //                     icon: 'success',
-            //                     duration: 2000
-            //                 })
-            //             },
-            //             fail: function(err) {
-            //                 console.log(err);
-            //                 if (err.errMsg === "saveImageToPhotosAlbum:fail auth deny") {
-            //                     console.log("当初用户拒绝，再次发起授权")
-            //                     wx.openSetting({
-            //                         success(settingdata) {
-            //                             console.log(settingdata)
-            //                             if (settingdata.authSetting['scope.writePhotosAlbum']) {
-            //                                 console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
-            //                             } else {
-            //                                 console.log('获取权限失败，给出不给权限就无法正常使用的提示')
-            //                             }
-            //                         }
-            //                     })
-            //                 }
-            //             },
-            //             complete(res) {
-            //                 console.log(res);
-            //             }
-            //         })
-            //     }
-            // })
-            // wx.downloadFile({
-            // 	url: that.data.codeImg, // 仅为示例，并非真实的资源
-            // 	success(res) {
-            // 		console.log(res)
-            // 		// 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
-            // 		if (res.statusCode === 200) {
-            // 			wx.playVoice({
-            // 				filePath: res.tempFilePath
-            // 			})
-            // 			wx.saveImageToPhotosAlbum({
-            // 				success(res) { }
-            // 			})
-            // 		}
-            // 	}
-            // })
+			// 		} else {
+			// 			wx.showModal({
+			// 				title: '提示',
+			// 				content: '没有获取到相册权限，无法保存到手机',
+			// 				showCancel: false,
+			// 			})
+			// 		}
+			// 	}
+			// })
+			return
+           
         }
         //this.hideModal();
     },
