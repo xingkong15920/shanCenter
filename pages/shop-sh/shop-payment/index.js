@@ -43,10 +43,10 @@ Page({
             choosetype: 'all'
         }, {
             choosetit: '微信',
-            choosetype: 'WeChat_Pay'
+            choosetype: '1'
         }, {
             choosetit: '支付宝',
-            choosetype: 'Alipay_Pay'
+            choosetype: '0'
         }],
         chooseStateA: [{
             choosetit: '全部',
@@ -592,7 +592,8 @@ Page({
         })
         this.setData({
             showModal1: true,
-            shopList: []
+            shopList: [],
+            pageNum:1
         })
         this.hideModal()
         this.getData()
@@ -660,12 +661,16 @@ Page({
     //对话框确认按钮点击事件
     onConfirm: function(e) {
         this.hideModal();
+        this.setData({
+            pageNum:1
+        })
         wx.showLoading({
             title: '加载中...',
         })
         var status = e.target.dataset.status
         var chooseShopNum = this.data.chooseShopNum
         if (status == "confirm2") {
+            console.log(this.data.pageNum)
             this.getData()
         }
     },
