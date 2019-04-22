@@ -531,6 +531,15 @@ Page({
         }
     },
     toDetails: function(e) {
+		console.log(e)
+		if(e.currentTarget.dataset.orderstate == 7){
+			wx.showModal({
+				title: '提示',
+				content: '该订单在退款中，请稍后再查看',
+				showCancel: false,
+			})
+			return
+		}
         var batch = e.currentTarget.dataset.batch
         var orderstate = e.currentTarget.dataset.orderstate
         wx.navigateTo({

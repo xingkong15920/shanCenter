@@ -401,7 +401,7 @@ Page({
         that.setData({
             showModal3: true,
             id: id,
-            codeImg: 'http://user.51shanhe.com/oneCode/getCode.html?clerkNumber=' + id
+            codeImg: 'http://api.51shanhe.com/wechatPush/getCode.html?clerkNumber=' + id
         })
         setTimeout(function() {
             qrcode1.makeCode(that.data.codeImg)
@@ -428,7 +428,7 @@ Page({
                     })
                     setTimeout(function() {
                         qrcode1.makeCode(that.data.codeImg)
-                    }, 10)
+                    }, 100)
                 } else {
                     that.setData({
                         isBind: true,
@@ -465,8 +465,9 @@ Page({
                                     title: '解绑成功',
                                     icon: 'none'
                                 })
+								that.getName(e.currentTarget.dataset.iid)
                             }
-                            that.getName(e.currentTarget.dataset.iid)
+                            
                         }
                     })
                 } else if (res.cancel) {
