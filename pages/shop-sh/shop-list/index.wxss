@@ -3,6 +3,12 @@ view, scroll-view,::after,::before {
     box-sizing: border-box;
     transition: .3s all;
 }
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
 
 /* tab列表 */
 
@@ -120,15 +126,13 @@ view, scroll-view,::after,::before {
 }
 
 .modal-dialog {
-    width: 540rpx;
+    width: 100%;
     overflow: hidden;
     position: fixed;
-    top: calc(50% - 30px);
     left: 0;
+    bottom: 0;
     z-index: 9999;
     background: #f9f9f9;
-    margin: -180rpx 105rpx;
-    border-radius: 36rpx;
 }
 
 .modal-title {
@@ -194,7 +198,7 @@ input-holder {
 	float:left;
 }
 .move{
-	width:80%
+	width:60%
 }
 .delbox{
 	width:0;
@@ -210,4 +214,55 @@ input-holder {
 .delboxMove{
 	width:20%
 }
+.MDpush{
+    background: #009588;
+}
 /* // 滑动 */
+
+
+.wxpushTips{
+    font-size: 12px;
+    color: red;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+.wxpushbingTit{
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #333;
+    padding: 0 15px 10px;
+    border-bottom: 1px solid #EEEEEE;
+}
+.wxpushbingList{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+    padding: 0 5px;
+    line-height: 40px;
+}
+.wxpushbingList-nick{
+    width: 25%;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.wxpushbingList-time{
+    text-align: center;
+    width: 50%;
+}
+.wxpushbingList-operation{
+    width: 25%;
+    text-align: right;
+}
+.wxpushbingList-operationBtn{
+    display: inline-block;
+    width: 60px;
+    height: 28px;
+    background: #FF0000;
+    color: #fff;
+    line-height: 28px;
+    border-radius: 4px;
+    text-align: center;
+}

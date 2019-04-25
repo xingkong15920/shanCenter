@@ -1,11 +1,21 @@
 // pages/merchants/manage/index.js
 const config = require('../../../utils/config.js')
+var QRCode = require('../../../utils/weapp-qrcode.js')
+var qrcode1;
+const W = wx.getSystemInfoSync().windowWidth;
+const rate = 750.0 / W;
+// 300rpx 在6s上为 150px
+const code_w = 350 / rate;
+const code_ww = 343 / rate;
 Page({
     data: {
         currentTab: 0,
         index: 0,
-        showModal: false,
         array: ['0.025%', '0.036%', '0.038%', '0.05%', '0.056%', '0.062%'],
+        //推送弹窗
+        showModal: false,
+        codeImg:'',
+        isBind:false,
         //查询门店列表信息
         shopList: [],
         merchantName: '',
@@ -23,7 +33,7 @@ Page({
         pageNum: 1,
         pageCount: 10,
         limit: 10,
-		start:0
+        start: 0
     },
     onLoad: function() {
         var saleInfo = wx.getStorageSync('shopInfo')
@@ -51,14 +61,14 @@ Page({
             },
             success: function(res) {
                 if (res.data.code != 1000) {
-					wx.showToast({
-						title: '查询为空！',
-						icon: 'none'
-					})
-					that.setData({
-						requestBreak: false,
-						shopList: [],
-					})
+                    wx.showToast({
+                        title: '查询为空！',
+                        icon: 'none'
+                    })
+                    that.setData({
+                        requestBreak: false,
+                        shopList: [],
+                    })
                 } else {
                     if (!res.data.data) {
                         wx.showToast({
@@ -79,14 +89,26 @@ Page({
                 }
             }
         })
+        qrcode1 = new QRCode('canvas1', {
+            //usingIn: this,
+            text: that.data.codeImg,
+            width: 240,
+            height: 240,
+            colorDark: "black",
+            colorLight: "white",
+            correctLevel: QRCode.CorrectLevel.H,
+        });
+        setTimeout(function () {
+            qrcode1.makeCode(that.data.codeImg)
+        }, 100)
     },
-	wxSearchinput:function(e){
-		this.setData({
-			shopName:e.detail.value
-		})
-		this.getData() 
+    wxSearchinput: function(e) {
+        this.setData({
+            shopName: e.detail.value
+        })
+        this.getData()
 
-	},
+    },
     swichNav: function(e) {
         var cur = e.target.dataset.current;
         if (this.data.currentTaB == cur) {
@@ -116,32 +138,140 @@ Page({
             url: '../../shop-sh/shop-check/index?shopNumber=' + shopNumber,
         })
     },
-	start:function(e){
-		this.setData({
-			start: e.changedTouches[0].pageX
-		})
-	},
-	move:function(e){
-		var that = this
-		var s = this.data.start
-		var ee = e.changedTouches[0].pageX
-		if (s - ee >= 15){
-			var id = e.currentTarget.dataset.id;
-			if (id == that.data.active) {
-				that.setData({
-					'move': 0
-				})
-			} else {
-				that.setData({
-					'move': id
-				})
-			}
-		}else{
-			that.setData({
-				'move': 0
-			})
-		}
-	},
+    start: function(e) {
+        this.setData({
+            start: e.changedTouches[0].pageX
+        })
+    },
+    move: function(e) {
+        var that = this
+        var s = this.data.start
+        var ee = e.changedTouches[0].pageX
+        if (s - ee >= 15) {
+            var id = e.currentTarget.dataset.id;
+            if (id == that.data.active) {
+                that.setData({
+                    'move': 0
+                })
+            } else {
+                that.setData({
+                    'move': id
+                })
+            }
+        } else {
+            that.setData({
+                'move': 0
+            })
+        }
+    },
+    //弹窗-微信推送
+    editWXpush: function (e) {
+        var that = this
+        var shopname = e.currentTarget.dataset.shopname;
+        var shopnumber = e.currentTarget.dataset.id;
+        var merchantNumber = that.data.merchantNumber;
+        console.log(shopnumber)
+        console.log(merchantNumber)
+        this.getName(shopnumber, merchantNumber)
+        that.setData({
+            showModal: true,
+            shopNumber: shopnumber,
+            shopBindN: shopnumber,
+            codeImg: 'http://api.51shanhe.com/wechatPush/getCode1.html?clerkNumber=' + ' ' + '&type=1&merchantNumber=' + merchantNumber + '&shopNumber=' + shopnumber
+        })
+        setTimeout(function() {
+            qrcode1.makeCode(that.data.codeImg)
+        }, 100)
+        console.log(that.data.isBind)
+    }, 
+    getName: function (shopnumber, merchantNumber) {
+        var shopNumber = shopnumber;
+        var merchantNumber = merchantNumber;
+        var that = this
+        wx.request({
+            url: that.data.server + 'forwarding/searchBind',
+            data: {
+                clerkNumber: '',
+                merchantNumber: merchantNumber,
+                shopNumber: shopNumber,
+                bindType:1
+            },
+            method: "POST",
+            header: {
+                'content-type': 'application/x-www-form-urlencoded' // 默认值
+            },
+            success: function (res) {
+                if (res.data.code == -3) {
+                    that.setData({
+                        isBind: false,
+                        name: '',
+                        time: ''
+                    })
+                    setTimeout(function () {
+                        qrcode1.makeCode(that.data.codeImg)
+                    }, 100)
+                } else {
+                    that.setData({
+                        isBind: true,
+                        name: res.data.data.nickName,
+                        time: res.data.data.bindTime
+                    })
+                }
+            }
+        })
+    },
+    unBind: function(e) {
+        console.log(e)
+        var that = this
+        var shopnumber = e.currentTarget.dataset.iid;
+        var merchantNumber = that.data.merchantNumber;
+        wx.showModal({
+            title: '提示',
+            content: '确定要解绑微信推送吗',
+            success(res) {
+                if (res.confirm) {
+                    wx.request({
+                        url: that.data.server + 'forwarding/relievePushBind',
+                        data: {
+                            clerkNumber: '',
+                            merchantNumber: merchantNumber,
+                            shopNumber: shopnumber,
+                            bindType: 1
+                        },
+                        method: "POST",
+                        header: {
+                            'content-type': 'application/x-www-form-urlencoded' // 默认值
+                        },
+                        success: function(res) {
+                            if (res.data.code == 1000) {
+                                wx.showToast({
+                                    title: '解绑成功',
+                                    icon: 'none'
+                                })
+                            }
+                            that.getName(shopnumber, merchantNumber)
+                        }
+                    })
+                } else if (res.cancel) {
+                    console.log('用户点击取消')
+                }
+            }
+        })
+    },
+    /**
+     * 弹出框蒙层截断touchmove事件
+     */
+    preventTouchMove: function() {
+        this.hideModal();
+    },
+    /**
+     * 隐藏模态对话框
+     */
+    hideModal: function() {
+        this.setData({
+            showModal: false
+        });
+    },
     editDel: function(e) {
         var that = this
         var shopname = e.currentTarget.dataset.shopname;
@@ -166,7 +296,7 @@ Page({
                         header: {
                             'content-type': 'application/json' // 默认值
                         },
-                        success: function (res) {
+                        success: function(res) {
                             if (res.data.code != 1000) {
 
                             } else {
@@ -314,7 +444,7 @@ Page({
             }
         })
     },
-	onShow:function(){
-		this.getData()
-	}
+    onShow: function() {
+        this.getData()
+    }
 })

@@ -4,33 +4,43 @@
     <view class="body">
         <!-- 搜索框 -->
         <template is="seach" data="{{placeholder: '请输入要搜索的门店名称'}}" />
-		<view class="tab-body">
+        <view class="tab-body">
             <scroll-view class="listBody" scroll-y="true" bindscrolltolower="loadMore" bindscrolltoupper="reFresh">
-                <view class="listBody_li" wx:for="{{shopList}}" wx:key="{{shopList}}" >
-					<view class="noMove  {{item.shopNumber==move?'move':''}}" data-id="{{item.shopNumber}}" bindtap="editData" bindtouchmove="move" bindtouchstart="start">
-						<view class="shopName">{{item.shopName}}</view>
-						<view class="listIcon iconfont icon-xiajiantou" style="transform: rotate(270deg);"></view>
-					</view>
-                    
-					<view class="delbox {{item.shopNumber==move?'delboxMove':''}}"  data-id="{{item.shopNumber}}" data-shopname="{{item.shopName}}" catchtap="editDel">删除</view>
-                    <!-- <view class="operation">
-                        <view class="operationBtn editData" data-id="{{item.shopNumber}}" catchtap="editData">门店信息</view>
-                        <view class="operationBtn editDel" data-id="{{item.shopNumber}}" data-shopname="{{item.shopName}}" catchtap="editDel">删除</view>
-                    </view> -->
+                <view class="listBody_li" wx:for="{{shopList}}" wx:key="{{shopList}}">
+                    <view class="noMove  {{item.shopNumber==move?'move':''}}" data-id="{{item.shopNumber}}" bindtap="editData" bindtouchmove="move" bindtouchstart="start">
+                        <view class="shopName">{{item.shopName}}</view>
+                        <view class="listIcon iconfont icon-xiajiantou" style="transform: rotate(270deg);"></view>
+                    </view>
+
+                    <view class="delbox MDpush {{item.shopNumber==move?'delboxMove':''}}" data-id="{{item.shopNumber}}" data-shopname="{{item.shopName}}" catchtap="editWXpush">推送</view>
+                    <view class="delbox {{item.shopNumber==move?'delboxMove':''}}" data-id="{{item.shopNumber}}" data-shopname="{{item.shopName}}" catchtap="editDel">删除</view>
                 </view>
             </scroll-view>
         </view>
-        <!-- <view class="tab-body">
-            <scroll-view class="listBody" scroll-y="true" bindscrolltolower="loadMore" bindscrolltoupper="reFresh">
-                <view class="listBody_li {{item.shopNumber==active?'active':''}}" wx:for="{{shopList}}" wx:key="{{shopList}}" data-id="{{item.shopNumber}}" bindtap="shopOperation">
-                    <view class="shopName">{{item.shopName}}</view>
-                    <view class="listIcon iconfont icon-xiajiantou"></view>
-                    <view class="operation">
-                        <view class="operationBtn editData" data-id="{{item.shopNumber}}" catchtap="editData">门店信息</view>
-                        <view class="operationBtn editDel" data-id="{{item.shopNumber}}" data-shopname="{{item.shopName}}" catchtap="editDel">删除</view>
+        <!--弹窗-微信推送-->
+        <view class="modal-mask" bindtap="preventTouchMove" wx:if="{{showModal}}"></view>
+        <view class="modal-dialog" wx:if="{{showModal}}">
+            <view class="modal-content">
+                <view style="width: 240px;height: 240px;position:relative;margin:0 auto"  wx:if="{{isBind==false}}">
+                    <image src="../../img/shanhe.png" style='width:70px;height:70px;position:absolute;left:calc(50% - 35px);top:calc(50% - 35px);z-index:9999'></image>
+                    <canvas style="width:240px; height:240px;background:#f1f1f1;position:absolute;left:0;top:0;z-index:9998" canvas-id="canvas1" />
+                </view>
+            <view class="wxpushTips"   wx:if="{{isBind==false}}" style='margin-top:15px'>开通后随时随地查看经营情况</view>
+            <view class="wxpushbing" wx:if="{{isBind==true}}">
+                    <view class="wxpushbingTit">
+                        <view>昵称</view>
+                        <view>开通时间</view>
+                        <view>操作</view>
+                    </view>
+                    <view class="wxpushbingList">
+                    <view class="wxpushbingList-nick">{{name}}</view>
+                    <view class="wxpushbingList-time">{{time}}</view>
+                        <view class="wxpushbingList-operation">
+                            <view class="wxpushbingList-operationBtn" data-iid="{{shopNumber}}" catchtap="unBind">解绑</view>
+                        </view>
                     </view>
                 </view>
-            </scroll-view>
-        </view> -->
+            </view>
+        </view>
     </view>
 </view>
