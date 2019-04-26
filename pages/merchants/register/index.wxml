@@ -38,6 +38,16 @@
                                     <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
                             </radio-group>
                         </view>
+						<!-- 进件通道 -->
+						<view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" bindtap="getaaaaa" wx:if="{{item.picker == 5&& isUpdata == false}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit;">{{item.shoplabel}}：
+                                <view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view>
+                            </label>
+                            <picker  value="{{shopInput[item.id]}}" range="{{rateNameList}}"  bindchange="bindDateChangeRate" data-current="{{item.id}}">
+                                <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus"
+                                    bindblur='blur' value="{{shopInput[item.id]}}"></input>
+                            </picker>
+                        </view>
                         <view class="bodyCli activeInput" wx:if="{{item.type == 3 && youzhiType==true}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit">{{item.shoplabel}}：</label>
                             <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange3">

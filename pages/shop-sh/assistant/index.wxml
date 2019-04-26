@@ -31,7 +31,7 @@
                     </view>
                     <view class="operation">
                         <view class="operationBtn editData" data-id="{{item.clerkNumber}}" data-shopNum="{{item.shopNumber}}" catchtap="editData">编辑</view>
-                        <view class="operationBtn WXpush" data-id="{{item.clerkNumber}}" catchtap="editWXpush">微信推送</view>
+                        <view class="operationBtn WXpush" data-id="{{item.clerkNumber}}" data-shopNum="{{item.shopNumber}}" catchtap="editWXpush">微信推送</view>
                         <view class="operationBtn editPass" data-id="{{item.clerkNumber}}" data-shopname="{{item.shopName}}" data-shopnumber="{{item.shopNumber}}" catchtap="editPass">修改密码</view>
                         <view class="operationBtn Pay" data-id="{{item.clerkNumber}}" data-qrCode="{{item.equipmentLinkAddress}}" catchtap="editPay">一码付</view>
                         <view class="operationBtn editDel" data-name="{{item.clerkName}}" data-id="{{item.clerkNumber}}" catchtap="editDel" data-shopname="{{item.shopName}}" data-shopnumber="{{item.shopNumber}}">删除</view>
@@ -102,7 +102,7 @@
                     <view class="wxpushbingList-nick">{{name}}</view>
                     <view class="wxpushbingList-time">{{time}}</view>
                     <view class="wxpushbingList-operation">
-                        <view class="wxpushbingList-operationBtn" data-iid="{{item.clerkNumber}}" catchtap="unBind">解绑</view>
+                        <view class="wxpushbingList-operationBtn" data-sp="{{item.shopNumber}}" data-iid="{{item.clerkNumber}}" catchtap="unBind">解绑</view>
                     </view>
                 </view>
             </view>

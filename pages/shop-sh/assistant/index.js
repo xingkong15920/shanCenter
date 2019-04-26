@@ -394,25 +394,30 @@ Page({
 
     //弹窗-微信推送
     editWXpush: function(e) {
-        this.getName(e.currentTarget.dataset.id)
+		console.log(e)
+        this.getName(e.currentTarget.dataset.id,this.data.merchantNumber,e.currentTarget.dataset.shopnum)
         // isBind
         var that = this
         var id = e.currentTarget.dataset.id;
+		var shopnum = e.currentTarget.dataset.shopnum
         that.setData({
             showModal3: true,
             id: id,
-            codeImg: 'http://api.51shanhe.com/wechatPush/getCode.html?clerkNumber=' + id
+			codeImg: 'http://api.51shanhe.com/wechatPush/getCode.html?type=2&clerkNumber=' + id + '&merchantNumber=' + that.data.merchantNumber + '&shopNumber=' + shopnum
         })
         setTimeout(function() {
             qrcode1.makeCode(that.data.codeImg)
         }, 10)
     },
-    getName: function(e) {
+    getName: function(e,m,s) {
         var that = this
         wx.request({
-            url: that.data.server + 'clerk/getClerkInfo',
+			url: that.data.server + 'forwarding/searchBind',
             data: {
                 clerkNumber: e,
+				merchantNumber: m,
+				shopNumber: s,
+				bindType: 2
             },
             method: "POST",
             header: {
@@ -420,7 +425,7 @@ Page({
             },
             success: function(res) {
                 console.log(res)
-                if (res.data.data.code == 1000 || res.data.data.openId == '未绑定') {
+                if (res.data.code != 1000) {
                     that.setData({
                         isBind: false,
                         name: '',
@@ -433,7 +438,7 @@ Page({
                     that.setData({
                         isBind: true,
                         name: res.data.data.nickName,
-                        time: res.data.data.bindTime
+						time: res.data.data.bindTime
                     })
                 }
 
@@ -449,27 +454,48 @@ Page({
             content: '确定要解绑微信推送吗',
             success(res) {
                 if (res.confirm) {
-
-                    wx.request({
-                        url: that.data.server + '/clerk/relievePushBind',
-                        data: {
-                            clerkNumber: e.currentTarget.dataset.iid,
-                        },
-                        method: "POST",
-                        header: {
-                            'content-type': 'application/x-www-form-urlencoded' // 默认值
-                        },
-                        success: function(res) {
-                            if (res.data.code == 1000) {
-                                wx.showToast({
-                                    title: '解绑成功',
-                                    icon: 'none'
-                                })
-								that.getName(e.currentTarget.dataset.iid)
-                            }
+					wx.request({
+						url: that.data.server + 'forwarding/relievePushBind',
+						data: {
+							clerkNumber: e.currentTarget.dataset.iid,
+							merchantNumber: that.data.merchantNumber,
+							shopNumber: e.currentTarget.dataset.sp,
+							bindType: 2
+						},
+						method: "POST",
+						header: {
+							'content-type': 'application/x-www-form-urlencoded' // 默认值
+						},
+						success: function (res) {
+							if (res.data.code == 1000) {
+								wx.showToast({
+									title: '解绑成功',
+									icon: 'none'
+								})
+							}
+							that.getName(e.currentTarget.dataset.iid,that.data.merchantNumber,e.currentTarget.dataset.sp)
+						}
+					})
+                    // wx.request({
+                    //     url: that.data.server + '/clerk/relievePushBind',
+                    //     data: {
+                    //         clerkNumber: e.currentTarget.dataset.iid,
+                    //     },
+                    //     method: "POST",
+                    //     header: {
+                    //         'content-type': 'application/x-www-form-urlencoded' // 默认值
+                    //     },
+                    //     success: function(res) {
+                    //         if (res.data.code == 1000) {
+                    //             wx.showToast({
+                    //                 title: '解绑成功',
+                    //                 icon: 'none'
+                    //             })
+					// 			that.getName(e.currentTarget.dataset.iid)
+                    //         }
                             
-                        }
-                    })
+                    //     }
+                    // })
                 } else if (res.cancel) {
                     console.log('用户点击取消')
                 }

@@ -30,6 +30,7 @@ Page({
         setp0: [],
         statusTips: '',
         rateList: [],
+		rateList1:[],
         rate1: [],
         rate2: [],
         server: config.server,
@@ -61,128 +62,129 @@ Page({
         provincecode: 0,
         citycode: 0,
         branch: [],
+		rateNameList:[],
         // 多列选择器(三级联动)列表设置,及初始化
         //date: shopData.shopData.shoplabel,
         imagelist: [{
-            //营业执照
-            imgSrc: '../../img/pic1.png',
-            type: 1,
-            name: "businessLicense",
-            isS: false,
-            ty: 1,
-            yrm: 1,
-            text: "营业执照"
-        }, {
-            //开户许可
-            imgSrc: '../../img/pic2.png',
-            type: 12,
-            name: "openingPermit",
-            isS: false,
-            ty: 2,
-            yrm: 2,
-            text: "开户许可"
-        }, {
-            //身份证正面
-            imgSrc: '../../img/pic3.png',
-            type: 2,
-            name: "juridicalpersonIdPositive",
-            isS: false,
-            ty: 0,
-            yrm: 0,
-            text: "身份证正面"
-        }, {
-            //身份证反面
-            imgSrc: '../../img/pic4.png',
-            type: 3,
-            name: "juridicalpersonIdReverseside",
-            isS: false,
-            ty: 0,
-            yrm: 0,
-            text: "身份证反面"
-        }, {
-            //手持身份证
-            imgSrc: '../../img/pic5.png',
-            type: 11,
-            name: "holdId",
-            isS: false,
-            ty: 0,
-            yrm: 0,
-            text: "手持身份证"
-        }, {
-            //银行卡正面
-            imgSrc: '../../img/pic6.png',
-            type: 6,
-            name: "bankCardPositive",
-            isS: false,
-            ty: 0,
-            yrm: 0,
-            text: "银行卡正面"
-        }, {
-            //门店门头
-            imgSrc: '../../img/pic7.png',
-            type: 5,
-            name: "doorheadPhoto",
-            isS: false,
-            ty: 0,
-            yrm: 0,
-            text: "门店门头"
-        }, {
-            //门店门脸
-            imgSrc: '../../img/pic11.png',
-            type: 4,
-            name: "facePhoto",
-            isS: false,
-            ty: 0,
-            yrm: 0,
-            text: "门店门脸"
-        }, {
-            //门店收银台
-            imgSrc: '../../img/pic8.png',
-            type: 13,
-            name: "cashier",
-            isS: false,
-            ty: 2,
-            yrm: 0,
-            text: "门店收银台"
-        }, {
-            //门店经营场所
-            imgSrc: '../../img/pic9.png',
-            type: 14,
-            name: "placeBusiness",
-            isS: false,
-            ty: 2,
-            yrm: 0,
-            text: "门店经营场所"
-        }, {
-            //其他
-            imgSrc: '../../img/pic10.png',
-            type: 16,
-            name: "rests",
-            isS: true,
-            ty: 0,
-            yrm: 0,
-            text: "其他"
-			}
-			// , {
-			// 	//商户信息表
-			// 	imgSrc: '../../img/pic12.png',
-			// 	type: 17,
-			// 	name: "rests",
-			// 	isS: true,
-			// 	ty: 0,
-			// 	yrm: 0,
-			// 	text: "商户信息表"
-			// }, {
-			// 	//支付协议
-			// 	imgSrc: '../../img/pic13.png',
-			// 	type: 18,
-			// 	name: "rests",
-			// 	isS: true,
-			// 	ty: 0,
-			// 	yrm: 0,
-			// 	text: "支付协议"
-			// }
-			],
+                //营业执照
+                imgSrc: '../../img/pic1.png',
+                type: 1,
+                name: "businessLicense",
+                isS: false,
+                ty: 1,
+                yrm: 1,
+                text: "营业执照"
+            }, {
+                //开户许可
+                imgSrc: '../../img/pic2.png',
+                type: 12,
+                name: "openingPermit",
+                isS: false,
+                ty: 2,
+                yrm: 2,
+                text: "开户许可"
+            }, {
+                //身份证正面
+                imgSrc: '../../img/pic3.png',
+                type: 2,
+                name: "juridicalpersonIdPositive",
+                isS: false,
+                ty: 0,
+                yrm: 0,
+                text: "身份证正面"
+            }, {
+                //身份证反面
+                imgSrc: '../../img/pic4.png',
+                type: 3,
+                name: "juridicalpersonIdReverseside",
+                isS: false,
+                ty: 0,
+                yrm: 0,
+                text: "身份证反面"
+            }, {
+                //手持身份证
+                imgSrc: '../../img/pic5.png',
+                type: 11,
+                name: "holdId",
+                isS: false,
+                ty: 0,
+                yrm: 0,
+                text: "手持身份证"
+            }, {
+                //银行卡正面
+                imgSrc: '../../img/pic6.png',
+                type: 6,
+                name: "bankCardPositive",
+                isS: false,
+                ty: 0,
+                yrm: 0,
+                text: "银行卡正面"
+            }, {
+                //门店门头
+                imgSrc: '../../img/pic7.png',
+                type: 5,
+                name: "doorheadPhoto",
+                isS: false,
+                ty: 0,
+                yrm: 0,
+                text: "门店门头"
+            }, {
+                //门店门脸
+                imgSrc: '../../img/pic11.png',
+                type: 4,
+                name: "facePhoto",
+                isS: false,
+                ty: 0,
+                yrm: 0,
+                text: "门店门脸"
+            }, {
+                //门店收银台
+                imgSrc: '../../img/pic8.png',
+                type: 13,
+                name: "cashier",
+                isS: false,
+                ty: 2,
+                yrm: 0,
+                text: "门店收银台"
+            }, {
+                //门店经营场所
+                imgSrc: '../../img/pic9.png',
+                type: 14,
+                name: "placeBusiness",
+                isS: false,
+                ty: 2,
+                yrm: 0,
+                text: "门店经营场所"
+            }, {
+                //其他
+                imgSrc: '../../img/pic10.png',
+                type: 16,
+                name: "rests",
+                isS: true,
+                ty: 0,
+                yrm: 0,
+                text: "其他"
+            }
+            // , {
+            // 	//商户信息表
+            // 	imgSrc: '../../img/pic12.png',
+            // 	type: 17,
+            // 	name: "rests",
+            // 	isS: true,
+            // 	ty: 0,
+            // 	yrm: 0,
+            // 	text: "商户信息表"
+            // }, {
+            // 	//支付协议
+            // 	imgSrc: '../../img/pic13.png',
+            // 	type: 18,
+            // 	name: "rests",
+            // 	isS: true,
+            // 	ty: 0,
+            // 	yrm: 0,
+            // 	text: "支付协议"
+            // }
+        ],
         hangbie: hangbie.hangbie,
         pageNum: 1,
         geren: false,
@@ -265,18 +267,25 @@ Page({
                     })
                 }
             } else {
+				//对公对私
                 for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
                     shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = true
                     shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
                 }
                 shopData[1].stepsCon[0].basicsetup[0].radiolist[0].checked = true
+				console.log(shopData[0].stepsCon[0].basicsetup[2])
             }
-            if (this.data.channelType == 3) {
-                for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[2].radiolist.length; i++) {
-                    shopData[0].stepsCon[0].basicsetup[2].radiolist[i].isShow = false
-                }
-                shopData[0].stepsCon[0].basicsetup[2].radiolist[0].isShow = true
-            }
+            // if (this.data.channelType == 3) {
+            //     for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[2].radiolist.length; i++) {
+            //         shopData[0].stepsCon[0].basicsetup[2].radiolist[i].isShow = false
+            //     }
+            //     shopData[0].stepsCon[0].basicsetup[2].radiolist[0].isShow = true
+            // }else{
+			// 	console.log(shopData[0].stepsCon[0].basicsetup[2])
+			// 	for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[2].radiolist.length; i++) {
+			// 		shopData[0].stepsCon[0].basicsetup[2].radiolist[i].isShow = true
+			// 	}
+			// }
             this.setData({
                 shopData: shopData,
                 merchantType: e.detail.value,
@@ -303,18 +312,73 @@ Page({
                 shopData[0].stepsCon[0].basicsetup[2].radiolist[i].checked = false
             }
             shopData[0].stepsCon[0].basicsetup[2].radiolist[0].checked = true
-            var ra = this.data.rate1
-            var raid = this.data.rateId1
-
-            this.setData({
-                rateList: ra,
-                rateList1: raid,
-                shopData: shopData,
-                merchantType: e.detail.value,
-                jiesuanType: false,
-                rateType: 'D1',
-                youzhiType: wx.getStorageSync('saleInfo').channelTypeTwo == 3 ? true : false
-            })
+			this.setData({
+				rateList: ra,
+				rateList1: raid,
+				shopData: shopData,
+				merchantType: e.detail.value,
+				jiesuanType: false,
+				rateType: 'D1',
+				youzhiType: this.data.paymentType == 3 ? true : false
+			})
+            var ra = []
+            var raid = []
+			if(this.data.rateType == 'D0'){
+				ra = this.data.d0rate[0]
+				raid = this.data.d0rateNum[0]
+			}else{
+				ra = this.data.d1rate[0]
+				raid = this.data.d1rateNum[0]
+			}
+			var rl1 = []
+			if (this.data.d1rateNum.length != 0) {
+				rl1 = this.data.d1rateNum[0]
+			}
+			var  shopInput = this.data.shopInput
+			shopInput.channel = this.data.d1n[0]
+			this.setData({
+				
+				shopInput: shopInput,
+				shopInput: shopInput,
+				rateList: this.data.d1rate[0],
+				rateList1: rl1,
+				shopData: shopData,
+				channelType: this.data.d1t[0],
+				youzhiType: this.data.d1t[0] == 3 ? true : false,
+				feilvType: true,
+				rateNameList: this.data.d1n,
+				rateNumList: this.data.d1c,
+				rateTypeList: this.data.d1t,
+				paymentChannel:this.data.d1c[0]
+			})
+			if (this.data.channelType == 3) {
+				var shopInput = this.data.shopInput
+				shopInput.operationId = ''
+				shopInput.rate1 = ''
+				shopInput.rateCoding = ''
+				this.setData({
+					shopInput: shopInput,
+					multihangye: '',
+					yirongmaId: '',
+					listValid: '',
+					shopInput: shopInput,
+					multiArray3: yirongma
+				})
+			} else {
+				var shopInput = this.data.shopInput
+				shopInput.operationId = ''
+				shopInput.rate1 = '',
+					shopInput.rateCoding = '',
+					this.setData({
+						shopInput: shopInput,
+						multihangye: '',
+						yirongmaId: '',
+						listValid: '',
+						shopInput: shopInput,
+						multiArray3: hangyeData
+					})
+			}
+            
         }
         this.getTop()
     },
@@ -354,37 +418,31 @@ Page({
                     shopData[0].stepsCon[0].basicsetup[2].radiolist[i].checked = false
                 }
                 shopData[0].stepsCon[0].basicsetup[2].radiolist[1].checked = true
-                var ra = this.data.rate2
-                var raid = this.data.rateId2
+				var shopInput = this.data.shopInput
+				shopInput.channel = this.data.d0n[0]
+				var rl1 = []
+				if (this.data.d0rateNum.length != 0) {
+					rl1 = this.data.d0rateNum[0]
+				}
+				
                 this.setData({
                     rateType: e.detail.value,
-                    rateList: ra,
-                    rateList1: raid,
+					shopInput: shopInput,
+					rateList: this.data.d0rate[0],
+					rateList1: rl1,
                     shopData: shopData,
-                    channelType: wx.getStorageSync('saleInfo').channelTypeOne,
-                    youzhiType: wx.getStorageSync('saleInfo').channelTypeOne == 3 ? true : false,
-
+                    channelType: this.data.d0t[0],
+					youzhiType: this.data.d0t[0] == 3 ? true : false,
+					rateNameList: this.data.d0n,
+					rateNumList: this.data.d0c,
+					rateTypeList:this.data.d0t
                 })
-                if (this.data.channelType == 3 && this.data.merchantType == 2) {
-                    for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
-                        shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = false
-                        shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
-                    }
-                    shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS = true
-                    shopData[1].stepsCon[0].basicsetup[0].radiolist[1].checked = true
-                } else {
-                    for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
-                        shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = true
-                        shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
-                    }
-                    shopData[1].stepsCon[0].basicsetup[0].radiolist[0].checked = true
-                }
-                this.setData({
-                    shopData: shopData
-                })
+               
                 if (this.data.channelType == 3) {
                     var shopInput = this.data.shopInput
                     shopInput.operationId = ''
+					shopInput.rate1 = '',
+					shopInput.rateCoding = '',
                     this.setData({
                         shopInput: shopInput,
                         multihangye: '',
@@ -396,6 +454,8 @@ Page({
                 } else {
                     var shopInput = this.data.shopInput
                     shopInput.operationId = ''
+					shopInput.rate1 = '',
+					shopInput.rateCoding = '',
                     this.setData({
                         shopInput: shopInput,
                         multihangye: '',
@@ -405,7 +465,7 @@ Page({
                         multiArray3: hangyeData
                     })
                 }
-                if (wx.getStorageSync('saleInfo').channelTypeOne == 3 && this.data.qualityClient == 0) {
+                if (this.data.channelType == 3 && this.data.qualityClient == 0) {
                     this.setData({
                         feilvType: false
                     })
@@ -414,25 +474,52 @@ Page({
                         feilvType: true
                     })
                 }
+				if (this.data.channelType == 3 && this.data.merchantType == 2) {
+					for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
+						shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = false
+						shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
+					}
+					shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS = true
+					shopData[1].stepsCon[0].basicsetup[0].radiolist[1].checked = true
+				} else {
+					for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
+						shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = true
+						shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
+					}
+					shopData[1].stepsCon[0].basicsetup[0].radiolist[0].checked = true
+				}
+				this.setData({
+					shopData: shopData
+				})
             } else {
                 for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[2].radiolist.length; i++) {
                     shopData[0].stepsCon[0].basicsetup[2].radiolist[i].checked = false
                 }
                 shopData[0].stepsCon[0].basicsetup[2].radiolist[0].checked = true
-                var ra = this.data.rate1
-                var raid = this.data.rateId1
+				var shopInput = this.data.shopInput;
+				shopInput.channel = this.data.d1n[0]
+				var rl1 = []
+				if (this.data.d1rateNum.length != 0) {
+					rl1 = this.data.d1rateNum[0]
+				}
                 this.setData({
                     rateType: e.detail.value,
-                    rateList: ra,
-                    rateList1: raid,
+					shopInput:shopInput,
+					rateList: this.data.d1rate[0],
+					rateList1: rl1,
                     shopData: shopData,
-                    channelType: wx.getStorageSync('saleInfo').channelTypeTwo,
-                    youzhiType: wx.getStorageSync('saleInfo').channelTypeTwo == 3 ? true : false,
-                    feilvType: wx.getStorageSync('saleInfo').channelTypeOne != 3 ? true : false,
+                    channelType: this.data.d1t[0],
+					youzhiType: this.data.d1t[0] == 3 ? true : false,
+					feilvType: this.data.d1t[0] != 3 ? true : false,
+					rateNameList: this.data.d1n,
+					rateNumList: this.data.d1c,
+					rateTypeList: this.data.d1t
                 })
                 if (this.data.channelType == 3) {
                     var shopInput = this.data.shopInput
                     shopInput.operationId = ''
+					shopInput.rate1 = ''
+					shopInput.rateCoding = ''
                     this.setData({
                         shopInput: shopInput,
                         multihangye: '',
@@ -444,6 +531,8 @@ Page({
                 } else {
                     var shopInput = this.data.shopInput
                     shopInput.operationId = ''
+					shopInput.rate1 = '',
+					shopInput.rateCoding = '',
                     this.setData({
                         shopInput: shopInput,
                         multihangye: '',
@@ -453,6 +542,7 @@ Page({
                         multiArray3: hangyeData
                     })
                 }
+				console.log(this.data.channelType)
                 if (this.data.channelType == 3 && this.data.merchantType == 2) {
                     for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
                         shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = false
@@ -470,7 +560,7 @@ Page({
                 this.setData({
                     shopData: shopData
                 })
-                if (wx.getStorageSync('saleInfo').channelTypeTwo == 3 && this.data.qualityClient == 0) {
+                if (this.data.channelType == 3 && this.data.qualityClient == 0) {
                     this.setData({
                         feilvType: false
                     })
@@ -487,20 +577,20 @@ Page({
         console.log(e)
         var shopData = this.data.shopData
         if (e.detail.value == 0) {
-            for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[3].radiolist.length; i++) {
-                shopData[0].stepsCon[0].basicsetup[3].radiolist[i].checked = false
+            for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[4].radiolist.length; i++) {
+                shopData[0].stepsCon[0].basicsetup[4].radiolist[i].checked = false
             }
-            shopData[0].stepsCon[0].basicsetup[3].radiolist[e.detail.value].checked = true
+            shopData[0].stepsCon[0].basicsetup[4].radiolist[e.detail.value].checked = true
             this.setData({
                 shopData: shopData,
                 feilvType: true,
                 qualityClient: '1'
             })
         } else {
-            for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[3].radiolist.length; i++) {
-                shopData[0].stepsCon[0].basicsetup[3].radiolist[i].checked = false
+            for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[4].radiolist.length; i++) {
+                shopData[0].stepsCon[0].basicsetup[4].radiolist[i].checked = false
             }
-            shopData[0].stepsCon[0].basicsetup[3].radiolist[e.detail.value].checked = true
+            shopData[0].stepsCon[0].basicsetup[4].radiolist[e.detail.value].checked = true
             this.setData({
                 shopData: shopData,
                 feilvType: false,
@@ -626,7 +716,7 @@ Page({
                 shopInput.saleNumber = this.data.saleNumber
                 shopInput.subaccountNumber = this.data.subNumber
                 shopInput.orderNumber = this.data.orderNumber
-				shopInput.bankCardNo = shopInput.bankCardNo.replace(/\s/g, '')
+                shopInput.bankCardNo = shopInput.bankCardNo.replace(/\s/g, '')
                 console.log(this.data.merchantNumber == "null")
                 if (this.data.merchantNumber == "null") {
 
@@ -638,7 +728,7 @@ Page({
                     console.log('123123')
                     shopInput.merchantNumber = ''
                 }
-
+				shopInput.paymentChannel = this.data.paymentChannel
                 console.log(shopInput.merchantNumber)
                 shopInput.paymentType = this.data.channelType
                 shopInput.qualityClient = this.data.qualityClient
@@ -1288,6 +1378,72 @@ Page({
             })
         }
     },
+	bindDateChangeRate:function(e){
+		var data = e.detail.value
+		var cur = e.target.dataset.current;
+		console.log(data,cur)
+		if (!data) {
+			this.setData({
+				status: '',
+			})
+		} else {
+			var shopInput = this.data.shopInput
+			shopInput[cur] = this.data.rateNameList[data]
+			console.log(this.data.rateType)
+			if (this.data.rateType == 'D0'){
+				this.setData({
+					status1: cur,
+					data:data,
+					shopInput: shopInput,
+					paymentChannel: this.data.rateNumList[data],
+					channelType: this.data.rateTypeList[data],
+					rateList: this.data.d0rate[data],
+					rateList1:this.data.d0rateNum[data],
+					youzhiType: this.data.rateTypeList[data] == 3?true:false
+				})
+			}else{
+				this.setData({
+					status1: cur,
+					shopInput: shopInput,
+					paymentChannel: this.data.rateNumList[data],
+					channelType: this.data.rateTypeList[data],
+					rateList: this.data.d1rate[data],
+					rateList1: this.data.d1rateNum[data],
+					youzhiType: this.data.rateTypeList[data] == 3?true:false,
+				})
+			}
+			if (this.data.channelType == 3) {
+				var shopInput = this.data.shopInput
+				shopInput.operationId = ''
+				shopInput.rate1 = ''
+				shopInput.rateCoding = ''
+				this.setData({
+					shopInput: shopInput,
+					multihangye: '',
+					yirongmaId: '',
+					listValid: '',
+					shopInput: shopInput,
+					multiArray3: yirongma,
+					feilvType: this.data.qualityClient != 0?true:false
+				})
+			} else {
+				var shopInput = this.data.shopInput
+				shopInput.operationId = ''
+				shopInput.rate1 = '',
+					shopInput.rateCoding = '',
+					this.setData({
+						shopInput: shopInput,
+						multihangye: '',
+						yirongmaId: '',
+						listValid: '',
+						shopInput: shopInput,
+						multiArray3: hangyeData,
+					feilvType: true
+					})
+			}
+			
+		}
+	},
     bindPickerChange(e) {
         console.log(e)
         var data = e.detail.value
@@ -1611,7 +1767,7 @@ Page({
 
     },
     subImage: function() {
-		var that = this
+        var that = this
         var imgList = this.data.imagelist
         var type = this.data.merchantType
         var tjData = new Object()
@@ -1619,17 +1775,17 @@ Page({
         tjData.institutionNumber = this.data.institutionNumber
         tjData.saleNumber = wx.getStorageSync('saleInfo').number
         console.log(imgList)
-		// if(this.data.channelType != 4){
-		// 	for(let i = 0 ; i < imgList.length;i++){
-		// 		if(imgList[i].type == 17){
-		// 			imgList.splice(i,1)
-		// 		}
-		// 		if (imgList[i].type == 18) {
-		// 			imgList.splice(i, 1)
-		// 		}
-		// 	}
-		// }
-		console.log(imgList)
+        // if(this.data.channelType != 4){
+        // 	for(let i = 0 ; i < imgList.length;i++){
+        // 		if(imgList[i].type == 17){
+        // 			imgList.splice(i,1)
+        // 		}
+        // 		if (imgList[i].type == 18) {
+        // 			imgList.splice(i, 1)
+        // 		}
+        // 	}
+        // }
+        console.log(imgList)
         if (this.data.channelType != 3) {
             if (type == 2) {
                 for (var i = 0; i < imgList.length; i++) {
@@ -1783,11 +1939,7 @@ Page({
             }
         }
 
-        if (this.data.rateType == 'D1') {
-            tjData.paymentChannel = wx.getStorageSync('saleInfo').paymentChannelD1
-        } else {
-            tjData.paymentChannel = wx.getStorageSync('saleInfo').paymentChannel
-        }
+		tjData.paymentChannel = this.data.paymentChannel
         console.log(this.data.imgTrue)
         console.log(tjData)
 
@@ -1839,46 +1991,41 @@ Page({
                     console.log(res)
                     wx.hideLoading()
                     if (res.data.code == 1000) {
-						var saleI = wx.getStorageSync('saleInfo')
-						var loca = wx.getStorageSync('location')
-						var newO = new Object()
-						newO.orderNumber = that.data.orderNumber
-						if (that.data.rateType == 'D1') {
-							newO.paymentChannel = wx.getStorageSync('saleInfo').paymentChannelD1
-							newO.paymentType = wx.getStorageSync('saleInfo').channelTypeOne
-						} else {
-							newO.paymentChannel = wx.getStorageSync('saleInfo').paymentChannel
-							newO.paymentType = wx.getStorageSync('saleInfo').channelTypeTwo
-						}
-						newO.typeInfo = 0
-						if (saleI.agentType == 1) {
-							if (saleI.pro != loca.pro) {
-								newO.typeInfo = 1
-							}
-							if (shopInput.province != loca.pro) {
-								newO.typeInfo = 1
-							}
-						}
-						if (saleI.agentType == 2) {
-							if (saleI.cit != loca.cit) {
-								newO.typeInfo = 1
-							}
-							if (shopInput.city != loca.cit) {
-								newO.typeInfo = 1
-							}
-						}
-						console.log(newO)
-						wx.request({
-							url: that.data.server + 'submit/intoSubmission',
-							method: 'post',
-							data: newO,
-							header: {
-								'Content-Type': 'application/x-www-form-urlencoded' // 默认值
-							},
-							success:function(res){
-								console.log(res)
-							}
-						})	
+                        var saleI = wx.getStorageSync('saleInfo')
+                        var loca = wx.getStorageSync('location')
+                        var newO = new Object()
+                        newO.orderNumber = that.data.orderNumber
+						newO.paymentChannel = that.data.paymentChannel
+						newO.paymentType = that.data.channelType
+                        newO.typeInfo = 0
+                        if (saleI.agentType == 1) {
+                            if (saleI.pro != loca.pro) {
+                                newO.typeInfo = 1
+                            }
+                            if (shopInput.province != loca.pro) {
+                                newO.typeInfo = 1
+                            }
+                        }
+                        if (saleI.agentType == 2) {
+                            if (saleI.cit != loca.cit) {
+                                newO.typeInfo = 1
+                            }
+                            if (shopInput.city != loca.cit) {
+                                newO.typeInfo = 1
+                            }
+                        }
+                        console.log(newO)
+                        wx.request({
+                            url: that.data.server + 'submit/intoSubmission',
+                            method: 'post',
+                            data: newO,
+                            header: {
+                                'Content-Type': 'application/x-www-form-urlencoded' // 默认值
+                            },
+                            success: function(res) {
+                                console.log(res)
+                            }
+                        })
                         wx.showModal({
                             title: '提示',
                             content: res.data.msg,
@@ -1912,244 +2059,395 @@ Page({
      */
     onLoad: function(options) {
         console.log(options)
-
+		
         var options = options
         this.setData({
             orderNumber: options.id,
             isUpdata: options.type,
             subNumber: options.subNumber,
             merchantNumber: options.merchantNumber,
-            channelType: wx.getStorageSync('saleInfo').channelTypeTwo
+			institutionNumber: wx.getStorageSync('saleInfo').institutionNumber,
+			saleNumber: wx.getStorageSync('saleInfo').number
         })
 
         var that = this
-        if (that.data.isUpdata == 'true') {
-            wx.request({
-                url: that.data.server + 'merchantRegister/selectMerchantRegisterInfo',
-                method: 'post',
-                data: {
-                    orderNumber: that.data.orderNumber
-                },
-                dataType: 'json',
-                header: {
-                    'content-type': 'application/x-www-form-urlencoded' // 默认值
-                },
-                success: function(res) {
-                    var data1 = res.data.data.merchantRegisterInfo
-                    var shopData = that.data.shopData
-                    console.log(data1)
-                    var data2 = res.data.data.merchantBankCardInfo
-                    var dataRate = res.data.data.merchantRoteInfo
-                    var data3 = Object.assign(data1, data2, dataRate)
-                    if (data1.paymentType == 3) {
-                        var hangye = yirongmaL
-                        var name = ''
-                        for (let i = 0; i < hangye.length; i++) {
-                            if (hangye[i].id == data1.operationId) {
-                                name = hangye[i].name
-                            }
-                        }
+		wx.request({
+			url: that.data.server + 'login/getSalePcList',
+			method: 'post',
+			data: {
+				institutionNumber: wx.getStorageSync('saleInfo').institutionNumber
+			},
+			dataType: 'json',
+			header: {
+				'content-type': 'application/x-www-form-urlencoded' // 默认值
+			},
+			success:function(res){
+				var d0n = [],d0c=[],d0t=[],d1n = [],d1c=[],d1t=[],d0rate=[],d1rate=[],d0rateNum=[],d1rateNum=[]
+				var ls0 = res.data.data.d0Td
+				var ls1 = res.data.data.d1Td
+				for(let i = 0 ; i < ls0.length;i++){
+					d0n.push(ls0[i].paymentChannelName)
+					d0c.push(ls0[i].paymentChannel)
+					d0t.push(ls0[i].channelType)
+					console.log(ls0[i].channelD0Rate.split('&'))
+					if (ls0[i].channelD0Rate.indexOf('|') >=0){
+						var lis = ls0[i].channelD0Rate.split('&')
+						var l1 = [], l0 = []
+						for (let n = 0; n < lis.length; n++) {
+							l1.push(lis[n].split('|')[1])
+							l0.push(lis[n].split('|')[0])
+						}
+						console.log(l1,l0)
+						d0rate.push(l1)
+						d0rateNum.push(l0)
+					}else{
+						d0rate.push(ls0[i].channelD0Rate.split('&'))
+						var ne = new Array()
+						d0rateNum.push(ne)
+					}
+					
+				}
+				for (let i = 0; i < ls1.length; i++) {
+					d1n.push(ls1[i].paymentChannelName)
+					d1c.push(ls1[i].paymentChannel)
+					d1t.push(ls1[i].channelType)
+					
+					if (ls1[i].channelD1Rate.indexOf('|') >= 0) {
+						var lis = ls1[i].channelD1Rate.split('&')
+						console.log(lis)
+						var l1 = [],l0 = []
+						for(let n = 0 ; n < lis.length;n++){
+							l1.push(lis[n].split('|')[1])
+							l0.push(lis[n].split('|')[0])
+						}
+						d1rate.push(l1)
+						d1rateNum.push(l0)
+					} else {
+						d1rate.push(ls1[i].channelD1Rate.split('&'))
+						var ne = new Array()
+						d1rateNum.push(ne)
+					}
+				}
+				var shopInput = that.data.shopInput
+				shopInput.channel = d1n[0]
+				console.log(d0rateNum,d1rateNum)
+				
+				that.setData({
+					d0n:d0n,
+					d0c: d0c,
+					d0t: d0t,
+					d1rate:d1rate,
+					d0rate: d0rate,
+					d0rateNum: d0rateNum,
+					d1rateNum: d1rateNum,
+					rateList: d1rate[0],
+					rateList1: d1rateNum[0],
+					d1n: d1n,
+					d1c: d1c,
+					d1t: d1t,
+					shopInput: shopInput,
+					rateNameList:d1n,
+					rateNumList:d1c,
+					rateTypeList:d1t,
+					channelType: d1t[0],
+					paymentChannel:d1c[0],
+					youzhiType: d1t[0] == 3 ? true : false,
+				})
+				if (that.data.channelType == 3) {
+					var shopInput = that.data.shopInput
+					shopInput.operationId = ''
+					shopInput.rate1 = '',
+						shopInput.rateCoding = '',
+						that.setData({
+							shopInput: shopInput,
+							multihangye: '',
+							yirongmaId: '',
+							listValid: '',
+							shopInput: shopInput,
+							multiArray3: yirongma
+						})
+				} else {
+					var shopInput = that.data.shopInput
+					shopInput.operationId = ''
+					shopInput.rate1 = '',
+						shopInput.rateCoding = '',
+						that.setData({
+							shopInput: shopInput,
+							multihangye: '',
+							yirongmaId: '',
+							listValid: '',
+							shopInput: shopInput,
+							multiArray3: hangyeData
+						})
+				}
+				if (that.data.isUpdata == 'true') {
+					wx.request({
+						url: that.data.server + 'merchantRegister/selectMerchantRegisterInfo',
+						method: 'post',
+						data: {
+							orderNumber: that.data.orderNumber
+						},
+						dataType: 'json',
+						header: {
+							'content-type': 'application/x-www-form-urlencoded' // 默认值
+						},
+						success: function (res) {
+							var data1 = res.data.data.merchantRegisterInfo
+							var shopData = that.data.shopData
+							console.log(data1)
+							var data2 = res.data.data.merchantBankCardInfo
+							var dataRate = res.data.data.merchantRoteInfo
+							var data3 = Object.assign(data1, data2, dataRate)
+							if (data1.paymentType == 3) {
+								var hangye = yirongmaL
+								var name = ''
+								for (let i = 0; i < hangye.length; i++) {
+									if (hangye[i].id == data1.operationId) {
+										name = hangye[i].name
+									}
+								}
 
-                        var multihangye = name
-                        var iii = data1.qualityClient == "0" ? 1 : 0
-                        console.log(iii)
-                        if (iii == 0) {
-                            that.setData({
-                                feilvType: true,
-                                youzhiType: true
-                            })
-                            for (let i = 0; i < shopData[0].stepsCon[0].basicsetup[3].radiolist.length; i++) {
-                                shopData[0].stepsCon[0].basicsetup[3].radiolist[i].checked = false
-                            }
+								var multihangye = name
+								var iii = data1.qualityClient == "0" ? 1 : 0
+								console.log(iii)
+								if (iii == 0) {
+									that.setData({
+										feilvType: true,
+										youzhiType: true
+									})
+									for (let i = 0; i < shopData[0].stepsCon[0].basicsetup[4].radiolist.length; i++) {
+										shopData[0].stepsCon[0].basicsetup[4].radiolist[i].checked = false
+									}
 
-                            shopData[0].stepsCon[0].basicsetup[3].radiolist[iii].checked = true
-                        } else {
-                            for (let i = 0; i < shopData[0].stepsCon[0].basicsetup[3].radiolist.length; i++) {
-                                shopData[0].stepsCon[0].basicsetup[3].radiolist[i].checked = false
-                            }
+									shopData[0].stepsCon[0].basicsetup[4].radiolist[iii].checked = true
+								} else {
+									for (let i = 0; i < shopData[0].stepsCon[0].basicsetup[4].radiolist.length; i++) {
+										shopData[0].stepsCon[0].basicsetup[4].radiolist[i].checked = false
+									}
 
-                            shopData[0].stepsCon[0].basicsetup[3].radiolist[iii].checked = true
-                            that.setData({
-                                feilvType: false
-                            })
-                        }
+									shopData[0].stepsCon[0].basicsetup[4].radiolist[iii].checked = true
+									that.setData({
+										feilvType: false
+									})
+								}
 
-                    } else {
-                        var multihangye = data3.oneOperate + '-' + data3.twoOperate + '-' + data3.threeOperate
-                    }
+							} else {
+								var multihangye = data3.oneOperate + '-' + data3.twoOperate + '-' + data3.threeOperate
+							}
 
-                    if (data1.juridicalPersonIDType == 1) {
-                        that.setData({
-                            "juridicalPersonIDType": 1,
-                            "jurIs": true
-                        })
-                    } else {
-                        that.setData({
-                            "juridicalPersonIDType": 0,
-                            "jurIs": false
-                        })
-                    }
-                    if (data1.businessLicenseType == 1) {
-                        that.setData({
-                            "businessLicenseType": 1,
-                            "busIs": true
-                        })
-                    } else {
-                        that.setData({
-                            "businessLicenseType": 0,
-                            "busIs": false
-                        })
-                    }
-                    var multiaddress = data3.province + '-' + data3.city + '-' + data3.area
-                    data3.region = data3.provinceID + '-' + data3.cityID + '-' + data3.areaID
-                    switch (data3.merchantType) {
-                        case '个人':
-                            data3.merchantType = 0
-                            break;
-                        case '个体':
-                            data3.merchantType = 1
-                            break;
-                        case '企业':
-                            data3.merchantType = 2
-                            break;
-                    }
+							if (data1.juridicalPersonIDType == 1) {
+								that.setData({
+									"juridicalPersonIDType": 1,
+									"jurIs": true
+								})
+							} else {
+								that.setData({
+									"juridicalPersonIDType": 0,
+									"jurIs": false
+								})
+							}
+							if (data1.businessLicenseType == 1) {
+								that.setData({
+									"businessLicenseType": 1,
+									"busIs": true
+								})
+							} else {
+								that.setData({
+									"businessLicenseType": 0,
+									"busIs": false
+								})
+							}
+							if (data3.rateType == 'D1') {
 
-                    var rate = data3.rate * 100
-                    console.log(rate)
-                    data3.rate1 = rate.toFixed(2) + '%'
-                    if (data3.merchantType != 0) {
-                        //设置营业板块是否显示
-                        shopData[0].stepsCon[2].isS = true
-                        //设置商户类型的判断
-                        for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[1].radiolist.length; i++) {
-                            shopData[0].stepsCon[0].basicsetup[1].radiolist[i].checked = false
-                            if (data3.merchantType == i) {
-                                shopData[0].stepsCon[0].basicsetup[1].radiolist[i].checked = true
-                            }
-                        }
+								console.log(that.data.d1c)
+								var paymentN;
+								var thatN
+								for (let i = 0; i < that.data.d1c.length; i++) {
+									if (that.data.d1c[i] == data3.paymentChannel) {
+										paymentN = that.data.d1n[i]
+										thatN = i
+										break
+									}
+								}
+								console.log(thatN)
+								that.setData({
+									rateList:that.data.d1rate[thatN],
+									rateList1: that.data.d1rateNum[thatN],
+								})
+								data3.channel = paymentN
 
-                        shopData[0].stepsCon[0].basicsetup[1].radiolist[data3.merchantType].checked = true
-                        // console.log(shopData[1].stepsCon[0].basicsetup[0].radiolist)
-                        //处理对公对私的循环
-                        for (var j = 0; j < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; j++) {
-                            shopData[1].stepsCon[0].basicsetup[0].radiolist[j].checked = false
-                            if (data3.settlementLogo == shopData[1].stepsCon[0].basicsetup[0].radiolist[j].radiotypeNum) {
-                                shopData[1].stepsCon[0].basicsetup[0].radiolist[j].checked = true
-                            }
-                        }
-                        //如果通道是3并且类型为2，对公对私的判断
-                        if (data1.paymentType == 3 && data3.merchantType == 2) {
-                            shopData[1].stepsCon[0].basicsetup[0].radiolist[0].isS = false
-                            shopData[1].stepsCon[0].basicsetup[0].radiolist[1].checked = true
-                        }
-                        shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS = true
-                        // shopData[1].stepsCon[1].basicsetup[0].isS = true
-                        //D0，D1标识
-                        for (var k = 0; k < shopData[0].stepsCon[0].basicsetup[2].radiolist.length; k++) {
-                            console.log(shopData[0].stepsCon[0].basicsetup[2].radiolist[k])
-                            shopData[0].stepsCon[0].basicsetup[2].radiolist[k].checked = false
-                            if (data3.rateType == shopData[0].stepsCon[0].basicsetup[2].radiolist[k].radiotypeNum) {
-                                shopData[0].stepsCon[0].basicsetup[2].radiolist[k].checked = true
-                            }
-                        }
-                        that.setData({
-                            shopData: shopData,
-                            settlementLogo: data3.settlementLogo,
-                            merchantType: data3.merchantType,
-                            channelType: data1.paymentType,
-                            youzhiType: true
-                        })
-                    } else {
-                        shopData[0].stepsCon[2].isS = false
-                        for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[1].radiolist.length; i++) {
-                            shopData[0].stepsCon[0].basicsetup[1].radiolist[i].checked = false
-                        }
-                        shopData[0].stepsCon[0].basicsetup[1].radiolist[data3.merchantType].checked = true
+							}else{
+								
+								var paymentN;
+								var thatN
+								for (let i = 0; i < that.data.d0c.length; i++) {
+									if (that.data.d0c[i] == data3.paymentChannel) {
+										paymentN = that.data.d0n[i]
+										thatN = i
+										break
+									}
+								}
+								console.log(thatN)
+								that.setData({
+									rateList: that.data.d0rate[thatN],
+									rateList1: that.data.d0rateNum[thatN],
+								})
+								data3.channel = paymentN
+							}
+							var multiaddress = data3.province + '-' + data3.city + '-' + data3.area
+							data3.region = data3.provinceID + '-' + data3.cityID + '-' + data3.areaID
+							switch (data3.merchantType) {
+								case '个人':
+									data3.merchantType = 0
+									break;
+								case '个体':
+									data3.merchantType = 1
+									break;
+								case '企业':
+									data3.merchantType = 2
+									break;
+							}
 
-                        for (var j = 0; j < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; j++) {
-                            shopData[1].stepsCon[0].basicsetup[0].radiolist[j].checked = false
-                        }
-                        shopData[1].stepsCon[0].basicsetup[0].radiolist[data3.merchantType].checked = true
-                        // console.log(shopData[1].stepsCon[1].basicsetup[0])
-                        // shopData[1].stepsCon[1].basicsetup[0].isS = false
-                        // console.log(shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS)
-                        // shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS = false
-                        that.setData({
-                            shopData: shopData,
-                            merchantType: data3.merchantType,
-                            channelType: data1.paymentType,
-                            youzhiType: false
-                        })
-                    }
-                    if (that.data.channelType == 3) {
-                        var shopData = that.data.shopData
-                        console.log(shopData[0].stepsCon[0].basicsetup[3])
-                        shopData[0].stepsCon[0].basicsetup[3].isShow = true
-                        console.log(that.data.channelType)
-                        that.setData({
-                            shopData: shopData,
-                            youzhiType: true
-                        })
-                    } else {
-                        var shopData = that.data.shopData
-                        console.log(shopData[0].stepsCon[0].basicsetup[3])
-                        shopData[0].stepsCon[0].basicsetup[3].isShow = false
-                        that.setData({
-                            shopData: shopData,
-                            youzhiType: false
-                        })
-                    }
-                    console.log(data3)
-                    that.setData({
-                        shopInput: data3,
-                        multihangye: multihangye,
-                        multiaddress: multiaddress,
-						qualityClient: data3.qualityClient
-                    })
-                }
-            })
-            wx.request({
-                url: that.data.server + 'Sell/getMerPhoto',
-                method: 'post',
-                data: {
-                    orderNumber: that.data.orderNumber
-                },
-                dataType: 'json',
-                header: {
-                    'content-type': 'application/x-www-form-urlencoded' // 默认值
-                },
-                success: function(res) {
-                    console.log(res)
-                    if (res.data.code == 1000) {
-                        if (res.data.data == null) {
-                            // wx.showToast({
-                            // 	title:res.data.msg,
-                            // 	icon:"none"
-                            // })
-                        } else {
-                            var imagelist = that.data.imagelist
-                            console.log(res.data.data[0])
-                            var imL = res.data.data[0]
-                            for (var i in imL) {
-                                for (var m = 0; m < imagelist.length; m++) {
-                                    if (imagelist[m].name == i) {
-                                        if (!!imL[i]) {
-                                            imagelist[m].imgSrc = imL[i]
-                                            imagelist[m].isS = true
-                                        }
-                                        break
-                                    }
-                                }
-                            }
-                            console.log(imagelist)
-                            that.setData({
-                                imagelist: imagelist
-                            })
-                        }
-                    }
-                }
-            })
-        }
+							var rate = data3.rate * 100
+							console.log(rate)
+							data3.rate1 = rate.toFixed(2) + '%'
+							if (data3.merchantType != 0) {
+								//设置营业板块是否显示
+								shopData[0].stepsCon[2].isS = true
+								//设置商户类型的判断
+								for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[1].radiolist.length; i++) {
+									shopData[0].stepsCon[0].basicsetup[1].radiolist[i].checked = false
+									if (data3.merchantType == i) {
+										shopData[0].stepsCon[0].basicsetup[1].radiolist[i].checked = true
+									}
+								}
+
+								shopData[0].stepsCon[0].basicsetup[1].radiolist[data3.merchantType].checked = true
+								// console.log(shopData[1].stepsCon[0].basicsetup[0].radiolist)
+								//处理对公对私的循环
+								for (var j = 0; j < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; j++) {
+									shopData[1].stepsCon[0].basicsetup[0].radiolist[j].checked = false
+									if (data3.settlementLogo == shopData[1].stepsCon[0].basicsetup[0].radiolist[j].radiotypeNum) {
+										shopData[1].stepsCon[0].basicsetup[0].radiolist[j].checked = true
+									}
+								}
+								//如果通道是3并且类型为2，对公对私的判断
+								if (data1.paymentType == 3 && data3.merchantType == 2) {
+									shopData[1].stepsCon[0].basicsetup[0].radiolist[0].isS = false
+									shopData[1].stepsCon[0].basicsetup[0].radiolist[1].checked = true
+								}
+								shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS = true
+								// shopData[1].stepsCon[1].basicsetup[0].isS = true
+								//D0，D1标识
+								for (var k = 0; k < shopData[0].stepsCon[0].basicsetup[2].radiolist.length; k++) {
+									console.log(shopData[0].stepsCon[0].basicsetup[2].radiolist[k])
+									shopData[0].stepsCon[0].basicsetup[2].radiolist[k].checked = false
+									if (data3.rateType == shopData[0].stepsCon[0].basicsetup[2].radiolist[k].radiotypeNum) {
+										shopData[0].stepsCon[0].basicsetup[2].radiolist[k].checked = true
+									}
+								}
+								that.setData({
+									shopData: shopData,
+									settlementLogo: data3.settlementLogo,
+									merchantType: data3.merchantType,
+									channelType: data1.paymentType,
+									youzhiType: true
+								})
+							} else {
+								shopData[0].stepsCon[2].isS = false
+								for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[1].radiolist.length; i++) {
+									shopData[0].stepsCon[0].basicsetup[1].radiolist[i].checked = false
+								}
+								shopData[0].stepsCon[0].basicsetup[1].radiolist[data3.merchantType].checked = true
+
+								for (var j = 0; j < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; j++) {
+									shopData[1].stepsCon[0].basicsetup[0].radiolist[j].checked = false
+								}
+								shopData[1].stepsCon[0].basicsetup[0].radiolist[data3.merchantType].checked = true
+								// console.log(shopData[1].stepsCon[1].basicsetup[0])
+								// shopData[1].stepsCon[1].basicsetup[0].isS = false
+								// console.log(shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS)
+								// shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS = false
+								that.setData({
+									shopData: shopData,
+									merchantType: data3.merchantType,
+									channelType: data1.paymentType,
+									youzhiType: false
+								})
+							}
+							if (that.data.channelType == 3) {
+								var shopData = that.data.shopData
+								console.log(shopData[0].stepsCon[0].basicsetup[3])
+								shopData[0].stepsCon[0].basicsetup[3].isShow = true
+								console.log(that.data.channelType)
+								that.setData({
+									shopData: shopData,
+									youzhiType: true
+								})
+							} else {
+								var shopData = that.data.shopData
+								console.log(shopData[0].stepsCon[0].basicsetup[3])
+								shopData[0].stepsCon[0].basicsetup[3].isShow = false
+								that.setData({
+									shopData: shopData,
+									youzhiType: false
+								})
+							}
+							console.log(data3)
+							that.setData({
+								shopInput: data3,
+								multihangye: multihangye,
+								multiaddress: multiaddress,
+								qualityClient: data3.qualityClient,
+								paymentChannel: data3.paymentChannel
+							})
+						}
+					})
+					wx.request({
+						url: that.data.server + 'Sell/getMerPhoto',
+						method: 'post',
+						data: {
+							orderNumber: that.data.orderNumber
+						},
+						dataType: 'json',
+						header: {
+							'content-type': 'application/x-www-form-urlencoded' // 默认值
+						},
+						success: function (res) {
+							console.log(res)
+							if (res.data.code == 1000) {
+								if (res.data.data == null) {
+									// wx.showToast({
+									// 	title:res.data.msg,
+									// 	icon:"none"
+									// })
+								} else {
+									var imagelist = that.data.imagelist
+									console.log(res.data.data[0])
+									var imL = res.data.data[0]
+									for (var i in imL) {
+										for (var m = 0; m < imagelist.length; m++) {
+											if (imagelist[m].name == i) {
+												if (!!imL[i]) {
+													imagelist[m].imgSrc = imL[i]
+													imagelist[m].isS = true
+												}
+												break
+											}
+										}
+									}
+									console.log(imagelist)
+									that.setData({
+										imagelist: imagelist
+									})
+								}
+							}
+						}
+					})
+				}
+			}
+		})
+        
         console.log(this.data.channelType)
         if (this.data.channelType == 3) {
             var shopData = this.data.shopData
@@ -2178,49 +2476,49 @@ Page({
                 multiArray3: hangyeData
             })
         }
-        var saleInfo = wx.getStorageSync('saleInfo')
-        console.log(saleInfo)
-        var rateD0 = saleInfo.productSwitch.split('&');
-        var rateD1 = saleInfo.productSwitchD1.split('&');
-        var rate1 = [],
-            rate2 = [],
-            rateId1 = [],
-            rateId2 = []
-        if (saleInfo.productSwitchD1.indexOf('|') > -1) {
-            for (var i = 0; i < rateD1.length; i++) {
-                rate1.push(rateD1[i].split('|')[1])
-                rateId1.push(rateD1[i].split('|')[0])
-            }
-        } else {
-            for (var i = 0; i < rateD1.length; i++) {
-                rate1.push(rateD1[i])
-            }
-        }
-        if (saleInfo.productSwitch.indexOf('|') > -1) {
-            for (var i = 0; i < rateD0.length; i++) {
-                rate2.push(rateD0[i].split('|')[1])
-                rateId2.push(rateD0[i].split('|')[0])
-            }
-        } else {
-            for (var i = 0; i < rateD0.length; i++) {
-                rate2.push(rateD0[i])
-            }
-        }
-        this.setData({
-            institutionNumber: saleInfo.institutionNumber,
-            saleNumber: saleInfo.number,
-            rateList: rate1,
-            rateList1: rateId1,
-            rate1: rate1,
-            rate2: rate2,
-            rateId1: rateId1,
-            rateId2: rateId2,
-        })
+        // var saleInfo = wx.getStorageSync('saleInfo')
+        // console.log(saleInfo)
+        // var rateD0 = saleInfo.productSwitch.split('&');
+        // var rateD1 = saleInfo.productSwitchD1.split('&');
+        // var rate1 = [],
+        //     rate2 = [],
+        //     rateId1 = [],
+        //     rateId2 = []
+        // if (saleInfo.productSwitchD1.indexOf('|') > -1) {
+        //     for (var i = 0; i < rateD1.length; i++) {
+        //         rate1.push(rateD1[i].split('|')[1])
+        //         rateId1.push(rateD1[i].split('|')[0])
+        //     }
+        // } else {
+        //     for (var i = 0; i < rateD1.length; i++) {
+        //         rate1.push(rateD1[i])
+        //     }
+        // }
+        // if (saleInfo.productSwitch.indexOf('|') > -1) {
+        //     for (var i = 0; i < rateD0.length; i++) {
+        //         rate2.push(rateD0[i].split('|')[1])
+        //         rateId2.push(rateD0[i].split('|')[0])
+        //     }
+        // } else {
+        //     for (var i = 0; i < rateD0.length; i++) {
+        //         rate2.push(rateD0[i])
+        //     }
+        // }
+        // this.setData({
+        //     institutionNumber: saleInfo.institutionNumber,
+        //     saleNumber: saleInfo.number,
+        //     rateList: rate1,
+        //     rateList1: rateId1,
+        //     rate1: rate1,
+        //     rate2: rate2,
+        //     rateId1: rateId1,
+        //     rateId2: rateId2,
+        // })
         var hangbie = this.data.hangbie
         for (var jj = 0; jj < hangbie.length; jj++) {
             hangbie[jj].type = true
         }
-        console.log(hangbie)
+     
         this.setData({
             hangbie: hangbie
         })
@@ -2231,7 +2529,7 @@ Page({
         for (var i = 0; i < shopData.length; i++) {
             for (var j = 0; j < shopData[i].stepsCon.length; j++) {
                 for (var k = 0; k < shopData[i].stepsCon[j].basicsetup.length; k++) {
-                    console.log(shopData[i].stepsCon[j].basicsetup[k])
+                    
                     if (shopData[i].stepsCon[j].basicsetup[k].type == 0) {
 
                         list[i].push(shopData[i].stepsCon[j].basicsetup[k])
@@ -2405,24 +2703,24 @@ Page({
                 console.log(res)
                 console.log(wx.getStorageSync('saleInfo'))
                 var sI = wx.getStorageSync('saleInfo')
-                sI.channelTypeOne = res.data.data.channelTypeOne
-                sI.channelTypeTwo = res.data.data.channelTypeTwo
-                sI.productSwitch = res.data.data.productSwitch
-                sI.productSwitchD1 = res.data.data.productSwitchD1
+                // sI.channelTypeOne = res.data.data.channelTypeOne
+                // sI.channelTypeTwo = res.data.data.channelTypeTwo
+                // sI.productSwitch = res.data.data.productSwitch
+                // sI.productSwitchD1 = res.data.data.productSwitchD1
                 wx.setStorageSync('saleInfo', sI)
             }
         })
-		var that = this
-		wx.request({
-			url: 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=BIuEzeLr4mZaCGuDjEeLvSCp&client_secret=q5XFY7XBaZ48ccbMpdebqsU1hurMLxsB&',
-			method: 'post',
-			
-			success:function(data){
-				that.setData({
-					accesstoken: data.data.access_token
-				})
-			}
-		})
+        var that = this
+        wx.request({
+            url: 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=BIuEzeLr4mZaCGuDjEeLvSCp&client_secret=q5XFY7XBaZ48ccbMpdebqsU1hurMLxsB&',
+            method: 'post',
+
+            success: function(data) {
+                that.setData({
+                    accesstoken: data.data.access_token
+                })
+            }
+        })
     },
     getJurInfo: function(e) {
         console.log(e)
@@ -2449,7 +2747,7 @@ Page({
                     success: res => { //成功的回调
                         var imgBase = res.data
                         wx.request({
-							url: 'https://aip.baidubce.com/rest/2.0/ocr/v1/idcard?access_token=' + that.data.accesstoken,
+                            url: 'https://aip.baidubce.com/rest/2.0/ocr/v1/idcard?access_token=' + that.data.accesstoken,
                             data: {
                                 "id_card_side": "front",
                                 "detect_direction": "true",
@@ -2547,7 +2845,7 @@ Page({
                     success: res => { //成功的回调
                         var imgBase = res.data
                         wx.request({
-							url: 'https://aip.baidubce.com/rest/2.0/ocr/v1/business_license?access_token=' + that.data.accesstoken,
+                            url: 'https://aip.baidubce.com/rest/2.0/ocr/v1/business_license?access_token=' + that.data.accesstoken,
                             data: {
                                 "detect_direction": "true",
                                 image: imgBase
@@ -2662,7 +2960,7 @@ Page({
                     success: res => { //成功的回调
                         var imgBase = res.data
                         wx.request({
-							url: 'https://aip.baidubce.com/rest/2.0/ocr/v1/bankcard?access_token=' + that.data.accesstoken,
+                            url: 'https://aip.baidubce.com/rest/2.0/ocr/v1/bankcard?access_token=' + that.data.accesstoken,
                             data: {
                                 image: imgBase
                             },

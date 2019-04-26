@@ -75,7 +75,7 @@ Page({
 									success: function (res) {
 										if (res.confirm) {
 											wx.request({
-												url: that.data.server + 'merchantManage/checkQRcode', //仅为示例，并非真实的接口地址
+												url: that.data.server + 'merchantManage/insertShopCode', //仅为示例，并非真实的接口地址
 												data: {
 													merchantNumber: that.data.shopNumber,
 													shopNumber: shopNumber,
@@ -86,7 +86,8 @@ Page({
 													'content-type': 'application/json' // 默认值
 												},
 												success: function (res) {
-													if(res.code == 1000){
+													console.log(res)
+													if(res.data.code == 1000){
 														wx.showToast({
 															title: '绑定成功',
 															icon: 'none',

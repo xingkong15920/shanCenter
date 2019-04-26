@@ -34,7 +34,7 @@ var data = [{
                     "radiotypeNum": "2",
                     "checked": false
                 }],
-            }, {
+				},{
                 "type": "2",
                 "shoplabel": "结算方式",
                 "id": "Settleway",
@@ -51,9 +51,21 @@ var data = [{
                     "radiotype": "D0 ",
                     "radiotypeNum": "D0",
                     "checked": false,
-						"isShow": true
+					"isShow": true
                 }],
-            }, {
+            }
+			, {
+					"type": "0",
+					"shoplabel": "进件通道",
+					"id": "channel",
+					"picker": "5",
+					"isShow": true,
+					"placeholder": "请选择进件通道",
+					"tipstype": "1",
+					"tips": "进件通道不能为空！",
+					"setTop": "1"
+				}
+			, {
                 "type": "3",
                 "shoplabel": "是否为优质客户",
                 "id": "qualityClient",

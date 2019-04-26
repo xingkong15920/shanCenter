@@ -177,7 +177,7 @@ Page({
             showModal: true,
             shopNumber: shopnumber,
             shopBindN: shopnumber,
-            codeImg: 'http://api.51shanhe.com/wechatPush/getCode1.html?clerkNumber=' + ' ' + '&type=1&merchantNumber=' + merchantNumber + '&shopNumber=' + shopnumber
+            codeImg: 'http://api.51shanhe.com/wechatPush/getCode.html?clerkNumber=' + ' ' + '&type=1&merchantNumber=' + merchantNumber + '&shopNumber=' + shopnumber
         })
         setTimeout(function() {
             qrcode1.makeCode(that.data.codeImg)

@@ -104,7 +104,8 @@ Page({
 				'content-type': 'application/x-www-form-urlencoded' // 默认值
 			},
 			data:{
-				"phone": this.data.tell
+				"phone": this.data.tell,
+				"institutionNumber":1004
 			},
 			success: res => {
 				console.log(res)

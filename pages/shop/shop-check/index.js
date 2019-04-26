@@ -58,6 +58,10 @@ Page({
 									icon:"none"
 								})
 							}else{
+								wx.showToast({
+									title: '解绑成功',
+									icon: "none"
+								})
 								that.getData()
 							}
 						}
@@ -80,7 +84,8 @@ Page({
 				shopNumber: this.data.shopNumber,
 				qrCode: '',
 				page: this.data.pageNum,
-				limit: this.data.limit
+				limit: this.data.limit,
+				institutionNumber: wx.getStorageSync('saleInfo').institutionNumber
 			},
 			header: {
 				'content-type': 'application/json' // 默认值
