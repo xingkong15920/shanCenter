@@ -403,11 +403,14 @@ Page({
         that.setData({
             showModal3: true,
             id: id,
+			sp:shopnum,
+			cl:id,
 			codeImg: 'http://api.51shanhe.com/wechatPush/getCode.html?type=2&clerkNumber=' + id + '&merchantNumber=' + that.data.merchantNumber + '&shopNumber=' + shopnum
         })
         setTimeout(function() {
+			// qrcode1.clear()
             qrcode1.makeCode(that.data.codeImg)
-        }, 10)
+        }, 200)
     },
     getName: function(e,m,s) {
         var that = this

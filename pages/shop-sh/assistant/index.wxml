@@ -85,11 +85,11 @@
     <view class="modal-mask" bindtap="preventTouchMove" wx:if="{{showModal3}}"></view>
     <view class="modal-dialog" wx:if="{{showModal3}}">
         <!-- <view class="modal-title">设置费率</view> -->
-        <view class="modal-content {{item.clerkNumber==id?'show':'hide'}}" wx:for="{{shopList}}" wx:key="{{shopList}}" data-thisId="{{item.clerkNumber}}">
+        
             <!-- <image src="{{codeImg}}" mode="widthFix" class="wxpushImg"></image> -->
-			<view style="width: 516rpx;height: 516rpx;position:relative;margin:0 auto"  wx:if="{{isBind==false}}">
-				<image src="../../img/shanhe.png" style='width:140rpx;height:140rpx;position:absolute;left:188rpx;top:188rpx;z-index:9999'></image>
-				<canvas   style="width:516rpx; height:516rpx;background:#f1f1f1;position:absolute;left:0;top:0" canvas-id="canvas1"/>
+			<view style="width: 512rpx;height: 512rpx;position:relative;margin:20rpx auto"  wx:if="{{isBind==false}}">
+				<image src="../../img/shanhe.png" style='width:140rpx;height:140rpx;position:absolute;left:206rpx;top:224rpx;z-index:9999'></image>
+				<canvas   style="width:472rpx; height:472rpx;background:#f1f1f1;position:absolute;left:24rpx;top:40rpx" canvas-id="canvas1"/>
 			</view>
             <view class="wxpushTips"   wx:if="{{isBind==false}}">开通后随时随地查看经营情况</view>
             <view class="wxpushbing" wx:if="{{isBind}}">
@@ -102,11 +102,11 @@
                     <view class="wxpushbingList-nick">{{name}}</view>
                     <view class="wxpushbingList-time">{{time}}</view>
                     <view class="wxpushbingList-operation">
-                        <view class="wxpushbingList-operationBtn" data-sp="{{item.shopNumber}}" data-iid="{{item.clerkNumber}}" catchtap="unBind">解绑</view>
+                        <view class="wxpushbingList-operationBtn" data-sp="{{sp}}" data-iid="{{cn}}" catchtap="unBind">解绑</view>
                     </view>
                 </view>
             </view>
-        </view>
+        
         <view class="modal-footer">
             <view class="btn-cancel" bindtap="onCancel" data-status="cancel3">取消</view>
             <view class="btn-confirm" bindtap="onConfirm" data-status="confirm3">确定</view>
