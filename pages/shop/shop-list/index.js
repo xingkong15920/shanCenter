@@ -77,7 +77,7 @@ Page({
 											wx.request({
 												url: that.data.server + 'merchantManage/insertShopCode', //仅为示例，并非真实的接口地址
 												data: {
-													merchantNumber: that.data.shopNumber,
+													merchantNumber: that.data.merchantNumber,
 													shopNumber: shopNumber,
 													equipmentNumber: code,
 													equipmentLinkAddress: equipmentLinkAddress

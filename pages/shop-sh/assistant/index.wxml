@@ -88,8 +88,8 @@
         
             <!-- <image src="{{codeImg}}" mode="widthFix" class="wxpushImg"></image> -->
 			<view style="width: 512rpx;height: 512rpx;position:relative;margin:20rpx auto"  wx:if="{{isBind==false}}">
-				<image src="../../img/shanhe.png" style='width:140rpx;height:140rpx;position:absolute;left:206rpx;top:224rpx;z-index:9999'></image>
-				<canvas   style="width:472rpx; height:472rpx;background:#f1f1f1;position:absolute;left:24rpx;top:40rpx" canvas-id="canvas1"/>
+				<!-- <image src="../../img/shanhe.png" style='width:140rpx;height:140rpx;margin:0 auto;z-index:9999'></image> -->
+				<canvas   style="width:240px; height:240px;background:#f1f1f1;margin:0 auto" canvas-id="canvas1"/>
 			</view>
             <view class="wxpushTips"   wx:if="{{isBind==false}}">开通后随时随地查看经营情况</view>
             <view class="wxpushbing" wx:if="{{isBind}}">
@@ -102,7 +102,7 @@
                     <view class="wxpushbingList-nick">{{name}}</view>
                     <view class="wxpushbingList-time">{{time}}</view>
                     <view class="wxpushbingList-operation">
-                        <view class="wxpushbingList-operationBtn" data-sp="{{sp}}" data-iid="{{cn}}" catchtap="unBind">解绑</view>
+                        <view class="wxpushbingList-operationBtn" data-sp="{{sp}}" data-iid="{{cl}}" catchtap="unBind">解绑</view>
                     </view>
                 </view>
             </view>
