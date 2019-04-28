@@ -99,15 +99,16 @@ Page({
         qrcode = new QRCode('canvas', {
             //usingIn: this,
             text: that.data.paymentCode,
-            width: code_w,
-            height: code_w,
+            width: 240,
+            height: 240,
             colorDark: "black",
             colorLight: "white",
             correctLevel: QRCode.CorrectLevel.H,
         });
         qrcode1 = new QRCode('canvas1', {
             //usingIn: this,
-
+            width: 240,
+            height: 240,
             text: that.data.codeImg,
             colorDark: "black",
             colorLight: "white",

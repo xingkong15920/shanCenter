@@ -6,8 +6,8 @@
             <view class='topN'>￥{{moneyD}}</view>
         </view>
         <view class='topL'>
-            <view class='topT'>今日新增店铺</view>
-            <view class='topN'>{{shopD}}</view>
+            <view class='topT'>累计佣金(元)</view>
+            <view class='topN'>￥{{saleMoney}}</view>
         </view>
 		<view class='topL aL' bindtap='record'>
 			<view class='topZ'></view>

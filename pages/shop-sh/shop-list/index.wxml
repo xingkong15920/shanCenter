@@ -23,7 +23,7 @@
             <view class="modal-content">
                 <view style="width: 240px;height: 240px;position:relative;margin:0 auto"  wx:if="{{isBind==false}}">
                     <image src="../../img/shanhe.png" style='width:70px;height:70px;position:absolute;left:calc(50% - 35px);top:calc(50% - 35px);z-index:9999'></image>
-                    <canvas style="width:240px; height:240px;background:#f1f1f1;position:absolute;left:0;top:0;z-index:9998" canvas-id="canvas1" />
+                    <canvas style="width:240px; height:240px;background:#f1f1f1;" canvas-id="canvas1" />
                 </view>
             <view class="wxpushTips"   wx:if="{{isBind==false}}" style='margin-top:15px'>开通后随时随地查看经营情况</view>
             <view class="wxpushbing" wx:if="{{isBind==true}}">

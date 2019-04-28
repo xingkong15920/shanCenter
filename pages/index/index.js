@@ -44,6 +44,7 @@ Page({
         }],
 		moneyD:0,
 		shopD:0,
+        saleMoney:0,
 		moneyA:0,
 		shopA:0,
     },
@@ -126,6 +127,7 @@ Page({
 					that.setData({
 						moneyD: res.data.data.newShopList[0].settlementMoney,
 						shopD: res.data.data.newShopList[0].newShopCount,
+                        saleMoney: res.data.data.saleMoney,
 						moneyA: res.data.data.todayMoney,
 						shopA: res.data.data.todayCount,
 						sList: sList
