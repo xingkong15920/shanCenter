@@ -22,14 +22,14 @@
         </view>
     </view>
     <view class='bot'>
-            <swiper  class='sw' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-                <block wx:for="{{imgUrls}}">
-                    <swiper-item>
-                        <image src="{{item}}" class="slide-image" width="355" height="150" />
-                    </swiper-item>
-                </block>
-            </swiper>
-		<!-- <swiper class='sw'
+        <swiper class='sw' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+            <block wx:for="{{imgUrls}}">
+                <swiper-item>
+                    <image src="{{item}}" class="slide-image" width="355" height="150" />
+                </swiper-item>
+            </block>
+        </swiper>
+        <!-- <swiper class='sw'
         indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}"
         interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
         <block wx:for="{{background}}" wx:key="*this">
@@ -61,6 +61,29 @@
             <view class='footB iconfont {{item.icon}}' style='color:{{item.color}}'></view>
             <view class='footC'>{{item.name}}</view>
         </view>
+    </view>
+    <!-- <view class='foot'>
+        <view class='footA fl' wx:for="{{sList2}}" bindtap="{{item.tap}}">
+            <view class='footB iconfont {{item.icon}}' style='color:{{item.color}}'></view>
+            <view class='footC'>{{item.name}}</view>
+        </view>
+    </view> -->
 
+    <!--弹窗-->
+    <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal}}">
+        <view class="modal-title">结算方式</view>
+        <view class="modal-content">
+            <radio-group class="radio-group" bindchange="chooseType">
+                <label class="radio" wx:for="{{settlement}}">
+                    <radio value="{{item.value}}" checked="{{item.checked}}" /> {{item.value}}
+                    <view class="radioTips">{{item.tips}}</view>
+                </label>
+            </radio-group>
+        </view>
+        <view class="modal-footer">
+            <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+            <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+        </view>
     </view>
 </view>

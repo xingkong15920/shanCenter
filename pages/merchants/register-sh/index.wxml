@@ -1,0 +1,13 @@
+<view class="container">
+    <view class="body">
+        <view class="registerBody">
+            <view class="registerForm">
+                <input class="input" type='text' placeholder="请输入商户名称"  placeholder-class="registerInput" data-id="merchantsName" bindfocus="focus" bindblur='blur'></input>
+                <input class="input" type='text' placeholder="请输入手机号" placeholder-class="registerInput" data-id="merchantsPhone" bindfocus="focus" bindblur='blur'></input>
+                <input class="input" type='text' placeholder="验证码" placeholder-class="registerInput" data-id="merchantsCode" bindfocus="focus" bindblur='blur'></input>
+                <view class="securitycode" bindtap="securitycode">{{codenum}}</view>
+                <view class="subBtn" bindtap='subBtn'></view>
+            </view>
+        </view>
+    </view>
+</view>
