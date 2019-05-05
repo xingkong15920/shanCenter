@@ -735,6 +735,7 @@ Page({
                 shopInput.businessLicenseType = this.data.businessLicenseType
                 shopInput.juridicalPersonIDType = this.data.juridicalPersonIDType
                 var that = this
+				console.log(shopInput)
                 wx.request({
                     url: this.data.server + 'merchantRegister/insertMerchantRegisterInfo',
                     method: 'post',
@@ -1621,7 +1622,7 @@ Page({
                 console.log()
                 wx.compressImage({
                     src: tempFilePaths, // 图片路径
-                    quality: 80, // 压缩质量
+                    quality: 70, // 压缩质量
                     success: function(res) {
                         uploadFile = res.tempFilePath
                         wx.showLoading({
@@ -1961,22 +1962,12 @@ Page({
             console.log(saleI)
             console.log(loca)
             console.log(shopInput)
-            if (saleI.agentType == 1) {
-                if (saleI.pro != loca.pro) {
-                    typeInfo = 1
-                }
-                if (shopInput.province != loca.pro) {
-                    typeInfo = 1
-                }
-            }
-            if (saleI.agentType == 2) {
-                if (saleI.cit != loca.cit) {
-                    typeInfo = 1
-                }
-                if (shopInput.city != loca.cit) {
-                    typeInfo = 1
-                }
-            }
+			// if (saleI.pro != loca.pro) {
+			// 	typeInfo = 1
+			// }
+			// if (shopInput.province != loca.pro) {
+			// 	typeInfo = 1
+			// }
             tjData.typeInfo = typeInfo
             var tjd = JSON.stringify(tjData)
             wx.request({
@@ -1998,22 +1989,12 @@ Page({
 						newO.paymentChannel = that.data.paymentChannel
 						newO.paymentType = that.data.channelType
                         newO.typeInfo = 0
-                        if (saleI.agentType == 1) {
-                            if (saleI.pro != loca.pro) {
-                                newO.typeInfo = 1
-                            }
-                            if (shopInput.province != loca.pro) {
-                                newO.typeInfo = 1
-                            }
-                        }
-                        if (saleI.agentType == 2) {
-                            if (saleI.cit != loca.cit) {
-                                newO.typeInfo = 1
-                            }
-                            if (shopInput.city != loca.cit) {
-                                newO.typeInfo = 1
-                            }
-                        }
+						// if (saleI.pro != loca.pro) {
+						// 	newO.typeInfo = 1
+						// }
+						// if (shopInput.province != loca.pro) {
+						// 	newO.typeInfo = 1
+						// }
                         console.log(newO)
                         wx.request({
                             url: that.data.server + 'submit/intoSubmission',
@@ -2246,12 +2227,14 @@ Page({
 									"jurIs": false
 								})
 							}
+							console.log(data1.businessLicenseType)
 							if (data1.businessLicenseType == 1) {
 								that.setData({
 									"businessLicenseType": 1,
 									"busIs": true
 								})
 							} else {
+								console.log(data1.businessLicenseType)
 								that.setData({
 									"businessLicenseType": 0,
 									"busIs": false
@@ -2375,6 +2358,15 @@ Page({
 									youzhiType: false
 								})
 							}
+							console.log(data3)
+							var shopData = that.data.shopData
+							for (let j = 0; j < shopData[0].stepsCon[2].basicsetup[4].radiolist.length; j++) {
+								shopData[0].stepsCon[2].basicsetup[4].radiolist[j].checked = false
+							}
+							shopData[0].stepsCon[2].basicsetup[4].radiolist[data1.businessLicenseType==0?1:0].checked = true
+							that.setData({
+								shopData:shopData
+							})
 							if (that.data.channelType == 3) {
 								var shopData = that.data.shopData
 								console.log(shopData[0].stepsCon[0].basicsetup[3])
@@ -2393,7 +2385,7 @@ Page({
 									youzhiType: false
 								})
 							}
-							console.log(data3)
+							
 							that.setData({
 								shopInput: data3,
 								multihangye: multihangye,

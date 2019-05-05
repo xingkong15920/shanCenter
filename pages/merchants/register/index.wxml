@@ -39,7 +39,7 @@
                             </radio-group>
                         </view>
 						<!-- 进件通道 -->
-						<view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" bindtap="getaaaaa" wx:if="{{item.picker == 5&& isUpdata == false}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+						<view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" bindtap="getaaaaa" wx:if="{{item.picker == 5 && isUpdata == false}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit;">{{item.shoplabel}}：
                                 <view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view>
                             </label>
