@@ -68,7 +68,7 @@ Page({
 		// })
         this.setData({
             login: 2,
-			btn:'去登陆'
+			btn:'去登录'
         })
     },
 	getCode:function(){

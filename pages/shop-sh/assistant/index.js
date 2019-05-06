@@ -680,6 +680,7 @@ Page({
                 url: this.data.server + 'clerk/modifyClerk', //仅为示例，并非真实的接口地址
                 data: {
                     shopNumber: shopEnum,
+					merchantNumber:wx.getStorageSync('shopInfo').Number,
                     clerkNumber: chooseShopNum,
                     clerkName: shopEdit.clerkName,
                     registeredCell: shopEdit.registeredCell,
@@ -700,6 +701,7 @@ Page({
                         })
                         that.setData({
                             shopList: [],
+							showModal2: false,
                             'active': 0
                         })
                         that.getData()
