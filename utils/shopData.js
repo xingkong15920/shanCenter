@@ -22,17 +22,20 @@ var data = [{
                     "checked": "1",
                     "radiotype": "个人",
                     "radiotypeNum": "0",
-                    "checked": true
+                    "checked": true,
+					"isShow":true
                 }, {
                     "checked": "2",
                     "radiotype": "个体",
                     "radiotypeNum": "1",
-                    "checked": false
+                    "checked": false,
+						"isShow": true
                 }, {
                     "checked": "3",
                     "radiotype": "企业",
                     "radiotypeNum": "2",
-                    "checked": false
+                    "checked": false,
+					"isShow":true
                 }],
 				},{
                 "type": "2",

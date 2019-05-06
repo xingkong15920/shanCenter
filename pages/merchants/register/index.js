@@ -380,6 +380,7 @@ Page({
 			}
             
         }
+		
         this.getTop()
     },
     radioChange1: function(e) {
@@ -572,6 +573,17 @@ Page({
             }
 
         }
+		if (this.data.channelType == 4 && this.data.merchantType==1){
+			var shopData = this.data.shopData
+			for (let i = 0; i < shopData[0].stepsCon[0].basicsetup[1].radiolist.length;i++){
+				shopData[0].stepsCon[0].basicsetup[1].radiolist[i].checked = false
+			}
+			shopData[0].stepsCon[0].basicsetup[1].radiolist[2].checked = true
+			this.setData({
+				merchantType:2,
+				shopData:shopData
+			})
+		}
     },
     radioChange3: function(e) {
         console.log(e)
@@ -1443,6 +1455,17 @@ Page({
 					})
 			}
 			
+		}
+		if (this.data.channelType == 4 && this.data.merchantType == 1) {
+			var shopData = this.data.shopData
+			for (let i = 0; i < shopData[0].stepsCon[0].basicsetup[1].radiolist.length; i++) {
+				shopData[0].stepsCon[0].basicsetup[1].radiolist[i].checked = false
+			}
+			shopData[0].stepsCon[0].basicsetup[1].radiolist[2].checked = true
+			this.setData({
+				merchantType: 2,
+				shopData: shopData
+			})
 		}
 	},
     bindPickerChange(e) {

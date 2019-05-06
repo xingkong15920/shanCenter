@@ -27,8 +27,12 @@
                         <view class="bodyCli activeInput" wx:if="{{item.type == 1}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit">{{item.shoplabel}}：</label>
                             <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange">
-                                <label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}">
-                                    <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
+                                <label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}"  wx:if="{{item.radiotypeNum == 0}}">
+                                    <radio value="{{item.radiotypeNum}}"  checked="{{item.checked}}"/>{{item.radiotype}}</label>
+									<label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}"  wx:if="{{item.radiotypeNum == 1 && channelType !=4}}">
+                                    <radio value="{{item.radiotypeNum}}"  checked="{{item.checked}}"/>{{item.radiotype}}</label>
+									<label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}"  wx:if="{{item.radiotypeNum == 2}}">
+                                    <radio value="{{item.radiotypeNum}}"  checked="{{item.checked}}"/>{{item.radiotype}}</label>
                             </radio-group>
                         </view>
                         <view class="bodyCli activeInput" wx:if="{{item.type == 2 && jiesuanType == true}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
@@ -38,8 +42,8 @@
                                     <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
                             </radio-group>
                         </view>
-						<!-- 进件通道 -->
-						<view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" bindtap="getaaaaa" wx:if="{{item.picker == 5 && isUpdata == false}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+						<!-- 进件通道  -->
+						<view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" bindtap="getaaaaa" wx:if="{{item.picker == 5&& isUpdata == false}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit;">{{item.shoplabel}}：
                                 <view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view>
                             </label>
