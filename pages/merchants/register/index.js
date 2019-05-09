@@ -1987,12 +1987,15 @@ Page({
             console.log(saleI)
             console.log(loca)
             console.log(shopInput)
-			// if (saleI.pro != loca.pro) {
-			// 	typeInfo = 1
-			// }
-			// if (shopInput.province != loca.pro) {
-			// 	typeInfo = 1
-			// }
+			if(wx.getStorageSync('saleInfo').agentType != 0){
+				if (saleI.pro != loca.pro) {
+					typeInfo = 1
+				}
+				if (shopInput.province != loca.pro) {
+					typeInfo = 1
+				}
+			}
+		
             tjData.typeInfo = typeInfo
             var tjd = JSON.stringify(tjData)
             wx.request({
@@ -2014,12 +2017,14 @@ Page({
 						newO.paymentChannel = that.data.paymentChannel
 						newO.paymentType = that.data.channelType
                         newO.typeInfo = 0
-						// if (saleI.pro != loca.pro) {
-						// 	newO.typeInfo = 1
-						// }
-						// if (shopInput.province != loca.pro) {
-						// 	newO.typeInfo = 1
-						// }
+						if (wx.getStorageSync('saleInfo').agentType != 0) {
+							if (saleI.pro != loca.pro) {
+								typeInfo = 1
+							}
+							if (shopInput.province != loca.pro) {
+								typeInfo = 1
+							}
+						}
                         console.log(newO)
                         wx.request({
                             url: that.data.server + 'submit/intoSubmission',
