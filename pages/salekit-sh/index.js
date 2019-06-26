@@ -5,6 +5,7 @@ var DATE_MONTH = new Date().getMonth() + 1;
 var DATE_DAY = new Date().getDate();
 const config = require('../../utils/config.js')
 var wxCharts = require('../../utils/wxcharts.js');
+const common = require('../../utils/common.js').CmsConfig
 var app = getApp();
 var lineChart = null;
 
@@ -315,8 +316,12 @@ Page({
 	},
 	getData: function () {
 		var that = this
+		wx.showLoading({
+			title: '加载中',
+		})
+		console.log('123')
 		wx.request({
-            url: this.data.server + 'merchantManage/getMerBulletinList', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getMerBulletinList, //仅为示例，并非真实的接口地址
 			data: {
 				merchantNumber: that.data.saleNumber,
 				startTime: that.data.startT + ' ' + '00:00:00',
@@ -327,10 +332,11 @@ Page({
 			},
 			success: function (res) {
                 console.log(res.data.data.transicationList)
-
+				wx.hideLoading()
 				if (res.data.code != 1000) {
 
 				} else {
+					
 					console.log(res)
                     that.setData({
                         transicationAmount: res.data.data.transicationMap.transactionAmount,
@@ -339,7 +345,7 @@ Page({
                         transicationAmountB: res.data.data.transicationMap.refundAmount,
                         transactionCountB: res.data.data.transicationMap.refundCount,
                         shopPoundage: res.data.data.transicationMap.shopPoundage,
-                        record: res.data.data.transicationList,
+						record: res.data.data.transicationList,
 					})
 					that.updateData()
 				}
@@ -349,7 +355,7 @@ Page({
     getToday: function () {
         var that = this
         wx.request({
-            url: this.data.server + 'merchantManage/getTransicationToday', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getMerBulletinList, //仅为示例，并非真实的接口地址
             data: {
                 merchantNumber: that.data.saleNumber,
                 startTime: that.data.startT + ' ' + '00:00:00',
@@ -465,7 +471,7 @@ Page({
 				},
 				min: 0
 			},
-			width: this.data.windowWidth,
+			width: this.data.windowWidth-20,
 			height: 180,
 			dataLabel: false,
 			legend: false,

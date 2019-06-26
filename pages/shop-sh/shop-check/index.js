@@ -1,6 +1,7 @@
 // pages/merchants/register/index.js
 const config = require('../../../utils/config.js')
 const shopData = require('../../../utils/shopData1.js')
+const common = require('../../../utils/common.js').CmsConfig
 var addressData = new Array()
 Page({
 
@@ -99,7 +100,7 @@ Page({
 					title: '',
 				})
                 wx.request({
-                    url: this.data.server + 'store/addShop',
+					url: this.data.server + common.addShop,
                     method: 'post',
                     data: addData,
                     dataType: 'json',
@@ -142,15 +143,15 @@ Page({
 				addData.storePhone = shop.BLnumber
 				addData.address = shop.address
 				if (shop.BLaddress) {
-					addData.remark1 = shop.BLaddress
+					addData.remark = shop.BLaddress
 				} else {
-					addData.remark1 = ''
+					addData.remark = ''
 				}
 				wx.showLoading({
 					title: '',
 				})
 				wx.request({
-					url: this.data.server + 'store/modifyShop',
+					url: this.data.server + common.updateShop,
 					method: 'post',
 					data: addData,
 					dataType: 'json',
@@ -481,7 +482,7 @@ Page({
         })
         var that = this
 		wx.request({
-			url: that.data.server + 'merchantRegister/getAreajson',
+			url: that.data.server + common.getAreajson,
 			method: 'post',
 			dataType: 'json',
 			header: {
@@ -527,14 +528,14 @@ Page({
 				}
 				if (shopnumber) {
 					wx.request({
-						url: that.data.server + 'merchantManage/getShopInfo',
+						url: that.data.server + common.getShopInfo,
 						method: 'post',
 						data: {
 							shopNumber: shopnumber,
 						},
 						dataType: 'json',
 						header: {
-							'content-type': 'application/json' // 默认值
+							'content-type': 'application/x-www-form-urlencoded' // 默认值
 						},
 						success: function (res) {
 							console.log(res)

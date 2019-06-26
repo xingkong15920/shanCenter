@@ -12,6 +12,14 @@
                             <input class="bodyCliinput" type="text" name="{{item.id}}" disabled="disabled" readonly="readonly" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" data-shopnum="{{chooseShopnum}}" bindfocus="focus" bindblur='blur' bindtap='chooseMendian' value="{{chooseShop}}"></input>
                             <view class="bodyCliicon iconfont icon-xiajiantou"></view>
                         </view>
+						<view class="bodyCli activeInput" wx:if="{{item.type == 2}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：</label>
+                            <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange1">
+                                <label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}" >
+                                    <radio value="{{item.radiotypeNum}}"  checked="{{item.checked}}"/>{{item.radiotype}}</label>
+									
+                            </radio-group>
+                        </view>
                         <!-- input循环 -->
                         <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.type == 0 & item.picker == 0 & !item.passType}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit">{{item.shoplabel}}：<view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view></label>

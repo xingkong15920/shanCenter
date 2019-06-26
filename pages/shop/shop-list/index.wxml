@@ -10,7 +10,7 @@
             <view class="listBody_li" wx:for="{{shopList}}"  >
                 <view class="shopName" >{{item.shopName}}</view>
                 <view class="operation">
-                    <view class="operationBtn check" data-id="{{item.shopNumber}}" data-name="{{item.shopName}}" bindtap="Tocheck">查看</view>
+                    <view class="operationBtn check" data-id="{{item.shopNumber}}"  data-name="{{item.shopName}}" bindtap="Tocheck">查看</view>
                     <view class="operationBtn add"  data-id="{{item.shopNumber}}"  bindtap='Toadd'>添加</view>
                 </view>
             </view>

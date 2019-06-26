@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp()
 var Moment = require("../../utils/moment.js");
+const common = require('../../utils/common.js').CmsConfig
 const config = require('../../utils/config.js')
 Page({
     data: {
@@ -55,7 +56,7 @@ Page({
             value: "D0",
             tips: "*为全年当天到账(包含休息日,节假日)"
         }],
-        imgUrls: ['../img/1.png', '../img/2.png', '../img/3.png'],
+        imgUrls:[],
         indicatorDots: true,
         autoplay: true,
         interval: 3000,
@@ -94,7 +95,7 @@ Page({
         var that = this
         var sList = that.data.sList
         wx.request({
-            url: this.data.server + 'merchantManage/getTransicationToday', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getTransicationTodayShop, //仅为示例，并非真实的接口地址
             data: {
                 merchantNumber: that.data.saleNumber,
                 startTime: that.data.startT + ' ' + '00:00:00',
@@ -117,8 +118,8 @@ Page({
                         }
                     }
                     that.setData({
-                        "moneyD": res.data.data.transicationMap.transactionAmount,
-                        "shopD": res.data.data.transicationMap.transactionCount,
+                        "moneyD": res.data.data.realAmount,
+                        "shopD": res.data.data.transactionCount,
                         sList: sList
                     })
 
@@ -132,42 +133,12 @@ Page({
         console.log(saleInfo)
         this.setData({
             institutionNumber: saleInfo.institutionNumber,
-            saleNumber: saleInfo.Number
+            saleNumber: saleInfo.Number,
+			imgUrls:wx.getStorageSync('imgUrls')
         })
         that.getToday()
-        // wx.request({
-        // 	url: this.data.server + 'saleShareProfit/getSaleShop', //仅为示例，并非真实的接口地址
-        // 	data: {
-        // 		saleNumber: '180803111118022a',
-        // 		startTime: that.data.startT + ' ' + '00:00:00',
-        // 		endTime: that.data.endT + ' ' + '23:59:59'
-        // 	},
-        // 	header: {
-        // 		'content-type': 'application/json' // 默认值
-        // 	},
-        // 	success: function (res) {
-        // 		console.log(res.data.data.newShopList)
-
-        // 		if (res.data.code != 1000) {
-
-        // 		} else {
-        // 			console.log(res)
-        // 			var sList = that.data.sList
-        // 			for(var i = 0;i<sList.length;i++){
-        // 				if (sList[i].tap == 'shop'){
-        // 					sList[i].num = '(' +  res.data.data.merchantCount + ')'
-        // 				}
-        // 			}
-        // 			that.setData({
-        // 				moneyD: res.data.data.newShopList[0].settlementMoney,
-        // 				shopD: res.data.data.newShopList[0].shopCount,
-        // 				moneyA: res.data.data.todayMoney,
-        // 				shopA: res.data.data.todayCount,
-        // 				sList: sList
-        // 			})
-        // 		}
-        // 	}
-        // })
+		//获取广告
+        
         if (app.globalData.userInfo) {
             this.setData({
                 userInfo: app.globalData.userInfo,

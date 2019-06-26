@@ -12,7 +12,7 @@
         <!-- tab框 -->
         <view class="tab-body">
             <scroll-view class="listBody" scroll-y="true" style="height:calc(100% - 50px)" bindscrolltolower="loadMore" bindscrolltoupper="reFresh">
-                <view class="listBody_li" wx:for="{{shopList}}" wx:key="{{shopList}}" data-batch="{{item.batch}}" data-orderState="{{item.orderState}}" bindtap="toDetails">
+                <view class="listBody_li" wx:for="{{shopList}}" wx:key="{{shopList}}" data-index="{{index}}" data-batch="{{item.batch}}" data-orderState="{{item.orderState}}" bindtap="toDetails">
                     <view class="iconLine">
                         <image src="../../img/{{item.transactionType=='0'?'zhifubao':'weixin'}}.png" mode="aspectFit"></image>
                     </view>

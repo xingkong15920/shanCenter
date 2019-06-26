@@ -1,6 +1,7 @@
 // pages/shop-sh/details/index.js//index.js
 var Moment = require("../../../utils/moment.js");
 const config = require('../../../utils/config.js');
+const common = require('../../../utils/common.js').CmsConfig
 //获取应用实例
 const app = getApp()
 Page({
@@ -11,7 +12,7 @@ Page({
     data: {
         batch: '',
         orderState: '',
-        detailsBtnstate:'hide',
+        detailsBtnstate: 'hide',
         todayDate: Moment(new Date()).format('YYYY-MM-DD'),
         batchInfo: [],
         orderstatus: ['支付中', '交易成功', '交易成功', '交易失败', '全部退款', '部分退款', '异常订单', '退款中'],
@@ -47,73 +48,55 @@ Page({
         this.batchInfo()
     },
     batchInfo: function() {
-        wx.showLoading({
-            title: '加载中...',
-        })
+        
         var that = this
         var refundAmount = that.data.refundAmount
         var outTradeNo = that.data.outTradeNo
-        wx.request({
-            url: this.data.server + 'merchantTransaction/getBatchInfo', //仅为示例，并非真实的接口地址
-            method: 'post',
-            data: {
-                batch: that.data.batch,
-                orderState: that.data.orderState,
-            },
-            header: {
-                'content-type': 'application/json' // 默认值
-            },
-            success: function(res) {
-                wx.hideLoading()
-                var data = res.data
-                if (res.data.code != 1000) {
-
-                } else {
-                    var batchInfo = data.data
-                    var insNumber = data.data.institutionNumber
-                    var paymentChannel = data.data.paymentChannel
-                    var outTradeNo = data.data.batch
-                    var type = data.data.transactionType
-                    var refundAmount = data.data.ketuiAmount
-                    var reportingMerNum = data.data.subaccountNumber
-                    var merNumber = data.data.merchantNumber
-                    var userNumber = data.data.clerkNumber
-                    var equipmentType = data.data.equipmentType
-                    var orderTime = data.data.transactionTime
-                    var orderTimeA = data.data.transactionTime.split(" ")[0]
-                    var todayTime = that.data.todayDate
-                    if (batchInfo.transactionType == '0') {
-                        batchInfo.transactionType = '支付宝'
-                        batchInfo.payType = 'ALIPAY'
-                    } else if (batchInfo.transactionType == '1') {
-                        batchInfo.transactionType = '微信'
-                        batchInfo.payType = 'WECHAT'
-                    }
-                    if (parseFloat(data.data.ketuiAmount) > 0) {
-                        if (orderTimeA == todayTime) {
-                            if (that.data.orderState == '1' || that.data.orderState == '2' || that.data.orderState == '5') {
-                                that.setData({
-                                    detailsBtnstate: 'show'
-                                });
-                            }
-                        }
-                    }
+		var details = wx.getStorageSync('detail')
+		var batchInfo = details
+		details.ketuiAmount = details.transactionAmount - details.refundAmount
+		var insNumber = details.institutionNumber
+		var paymentChannel = details.paymentChannel
+		var outTradeNo = details.batch
+		var type = details.transactionType
+		var refundAmount = details.transactionAmount - details.refundAmount
+		var reportingMerNum = details.subaccountNumber
+		var merNumber = details.merchantNumber
+		var userNumber = details.clerkNumber
+		var equipmentType = details.equipmentType
+		var orderTime = details.transactionTime
+		var orderTimeA = details.transactionTime.split(" ")[0]
+        var todayTime = that.data.todayDate
+        if (batchInfo.transactionType == '0') {
+            batchInfo.transactionType = '支付宝'
+            batchInfo.payType = 'ALIPAY'
+        } else if (batchInfo.transactionType == '1') {
+            batchInfo.transactionType = '微信'
+            batchInfo.payType = 'WECHAT'
+        }
+		if (parseFloat(details.ketuiAmount) > 0) {
+            if (orderTimeA == todayTime) {
+                if (that.data.orderState == '1' || that.data.orderState == '2' || that.data.orderState == '5') {
                     that.setData({
-                        batchInfo: batchInfo,
-                        insNumber: insNumber,
-                        paymentChannel: paymentChannel,
-                        outTradeNo: outTradeNo,
-                        type: type,
-                        refundAmount: refundAmount,
-                        reportingMerNum: reportingMerNum,
-                        merNumber: merNumber,
-                        userNumber: userNumber,
-                        equipmentType: equipmentType,
-                        orderTime: orderTime
-                    })
+                        detailsBtnstate: 'show'
+                    });
                 }
             }
+        }
+        that.setData({
+            batchInfo: batchInfo,
+            insNumber: insNumber,
+            paymentChannel: paymentChannel,
+            outTradeNo: outTradeNo,
+            type: type,
+            refundAmount: refundAmount,
+            reportingMerNum: reportingMerNum,
+            merNumber: merNumber,
+            userNumber: userNumber,
+            equipmentType: equipmentType,
+            orderTime: orderTime
         })
+
     },
     refundAInput: function(e) {
         this.setData({
@@ -163,7 +146,7 @@ Page({
                 icon: 'none'
             })
             return
-        } else if (that.data.inputPass == '' || that.data.inputPass != shopPw) {
+        } else if (that.data.inputPass == '') {
             wx.showToast({
                 title: '请输入正确的退款密码！',
                 icon: 'none'
@@ -175,7 +158,7 @@ Page({
             mask: true
         })
         wx.request({
-            url: this.data.server + 'merchantTransaction/backOrder', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.backOrder, //仅为示例，并非真实的接口地址
             data: {
                 time: this.data.orderTime,
                 batch: this.data.outTradeNo,
@@ -215,9 +198,9 @@ Page({
                     that.hideModal()
                     wx.showToast({
                         title: "退款成功!",
-                        success: function () {
+                        success: function() {
                             // that.batchInfo()
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 wx.navigateBack({
                                     delta: 1
                                 })

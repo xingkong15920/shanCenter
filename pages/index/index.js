@@ -4,6 +4,7 @@ const app = getApp()
 var Moment = require("../../utils/moment.js");
 const config = require('../../utils/config.js')
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
+const common = require('../../utils/common.js').CmsConfig
 var qqmapsdk;
 Page({
     data: {
@@ -60,7 +61,7 @@ Page({
 			key: 'PTABZ-B2TRX-7C643-TAKNM-KED36-24BUQ'
 		});
 		that.getPermission()
-		that.getTT()
+		// that.getTT()
 		// wx.getLocation({
 		// 	type: 'wgs84',
 		// 	success(res) {
@@ -102,9 +103,9 @@ Page({
 	getTT:function(){
 		var that = this
 		wx.request({
-			url: this.data.server + 'saleShareProfit/getSaleShop', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getBrokerage, //仅为示例，并非真实的接口地址
 			data: {
-				saleNumber: wx.getStorageSync('saleInfo').number,
+				saleNumber: wx.getStorageSync('saleInfo').Number,
 				startTime: that.data.startT + ' ' + '00:00:00',
 				endTime: that.data.endT + ' ' + '23:59:59'
 			},
@@ -112,7 +113,29 @@ Page({
 				'content-type': 'application/json' // 默认值
 			},
 			success: function (res) {
-				console.log(res.data.data.newShopList)
+
+				if (res.data.code != 1000) {
+
+				} else {
+					console.log(res)
+					
+					that.setData({
+						moneyD: res.data.data.tranMoney,
+						saleMoney: res.data.data.brokerageSum,
+					})
+				}
+			}
+		})
+		wx.request({
+			url: this.data.server + common.getMerchantCount, //仅为示例，并非真实的接口地址
+			data: {
+				saleNumber: wx.getStorageSync('saleInfo').Number,
+				
+			},
+			header: {
+				'content-type': 'application/json' // 默认值
+			},
+			success: function (res) {
 
 				if (res.data.code != 1000) {
 
@@ -121,16 +144,38 @@ Page({
 					var sList = that.data.sList
 					for (var i = 0; i < sList.length; i++) {
 						if (sList[i].tap == 'shop') {
-							sList[i].num = '(' + res.data.data.merchantCount + ')'
+							console.log(res.data.data)
+							sList[i].num = '(' + res.data.data + ')'
 						}
 					}
+					console.log(sList)
 					that.setData({
-						moneyD: res.data.data.newShopList[0].settlementMoney,
-						shopD: res.data.data.newShopList[0].newShopCount,
-                        saleMoney: res.data.data.saleMoney,
-						moneyA: res.data.data.todayMoney,
-						shopA: res.data.data.todayCount,
 						sList: sList
+					})
+				}
+			}
+		})
+		wx.request({
+			url: this.data.server + common.getTransicationToday, //仅为示例，并非真实的接口地址
+			data: {
+				saleNumber: wx.getStorageSync('saleInfo').Number,
+				startTime: that.data.startT + ' ' + '00:00:00',
+				endTime: that.data.endT + ' ' + '23:59:59'
+			},
+			header: {
+				'content-type': 'application/json' // 默认值
+			},
+			success: function (res) {
+
+				if (res.data.code != 1000) {
+
+				} else {
+					console.log(res)
+					
+					that.setData({
+						
+						moneyA: res.data.data.transactionAmount,
+						shopA: res.data.data.todayCount,
 					})
 				}
 			}

@@ -29,13 +29,16 @@
                             <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange">
                                 <label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}"  wx:if="{{item.radiotypeNum == 0}}">
                                     <radio value="{{item.radiotypeNum}}"  checked="{{item.checked}}"/>{{item.radiotype}}</label>
-									<label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}"  wx:if="{{item.radiotypeNum == 1 && channelType !=4}}">
+									<label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}"  wx:if="{{item.radiotypeNum == 1 && channelType ==2}}">
+                                    <radio value="{{item.radiotypeNum}}"  checked="{{item.checked}}"/>{{item.radiotype}}</label>
+									<label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}"  wx:if="{{item.radiotypeNum == 1 && channelType ==3}}">
                                     <radio value="{{item.radiotypeNum}}"  checked="{{item.checked}}"/>{{item.radiotype}}</label>
 									<label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}"  wx:if="{{item.radiotypeNum == 2}}">
                                     <radio value="{{item.radiotypeNum}}"  checked="{{item.checked}}"/>{{item.radiotype}}</label>
                             </radio-group>
                         </view>
-                        <view class="bodyCli activeInput" wx:if="{{item.type == 2 && jiesuanType == true}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+						<!-- D0  D1  -->
+                        <view class="bodyCli activeInput" wx:if="{{item.type == 2 && jiesuanType == true && isUpdata==false}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit">{{item.shoplabel}}：</label>
                             <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange1">
                                 <label wx:for="{{item.radiolist}}" wx:key="checked" value="{{1}}" wx:if="{{item.isShow == true}}">
@@ -136,7 +139,16 @@
                                     bindblur='blur' value="{{multihangye}}"></input>
                             </picker>
                         </view>
-
+						<!-- 新大陆mcc -->
+						<!-- <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 3}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
+                            <label class="bodyClitit">{{item.shoplabel}}：
+                                <view class="Tips" wx:if="{{statusTips==item.id}}">{{item.tips}}</view>
+                            </label>
+                            <picker mode="multiSelector" bindchange="businessPicker1" bindcolumnchange="columCmcc" value="{{checkTrue}}" data-current="{{item.id}}" range="{{cmcc}}">
+                                <input class="bodyCliinput" type="text" name="{{item.id}}" cursor-spacing="50" confirm-type="next" placeholder="{{item.placeholder}}" placeholder-class="placeholder" data-current="{{item.id}}" disabled="disabled" readonly="readonly" bindfocus="focus"
+                                    bindblur='blur' value="{{multihangye}}"></input>
+                            </picker>
+                        </view> -->
                         <!-- 地址picker循环 -->
                         <view class="bodyCli {{status==item.id?'active':''}} {{shopInput[item.id]?'activeInput':''}}" wx:if="{{item.picker == 2}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}">
                             <label class="bodyClitit">{{item.shoplabel}}：
@@ -205,32 +217,36 @@
                             <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
                             <view class='texTips'>{{item.text}}</view>
                         </view>
+						<view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index == 2 && merchantType==2 && channelType == 3}}">
+                            <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
+                            <view class='texTips'>{{item.text}}</view>
+                        </view>
                     </view>
                     <view class="basicpic">
                         <view class="basicpicTit">*请上传真实有效的身份证照片，保证身份证清晰可见，否则加将无法通过审核</view>
-                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 1 && index <= 4}}">
+                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 2 && index <= 5}}">
                             <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
                             <view class='texTips'>{{item.text}}</view>
                         </view>
                     </view>
                     <view class="basicpic">
                         <view class="basicpicTit">*请上传真实有效的银行卡照片，保证银行卡清晰可见，否则加将无法通过审核</view>
-                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 4 && index <= 5}}">
+                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 5 && index <= 6}}">
                             <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
                             <view class='texTips'>{{item.text}}</view>
                         </view>
                     </view>
                     <view class="basicpic">
                         <view class="basicpicTit">*请上传店铺照片，保证照片清晰可见，否则加将无法通过审核</view>
-                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 5 && index <= 7 }}">
+                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 6 && index <= 8 }}">
                             <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
                             <view class='texTips'>{{item.text}}</view>
                         </view>
-                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 7 && index <= 9 && merchantType==2 && channelType !=3}}">
+                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 8 && index <= 10 && merchantType==2 && channelType !=3}}">
                             <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
                             <view class='texTips'>{{item.text}}</view>
                         </view>
-                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 7 && index <= 9 &&  channelType ==3}}">
+                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 8 && index <= 10 &&  channelType ==3}}">
                             <image src="{{imagelist[index].imgSrc}}" data-name="{{item.name}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
                             <view class='texTips'>{{item.text}}</view>
                         </view>
@@ -244,7 +260,7 @@
                     </view> -->
                     <view class="basicpic" >
                         <view class="basicpicTit">*其他资料</view>
-                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 9 && index <= 10}}">
+                        <view class="picList" wx:for="{{imagelist}}" wx:key="{{index}}" wx:if="{{index > 10 && index <= 11}}">
                             <image src="{{imagelist[index].imgSrc}}" data-picindex="{{index}}" data-pictype="{{imagelist[index].type}}" class="image" mode="aspectFit" bindtap="chooseImage"></image>
                             <view class='texTips'>{{item.text}}</view>
                         </view>

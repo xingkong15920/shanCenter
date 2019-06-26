@@ -1,5 +1,7 @@
 // pages/login/index.js
 const config = require('../../utils/config.js')
+const common = require('../../utils/common.js').CmsConfig
+console.log(common)
 var timer
 Page({
 
@@ -97,7 +99,7 @@ Page({
 		}
 		var that = this
 		wx.request({
-			url: this.data.server + 'Verify/salePhone',
+			url: this.data.server + common.sendCode,
 			method: 'post',
 			dataType: 'json',
 			header: {
@@ -105,7 +107,8 @@ Page({
 			},
 			data:{
 				"phone": this.data.tell,
-				"institutionNumber":1004
+				"institutionNumber":1004,
+				"loginClass": that.data.type != 'sale'? '3':'2'
 			},
 			success: res => {
 				console.log(res)
@@ -213,6 +216,7 @@ Page({
 			}
 			
 		}, 800);
+		
 	},
     /**
      * 生命周期函数--监听页面加载
@@ -236,7 +240,7 @@ Page({
 		}
 		var that = this
 		wx.request({
-			url: this.data.server + 'merchantRegister/getAreajson',
+			url: this.data.server + common.getAreajson,
 			method: 'post',
 			dataType: 'json',
 			header: {
@@ -247,6 +251,32 @@ Page({
 				that.setData({
 					proCode: JSON.parse(res.data.data)
 				})
+			}
+		})
+		wx.request({
+			url: this.data.server + common.getAdvert, //仅为示例，并非真实的接口地址
+			data: {
+				institutionNumber: '1004',
+				advertType: '3',
+				count: '10',
+				launchChannel: '1'
+			},
+			header: {
+				'content-type': 'application/json' // 默认值
+			},
+			success: function (res) {
+
+				if (res.data.code != 1000) {
+					//imgUrls = ['../img/1.png', '../img/2.png', '../img/3.png']
+					var arr = ['../img/1.png', '../img/2.png', '../img/3.png']
+					wx.setStorageSync('imgUrls', arr)
+				} else {
+					var arr = new Array()
+					for (let i = 0; i < res.data.data.length; i++) {
+						arr.push(res.data.data[i].address)
+					}
+					wx.setStorageSync('imgUrls', arr)
+				}
 			}
 		})
     },
@@ -292,7 +322,7 @@ Page({
 				wx.removeStorageSync('shopRember')
 			}
 			wx.request({
-				url: that.data.server + 'login/loginJG', //仅为示例，并非真实的接口地址
+				url: that.data.server + common.login, //仅为示例，并非真实的接口地址
 				data: {
 					login: that.data.shoploginName,
 					loginPass: that.data.shoploginPass,
@@ -354,7 +384,7 @@ Page({
 				wx.removeStorageSync('saleRember')
 			}
             wx.request({
-                url: that.data.server + 'login/sellLogin', //仅为示例，并非真实的接口地址
+				url: that.data.server + common.login, //仅为示例，并非真实的接口地址
                 data: {
                     login: that.data.saleloginName,
                     loginPass: that.data.saleloginPass,
@@ -474,7 +504,7 @@ Page({
 		}
 		var that = this
 		wx.request({
-			url: this.data.server + 'login/updatePas',
+			url: this.data.server + common.updatePassword,
 			method: 'post',
 			dataType: 'json',
 			header: {
@@ -485,7 +515,7 @@ Page({
 				"login": that.data.tell,
 				"code":that.data.photoCode,
 				"loginPass": that.data.repass,
-				"institutionNumber":1004
+				"institutionNumber":1009
 			},
 			success: res => {
 				console.log(res)
@@ -499,6 +529,7 @@ Page({
 							num:'获取验证码',
 							login:'0'
 						})
+						clearTimeout(timer);
 					},500)
 				}else{
 					wx.showToast({

@@ -5,6 +5,7 @@ var DATE_MONTH = new Date().getMonth() + 1;
 var DATE_DAY = new Date().getDate();
 const config = require('../../utils/config.js')
 var wxCharts = require('../../utils/wxcharts.js');
+const common = require('../../utils/common.js').CmsConfig
 var app = getApp();
 var lineChart = null;
 
@@ -39,6 +40,7 @@ Page({
 		saleNumber: '',
 		zhe:true,
 		zheName:"佣金收益走势图",
+		isList:false,
 	},
 	
 	onLoad: function (e) {
@@ -46,7 +48,7 @@ Page({
 		console.log(saleInfo)
 		this.setData({
 			institutionNumber: saleInfo.institutionNumber,
-			saleNumber: saleInfo.number
+			saleNumber: saleInfo.Number
 		})
 		var windowWidth = 300;
 		try {
@@ -308,8 +310,11 @@ Page({
 	},
 	getData: function () {
 		var that = this
+		wx.showLoading({
+			title: '加载中',
+		})
 		wx.request({
-			url: this.data.server + 'saleShareProfit/getSaleShop', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getSaleBulletinList, //仅为示例，并非真实的接口地址
 			data: {
 				saleNumber: that.data.saleNumber,
 				startTime: that.data.startT + ' ' + '00:00:00',
@@ -320,17 +325,21 @@ Page({
 			},
 			success: function (res) {
 				console.log(res.data.data.newShopList)
-
+				wx.hideLoading()
 				if (res.data.code != 1000) {
 
 				} else {
 					console.log(res)
 					that.setData({
-						record: res.data.data.newShopList,
-						money: res.data.data.settlementMoney,
-						shop: res.data.data.shopCount,
+						record: res.data.data.logList,
+						shopClist: res.data.data.shopList,
 					})
-					that.updateData()
+					if (that.data.isList == true){
+						that.updateData()
+					}else{
+						that.draw1()
+					}
+					
 				}
 			}
 		})
@@ -338,9 +347,9 @@ Page({
 	getToday:function(){
 		var that = this
 		wx.request({
-			url: this.data.server + 'saleShareProfit/getSaleShop', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getSaleBulletinList, //仅为示例，并非真实的接口地址
 			data: {
-				saleNumber: '180803111118022a',
+				saleNumber: that.data.saleNumber,
 				startTime: that.data.startT + ' ' + '00:00:00',
 				endTime: that.data.startT + ' ' + '23:59:59'
 			},
@@ -353,12 +362,20 @@ Page({
 				if (res.data.code != 1000) {
 
 				} else {
-					console.log(res.data.data.newShopList[0])
+					if (res.data.data.logList.length == 0 || res.data.data.shopList.length == 0){
+						wx.showToast({
+							title: '暂无数据',
+							icon:'none'
+						})
+						return
+					}
 					that.setData({
-						record: res.data.data.newShopList,
-						moneyCount: res.data.data.newShopList[0].settlementCountMoney,
-						shopCount: res.data.data.newShopList[0].newShopCount,
-						money: res.data.data.settlementMoney,
+						isList:true,
+						record: res.data.data.logList,
+						shopClist:res.data.data.shopList,
+						moneyCount: res.data.data.logList[0].brokerage,
+						shopCount: res.data.data.shopList[0].shopCount,
+						money: res.data.data.brokerageSum,
 						shop: res.data.data.shopCount,
 					})
 					that.draw1()
@@ -426,6 +443,7 @@ Page({
 		console.log(this.data.record)
 		this.createDateListData();
 		var simulationData = this.createSimulationData();
+		console.log(simulationData)
 		lineChart = new wxCharts({
 			canvasId: 'lineCanvas',
 			type: 'line',
@@ -472,37 +490,38 @@ Page({
 		var categories = [];
 		var data = [];
 		var record = this.data.record
+		var shopL = this.data.shopClist
 		console.log(record)
 		if(this.data.lineType == 0){
 			if (record.length <= 8) {
 				for (var i = 0; i < record.length; i++) {
-					categories.push(record[i].date);
-					data.push(record[i].settlementCountMoney + 100);
+					categories.push(record[i].settlementTime);
+					data.push(record[i].brokerage + 100);
 				}
 			} else {
 				var num = Math.floor(record.length / 7)
 				console.log(num)
 				for (var j = 0; j < 7; j++) {
-					categories.push(record[j * num].date);
-					data.push(record[j * num].settlementCountMoney + 100);
+					categories.push(record[j * num].settlementTime);
+					data.push(record[j * num].brokerage + 100);
 				}
 			}
-			for (var i = 0; i < record.length; i++) {
-				categories.push(record[i].date);
-				data.push(record[i].settlementCountMoney);
-			}
+			// for (var i = 0; i < record.length; i++) {
+			// 	categories.push(record[i].settlementTime);
+			// 	data.push(record[i].brokerage);
+			// }
 		} else if (this.data.lineType == 1){
-			if (record.length <= 8) {
-				for (var i = 0; i < record.length; i++) {
-					categories.push(record[i].date);
-					data.push(record[i].newShopCount);
+			if (shopL.length <= 8) {
+				for (var i = 0; i < shopL.length; i++) {
+					categories.push(shopL[i].insertTime);
+					data.push(shopL[i].shopCount);
 				}
 			} else {
-				var num = Math.floor(record.length / 7)
+				var num = Math.floor(shopL.length / 7)
 				console.log(num)
 				for (var j = 0; j < 7; j++) {
-					categories.push(record[j * num].date);
-					data.push(record[j * num].newShopCount);
+					categories.push(shopL[j * num].insertTime);
+					data.push(shopL[j * num].shopCount);
 				}
 			}
 		}

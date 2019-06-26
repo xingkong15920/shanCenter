@@ -1,5 +1,6 @@
 // pages/shop-manage/index.js   
 const config = require('../../../utils/config.js')
+const common = require('../../../utils/common.js').CmsConfig
 Page({
 	data:{
 		server: config.server,
@@ -25,9 +26,10 @@ Page({
 		console.log(e)
 		var id =  e.currentTarget.dataset.id
 		var name = e.currentTarget.dataset.name
+		var number = e.currentTarget.dataset.number
 		console.log(e)
 		wx.navigateTo({
-			url: '../shop-check/index?id=' + id + '&menchartsName=' + name,
+			url: '../shop-check/index?id=' + id + '&menchartsName=' + name + '&merchantNumber=' + this.data.merchantNumber,
 		});
 	},
 	Toadd:function(e) {
@@ -49,7 +51,7 @@ Page({
 				}else{
 					var code = that.getQueryString(res.result.split('?')[1],'outTradeNo')
 					wx.request({
-						url: that.data.server + 'merchantManage/checkQRcode', //仅为示例，并非真实的接口地址
+						url: that.data.server + common.checkQRcode, //仅为示例，并非真实的接口地址
 						data: {
 							// merchantNumber: this.data.shopNumber,
 							saleNumber: that.data.saleNumber,
@@ -75,7 +77,7 @@ Page({
 									success: function (res) {
 										if (res.confirm) {
 											wx.request({
-												url: that.data.server + 'merchantManage/insertShopCode', //仅为示例，并非真实的接口地址
+												url: that.data.server + common.addQRcode, //仅为示例，并非真实的接口地址
 												data: {
 													merchantNumber: that.data.merchantNumber,
 													shopNumber: shopNumber,
@@ -90,6 +92,11 @@ Page({
 													if(res.data.code == 1000){
 														wx.showToast({
 															title: '绑定成功',
+															icon: 'none',
+														})
+													}else{
+														wx.showToast({
+															title: res.data.msg,
 															icon: 'none',
 														})
 													}
@@ -117,7 +124,7 @@ Page({
 		console.log(saleInfo)
 		this.setData({
 			institutionNumber: saleInfo.institutionNumber,
-			saleNumber: saleInfo.number
+			saleNumber: saleInfo.Number
 		})
 		console.log(e)
 		this.setData({
@@ -150,7 +157,7 @@ Page({
 	getData: function () {
 		var that = this
 		wx.request({
-			url: this.data.server + 'merchantManage/getshopList', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getshopList, //仅为示例，并非真实的接口地址
 			data: {
                 merchantNumber: this.data.merchantNumber,
 				// merchantNumber: '180630165567858b',

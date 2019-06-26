@@ -1,5 +1,6 @@
 // pages/merchants/manage/index.js
 const config = require('../../../utils/config.js')
+const common = require('../../../utils/common.js').CmsConfig
 Page({
     data: {
         currentTab: 0,
@@ -28,7 +29,7 @@ Page({
         console.log(saleInfo)
         this.setData({
             institutionNumber: saleInfo.institutionNumber,
-            saleNumber: saleInfo.number
+            saleNumber: saleInfo.Number
         })
         this.getData()
     },
@@ -45,7 +46,7 @@ Page({
     getData: function() {
         var that = this
         wx.request({
-            url: this.data.server + 'merchantManage/getMerchantList', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getMerchantList, //仅为示例，并非真实的接口地址
             data: {
                 saleNumber: this.data.saleNumber,
                 merchantName: this.data.searchText,

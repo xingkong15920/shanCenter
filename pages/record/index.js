@@ -4,6 +4,7 @@ var DATE_YEAR = new Date().getFullYear();
 var DATE_MONTH = new Date().getMonth() + 1;
 var DATE_DAY = new Date().getDate();
 const config = require('../../utils/config.js')
+const common = require('../../utils/common.js').CmsConfig
 Page({
 	data: {
 		maxMonth: 7, //最多渲染月数
@@ -37,7 +38,7 @@ Page({
 		console.log(saleInfo)
 		this.setData({
 			institutionNumber: saleInfo.institutionNumber,
-			saleNumber: saleInfo.number
+			saleNumber: saleInfo.Number
 		})
 		this.getData()
 		this.createDateListData();
@@ -93,7 +94,7 @@ Page({
 	getData:function(){
 		var that = this
 		wx.request({
-			url: this.data.server + 'saleShareProfit/getSaleShop', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getBrokerageLog, //仅为示例，并非真实的接口地址
 			data: {
 				saleNumber: that.data.saleNumber,
 				startTime: that.data.startT  + ' ' + '00:00:00',
@@ -108,10 +109,16 @@ Page({
 				if (res.data.code != 1000) {
 
 				} else {
+					if(res.data.data.logList.length == 0){
+						wx.showToast({
+							title: '暂无佣金记录',
+							icon:'none'
+						})
+					}
 					console.log(res)
 					that.setData({
-						record: res.data.data.newShopList,
-						moneyCount: res.data.data.settlementMoney
+						record: res.data.data.logList,
+						moneyCount: res.data.data.brokerageSum
 					})
 				}
 			}

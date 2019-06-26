@@ -24,7 +24,7 @@
                     </view>
                     <view class="phoneLine">{{item.registeredCell}}</view>
                     <view class="stateLine">
-                        <switch checked="{{item.enable == '正常'?'checked':''}}" data-id="{{item.clerkNumber}}" bindchange="switch1Change" />
+                        <switch checked="{{item.enable == '正常'?'checked':''}}"  data-shopnumber="{{item.shopNumber}}" data-id="{{item.clerkNumber}}" bindchange="switch1Change" />
                     </view>
                     <view class="operationLine">
                         <view class="operationLineBtn" data-id="{{item.clerkNumber}}" bindtap="shopOperation">操作</view>

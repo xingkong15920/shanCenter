@@ -64,7 +64,7 @@
 				<view class="mb40">
                     <view class="foText">验证码</view>
 					<view class='bt' style='width:630rpx'>
-					<input name="code" type='password' placeholder="请输入验证码" class='inp'  placeholder-class="inputP" style='width:392rpx;display:inline-block'  bindinput='setCode'/>
+					<input name="code" type='number' placeholder="请输入验证码" class='inp'  placeholder-class="inputP" style='width:392rpx;display:inline-block'  bindinput='setCode'/>
 					<view class="codeBtn {{type=='shop'?'codeBtn':'codeBtn1'}} " bindtap="getCode" style='vertical-align:top;display:inline-block'>{{num}}</view>
 					</view>
                     

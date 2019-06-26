@@ -1,5 +1,6 @@
 {
     "pages": [
+		
         "pages/login/index",
         "pages/merchants/manage/index",
         "pages/merchants/register/index",
@@ -12,7 +13,6 @@
         "pages/record/index",
         "pages/shop/shop-list/index",
         "pages/shop/shop-check/index",
-        "pages/merchants/shop-check/index",
         "pages/logs/logs",
         "pages/shop-sh/shop-list/index",
         "pages/shop-sh/details/index",

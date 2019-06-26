@@ -19,11 +19,11 @@
                 </view>
                 <view class="detailsLi">
                     <view class="detailsLiL">可退金额：</view>
-                    <view class="detailsLiR">¥ {{batchInfo.ketuiAmount}}</view>
+                    <view class="detailsLiR">¥ {{batchInfo.transactionAmount}}</view>
                 </view>
                 <view class="detailsLi">
                     <view class="detailsLiL">收款门店：</view>
-                    <view class="detailsLiR">{{batchInfo.transactionShop}}</view>
+                    <view class="detailsLiR">{{batchInfo.shopName}}</view>
                 </view>
                 <view class="detailsLi">
                     <view class="detailsLiL">支付方式：</view>

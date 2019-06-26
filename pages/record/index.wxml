@@ -18,8 +18,8 @@
 	<view class='box' style='height:{{second_height}}'>
 		<view class='box1' wx:for="{{record}}" wx:for-item="item" wx:key="{{index}}">
 			<view class='boxT'>
-				<view class='boxA fl'>{{item.date}}</view>
-				<view class='boxA fr'>￥{{item.settlementCountMoney}}</view>
+				<view class='boxA fl'>{{item.settlementTime}}</view>
+				<view class='boxA fr'>￥{{item.brokerage}}</view>
 			</view>
 			
 		</view>

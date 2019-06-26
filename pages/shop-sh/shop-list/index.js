@@ -1,6 +1,7 @@
 // pages/merchants/manage/index.js
 const config = require('../../../utils/config.js')
 var QRCode = require('../../../utils/weapp-qrcode.js')
+const common = require('../../../utils/common.js').CmsConfig
 var qrcode1;
 const W = wx.getSystemInfoSync().windowWidth;
 const rate = 750.0 / W;
@@ -40,12 +41,12 @@ Page({
         this.setData({
             merchantNumber: saleInfo.Number
         })
-        this.getData()
+        // this.getData()
     },
     getData: function() {
         var that = this
         wx.request({
-            url: this.data.server + 'store/getShops', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getshopList, //仅为示例，并非真实的接口地址
             data: {
                 merchantNumber: this.data.merchantNumber,
                 shopName: this.data.shopName,
@@ -83,7 +84,7 @@ Page({
                         that.setData({
                             pageNum: 2,
                             requestBreak: false,
-                            shopList: res.data.data.result,
+							shopList: res.data.data.shopList,
                         })
                     }
                 }
@@ -177,7 +178,7 @@ Page({
             showModal: true,
             shopNumber: shopnumber,
             shopBindN: shopnumber,
-            codeImg: 'http://api.51shanhe.com/wechatPush/getCode.html?clerkNumber=' + ' ' + '&type=1&merchantNumber=' + merchantNumber + '&shopNumber=' + shopnumber
+            codeImg: 'http://api.51shanhe.com/wechatPush/getCode1.html?clerkNumber=' + ' ' + '&type=1&merchantNumber=' + merchantNumber + '&shopNumber=' + shopnumber
         })
         setTimeout(function() {
             qrcode1.makeCode(that.data.codeImg)
@@ -189,7 +190,7 @@ Page({
         var merchantNumber = merchantNumber;
         var that = this
         wx.request({
-            url: that.data.server + 'forwarding/searchBind',
+			url: that.data.server + common.queryWx,
             data: {
                 clerkNumber: '',
                 merchantNumber: merchantNumber,
@@ -231,7 +232,7 @@ Page({
             success(res) {
                 if (res.confirm) {
                     wx.request({
-                        url: that.data.server + 'forwarding/relievePushBind',
+						url: that.data.server + common.relievePushBind,
                         data: {
                             clerkNumber: '',
                             merchantNumber: merchantNumber,
@@ -287,7 +288,7 @@ Page({
                         title: '删除中...',
                     })
                     wx.request({
-                        url: that.data.server + 'store/modifyShop', //仅为示例，并非真实的接口地址
+						url: that.data.server + common.updateShop, //仅为示例，并非真实的接口地址
                         data: {
                             merchantNumber: that.data.merchantNumber,
                             shopNumber: shopnumber,
@@ -334,7 +335,7 @@ Page({
             mask: true
         })
         wx.request({
-            url: this.data.server + 'store/getShops', //仅为示例，并非真实的接口地址
+            url: this.data.server + common.getshopList, //仅为示例，并非真实的接口地址
             data: {
                 merchantNumber: this.data.merchantNumber,
                 shopName: this.data.shopName,
@@ -363,7 +364,7 @@ Page({
                             icon: 'none'
                         })
                     } else {
-                        var shoplist = res.data.data.result
+						var shoplist = res.data.data.shopList
                         that.setData({
                             shopList: shoplist,
                         })

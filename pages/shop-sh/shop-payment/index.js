@@ -1,6 +1,7 @@
 // pages/merchants/manage/index.js
 const config = require('../../../utils/config.js')
 var Moment = require("../../../utils/moment.js");
+const common = require('../../../utils/common.js').CmsConfig
 var DATE_LIST = [];
 var DATE_YEAR = new Date().getFullYear();
 var DATE_MONTH = new Date().getMonth() + 1;
@@ -40,7 +41,7 @@ Page({
         }],
         choosePaymentA: [{
             choosetit: '全部',
-            choosetype: 'all'
+            choosetype: ''
         }, {
             choosetit: '微信',
             choosetype: '1'
@@ -50,7 +51,7 @@ Page({
         }],
         chooseStateA: [{
             choosetit: '全部',
-            choosetype: 'all'
+            choosetype: ''
         }, {
             choosetit: '已成功',
             choosetype: '1'
@@ -67,8 +68,8 @@ Page({
         shopNumber: '',
         startTime: '',
         endTime: '',
-        transactionType: 'all',
-        orderState: 'all',
+        transactionType: '',
+        orderState: '',
         transactionListAmount: '',
         transactionListCount: '',
         server: config.server,
@@ -99,7 +100,7 @@ Page({
         var that = this
         this.createDateListData()
         wx.request({
-            url: this.data.server + 'store/getShops', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getshopList, //仅为示例，并非真实的接口地址
             data: {
                 merchantNumber: this.data.merchantNumber,
                 page: 1,
@@ -374,8 +375,8 @@ Page({
             mask:true
         })
         wx.request({
-            url: this.data.server + 'merchantTransaction/getTransactionList', //仅为示例，并非真实的接口地址
-            method: 'post',
+			url: this.data.server + common.getTransactionList, //仅为示例，并非真实的接口地址
+            method: 'get',
             data: {
                 merchantNumber: this.data.merchantNumber,
                 shopNumber: this.data.shopNumber,
@@ -395,7 +396,7 @@ Page({
                 if (res.data.code != 1000) {
 
                 } else {
-                    if (!res.data.data) {
+					if (res.data.data.transactionList.length == 0) {
                         wx.showToast({
                             title: '查询为空！',
                             icon: 'none'
@@ -542,6 +543,9 @@ Page({
 		}
         var batch = e.currentTarget.dataset.batch
         var orderstate = e.currentTarget.dataset.orderstate
+		var index = e.currentTarget.dataset.index
+		console.log(index)
+		wx.setStorageSync('detail', this.data.shopList[index])
         wx.navigateTo({
             url: '../../shop-sh/details/index?batch=' + batch + '&orderState=' + orderstate,
         })

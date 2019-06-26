@@ -2,7 +2,7 @@
 <view class="container">
     <view class='top'>
         <view class='topL'>
-            <view class='topT'>今日佣金(元)</view>
+            <view class='topT'>昨日佣金(元)</view>
             <view class='topN'>￥{{moneyD}}</view>
         </view>
         <view class='topL'>

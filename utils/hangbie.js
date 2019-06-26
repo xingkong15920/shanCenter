@@ -1,4 +1,8 @@
 var hangbie = [{
+	value: '0001',
+	text: '中国人民银行',
+	children: [{}]
+}, {
     value: '0102',
     text: '中国工商银行',
     children: [{}]

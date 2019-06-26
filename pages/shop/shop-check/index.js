@@ -1,4 +1,5 @@
 const config = require('../../../utils/config.js')
+const common = require('../../../utils/common.js').CmsConfig
 Page({
 
   /**
@@ -23,12 +24,13 @@ Page({
 	  console.log(saleInfo)
 	  this.setData({
 		  institutionNumber: saleInfo.institutionNumber,
-		  saleNumber: saleInfo.number
+		  saleNumber: saleInfo.Number
 	  })
 	  console.log(options)
 	  this.setData({
 		  shopNumber:options.id,
-		  menchartsName: options.menchartsName
+		  menchartsName: options.menchartsName,
+		  merchantNumber: options.merchantNumber
 	  })
 	  this.getData()
   },
@@ -43,9 +45,10 @@ Page({
 			success: function (res) {
 				if (res.confirm) {
 					wx.request({
-						url: that.data.server + 'merchantManage/updateQRcode', //仅为示例，并非真实的接口地址
+						url: that.data.server + common.updateQRcode, //仅为示例，并非真实的接口地址
 						data: {
-							// merchantNumber:: this.data.shopNumber,
+							merchantNumber:that.data.merchantNumber,
+							shopNumber: that.data.shopNumber,
 							equipmentNumber:id
 						},
 						header: {
@@ -78,7 +81,7 @@ Page({
 	getData: function () {
 		var that = this
 		wx.request({
-			url: this.data.server + 'merchantManage/getQRcodeList', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getQrCodeList, //仅为示例，并非真实的接口地址
 			data: {
 				// merchantNumber: this.data.shopNumber,
 				shopNumber: this.data.shopNumber,
@@ -104,7 +107,7 @@ Page({
 						})
 					} else {
 						that.setData({
-							shopList: res.data.data.qRcodeList,
+							shopList: res.data.data.qrCodeList,
 							empty: true,
 							menNum:res.data.data.count
 						})

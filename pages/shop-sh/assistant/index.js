@@ -1,6 +1,7 @@
 // pages/merchants/manage/index.js
 const config = require('../../../utils/config.js')
 var QRCode = require('../../../utils/weapp-qrcode.js')
+const common = require('../../../utils/common.js').CmsConfig
 var qrcode, qrcode1
 const W = wx.getSystemInfoSync().windowWidth;
 const rate = 750.0 / W;
@@ -59,7 +60,7 @@ Page({
             merchantNumber: saleInfo.Number
         })
         wx.request({
-            url: this.data.server + 'store/getShops', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getshopList, //仅为示例，并非真实的接口地址
             data: {
                 merchantNumber: this.data.merchantNumber,
                 page: 1,
@@ -83,14 +84,14 @@ Page({
                         })
                     } else {
                         that.setData({
-                            chooseShopList1: res.data.data.result,
+							chooseShopList1: res.data.data.shopList,
                         })
                         var a = {}
                         a.shopName = '全部门店'
                         a.shopNumber = ''
-                        res.data.data.result.unshift(a)
+						res.data.data.shopList.unshift(a)
                         that.setData({
-                            chooseShopList: res.data.data.result,
+							chooseShopList: res.data.data.shopList,
                         })
                     }
                 }
@@ -119,18 +120,26 @@ Page({
         this.getData()
     },
     switch1Change(e) {
+		console.log(e)
         var clerkNumber = e.target.dataset.id
+		var shopnumber = e.target.dataset.shopnumber
         if (e.detail.value) {
             wx.request({
-                url: this.data.server + 'clerk/modifyClerk', //仅为示例，并非真实的接口地址
+				url: this.data.server + common.updateClerkerStatus, //仅为示例，并非真实的接口地址
                 data: {
-                    clerkNumber: clerkNumber,
+					clerkerNumber: clerkNumber,
+					shopNumber: shopnumber,
+					merchantNumber:wx.getStorageSync('shopInfo').Number,
                     enable: 0
                 },
                 header: {
-                    'content-type': 'application/json' // 默认值
+					'content-type': 'application/x-www-form-urlencoded' // 默认值
                 },
                 success: function(res) {
+					wx.showToast({
+						title: res.data.msg,
+						icon:'none'
+					})
                     if (res.data.code != 1000) {
 
                     } else {}
@@ -138,15 +147,21 @@ Page({
             })
         } else {
             wx.request({
-                url: this.data.server + 'clerk/modifyClerk', //仅为示例，并非真实的接口地址
+				url: this.data.server + common.updateClerkerStatus, //仅为示例，并非真实的接口地址
                 data: {
-                    clerkNumber: clerkNumber,
+					clerkerNumber: clerkNumber,
+					merchantNumber: wx.getStorageSync('shopInfo').Number,
+					shopNumber: shopnumber,
                     enable: 1
                 },
                 header: {
-                    'content-type': 'application/json' // 默认值
+					'content-type': 'application/x-www-form-urlencoded' // 默认值
                 },
                 success: function(res) {
+					wx.showToast({
+						title: res.data.msg,
+						icon: 'none'
+					})
                     if (res.data.code != 1000) {
 
                     } else {}
@@ -158,7 +173,7 @@ Page({
     getData: function() {
         var that = this
         wx.request({
-            url: this.data.server + 'clerk/getClerks', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getclerkerList, //仅为示例，并非真实的接口地址
             data: {
                 merchantNumber: this.data.merchantNumber,
                 clerkName: this.data.clerkName,
@@ -193,7 +208,7 @@ Page({
                     } else {
                         that.setData({
                             pageNum: 2,
-                            shopList: res.data.data.result,
+							shopList: res.data.data.clerkerList,
                         })
                     }
                 }
@@ -283,7 +298,7 @@ Page({
             title: '加载中...',
         })
         wx.request({
-            url: that.data.server + 'clerk/getClerks', //仅为示例，并非真实的接口地址
+			url: that.data.server + common.getclerkerList, //仅为示例，并非真实的接口地址
             data: {
                 merchantNumber: this.data.merchantNumber,
                 shopNumber: id,
@@ -311,7 +326,7 @@ Page({
                         title: '查询成功',
                     })
                     that.setData({
-                        shopList: res.data.data.result,
+						shopList: res.data.data.clerkerList,
                         'active': 0
                     })
                 }
@@ -416,7 +431,7 @@ Page({
     getName: function(e,m,s) {
         var that = this
         wx.request({
-			url: that.data.server + 'forwarding/searchBind',
+			url: that.data.server + common.queryWx,
             data: {
                 clerkNumber: e,
 				merchantNumber: m,
@@ -459,7 +474,7 @@ Page({
             success(res) {
                 if (res.confirm) {
 					wx.request({
-						url: that.data.server + 'forwarding/relievePushBind',
+						url: that.data.server + common.relievePushBind,
 						data: {
 							clerkNumber: e.currentTarget.dataset.iid,
 							merchantNumber: that.data.merchantNumber,
@@ -512,33 +527,33 @@ Page({
         console.log(e)
         var that = this
         var id = e.currentTarget.dataset.id;
-        wx.request({
-            url: that.data.server + 'clerk/getClerkQrcode', //仅为示例，并非真实的接口地址
-            data: {
-				clerkNumber: id,
-                deletionFlag: 1,
-                merchantNumber: that.data.merchantNumber,
-                shopName: e.currentTarget.dataset.shopname,
-                shopNumber: e.currentTarget.dataset.shopnumber,
-            },
-            header: {
-                'content-type': 'application/json' // 默认值
-            },
-            success: function(res) {
-                if (res.data.code != 1000) {
-                    wx.showToast({
-                        title: res.data.msg,
-                        icon: 'none'
-                    })
-                } else {
-                    wx.hideLoading()
-                    that.setData({
-                        shopList: [],
-                    })
-                    that.getData()
-                }
-            }
-        })
+        // wx.request({
+		// 	url: that.data.server + common.updateClerkerPassword, //仅为示例，并非真实的接口地址
+        //     data: {
+		// 		clerkNumber: id,
+        //         deletionFlag: 1,
+        //         merchantNumber: that.data.merchantNumber,
+        //         shopName: e.currentTarget.dataset.shopname,
+        //         shopNumber: e.currentTarget.dataset.shopnumber,
+        //     },
+        //     header: {
+        //         'content-type': 'application/json' // 默认值
+        //     },
+        //     success: function(res) {
+        //         if (res.data.code != 1000) {
+        //             wx.showToast({
+        //                 title: res.data.msg,
+        //                 icon: 'none'
+        //             })
+        //         } else {
+        //             wx.hideLoading()
+        //             that.setData({
+        //                 shopList: [],
+        //             })
+        //             that.getData()
+        //         }
+        //     }
+        // })
         this.setData({
             showModal4: true,
             id: id,
@@ -553,9 +568,9 @@ Page({
         var qrcodeLink = e.currentTarget.dataset.qrcode;
         var deviceCode = qrcodeLink.split('outTradeNo=')[1]
         wx.request({
-            url: that.data.server + 'clerk/getClerkQrcode', //仅为示例，并非真实的接口地址
+			url: that.data.server + common.getClerkQrcode, //仅为示例，并非真实的接口地址
             data: {
-                clerkNumber: id,
+				clerkerNumber: id,
                 merchantNumber: that.data.merchantNumber,
             },
             header: {
@@ -605,9 +620,9 @@ Page({
                         title: '删除中...',
                     })
                     wx.request({
-                        url: that.data.server + 'clerk/modifyClerk', //仅为示例，并非真实的接口地址
+						url: that.data.server + common.deleteClerker, //仅为示例，并非真实的接口地址
                         data: {
-                            clerkNumber: clerkNumber,
+                            clerkerNumber: clerkNumber,
                             deletionFlag: 1,
                             merchantNumber: that.data.merchantNumber,
                             shopName: e.currentTarget.dataset.shopname,
@@ -677,17 +692,17 @@ Page({
         var shopEdit = this.data.shopEdit
         if (status == "confirm2") {
             wx.request({
-                url: this.data.server + 'clerk/modifyClerk', //仅为示例，并非真实的接口地址
+				url: this.data.server + common.updateClerker, //仅为示例，并非真实的接口地址
                 data: {
                     shopNumber: shopEnum,
 					merchantNumber:wx.getStorageSync('shopInfo').Number,
-                    clerkNumber: chooseShopNum,
-                    clerkName: shopEdit.clerkName,
-                    registeredCell: shopEdit.registeredCell,
+                    clerkerNumber: chooseShopNum,
+                    clerkerName: shopEdit.clerkName,
+					clerkerTel: shopEdit.registeredCell,
                     shopName: shopEdit.shopName
                 },
                 header: {
-                    'content-type': 'application/json' // 默认值
+					'content-type': 'application/x-www-form-urlencoded' // 默认值
                 },
                 success: function(res) {
                     if (res.data.code != 1000) {
@@ -717,10 +732,11 @@ Page({
         }
         if (status == "confirm4") {
             if (shopEdit.password == shopEdit.repassword) {
+				var that = this
                 wx.request({
-                    url: this.data.server + 'clerk/modifyClerk', //仅为示例，并非真实的接口地址
+					url: this.data.server + common.updateClerkerPassword, //仅为示例，并非真实的接口地址
                     data: {
-                        clerkNumber: clerkNumber,
+						clerkerNumber: clerkNumber,
                         password: shopEdit.password,
                         merchantNumber: that.data.merchantNumber,
                         shopName: that.data.shopN,
@@ -740,6 +756,10 @@ Page({
                             wx.showToast({
                                 title: "修改成功"
                             })
+							that.setData({
+								showModal4: false,
+								id: '',
+							})
                         }
                     }
                 })
@@ -817,7 +837,7 @@ Page({
             mask: true
         })
         wx.request({
-            url: this.data.server + 'clerk/getClerks', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getclerkerList, //仅为示例，并非真实的接口地址
             data: {
                 merchantNumber: this.data.merchantNumber,
                 clerkName: this.data.clerkName,
@@ -852,7 +872,7 @@ Page({
                             })
                         }, 500)
                     } else {
-                        var shoplist = res.data.data.result
+						var shoplist = res.data.data.clerkerList
                         that.setData({
                             shopList: shoplist,
                             pageNum: 2
@@ -894,7 +914,7 @@ Page({
             return
         }
         wx.request({
-            url: this.data.server + 'clerk/getClerks', //仅为示例，并非真实的接口地址
+			url: this.data.server + common.getclerkerList, //仅为示例，并非真实的接口地址
             data: {
                 merchantNumber: this.data.merchantNumber,
                 clerkName: this.data.clerkName,
