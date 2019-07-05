@@ -173,9 +173,24 @@
                         <!-- radio循环 -->
                         <view class="bodyCli activeInput" wx:if="{{item.type == 1}}" wx:for="{{item.basicsetup}}" wx:key="{{basicsetup}}" data-basicsetup="{{item.id}}" wx:if="{{item.isS}}">
                             <label class="bodyClitit">{{item.shoplabel}}：</label>
-                            <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange1">
-                                <label wx:for="{{item.radiolist}}" wx:key="checked" wx:if="{{item.isS}}">
-                                    <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
+                             <radio-group class="bodyCliradio" data-name="{{item.id}}" bindchange="radioChange1">
+    								<!-- 对私设置 -->
+									<label wx:for="{{item.radiolist}}" wx:key="index" wx:if="{{index == 0 && channelType == 2}}">
+                                		<radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
+								<label wx:for="{{item.radiolist}}" wx:key="index" wx:if="{{index == 0 && channelType == 4}}">
+                                		<radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>
+								<label wx:for="{{item.radiolist}}" wx:key="index" wx:if="{{index == 0 && channelType == 3 }}">
+                                		<radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>	
+										<label wx:for="{{item.radiolist}}" wx:key="index" wx:if="{{index == 0 && channelType == 5 && merchantType ==0}}">
+                                		<radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>	
+
+								<!-- 对公 -->
+                                 <label wx:for="{{item.radiolist}}" wx:key="index" wx:if="{{index == 1  && channelType == 2 && merchantType !=0}}">
+                                    <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>  
+								<label wx:for="{{item.radiolist}}" wx:key="index" wx:if="{{index == 1  && channelType == 3 && merchantType ==2}}">
+                                    <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>   
+									<label wx:for="{{item.radiolist}}" wx:key="index" wx:if="{{index == 1  && channelType == 5 && merchantType ==2}}">
+                                    <radio value="{{item.radiotypeNum}}" checked="{{item.checked}}" />{{item.radiotype}}</label>  
                             </radio-group>
                         </view>
                         <!-- input循环 -->

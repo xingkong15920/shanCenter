@@ -1,4 +1,22 @@
 // pages/merchants/register/index.js
+/**
+ * 各通道对应进件类型及结算标识
+ * 新大陆4
+ * 进件类型：个人，个体，企业
+ * 结算标识：对私(only)
+ * 随行付：5
+ * 进件类型：个人，企业
+ * 结算标识：对私(仅个人)，对公(仅企业)
+ * 易融码：3
+ * 进件类型：个人，个体，企业
+ * 结算标识：对私(个人，个体，企业时需上传入账授权书)  对公(仅企业，但是暂不可用)
+ * 富友2
+ * 进件类型：个人，个体，企业
+ * 结算标识：对私，对公
+ * 
+ * 
+ * 
+ */
 const shopData = require('../../../utils/shopData.js')
 const cmcc = require('../../../utils/cmss.js')
 const sxf = require('../../../utils/suixingfu.js')
@@ -243,6 +261,7 @@ Page({
 		//cmcc
 		mccName: cmcc.mcssName,
 		mccId: cmcc.mcssId,
+		auditStatus:'3'
 	},
 	navOn: function (e) {
 		var id = e.currentTarget.dataset.id
@@ -254,10 +273,10 @@ Page({
 	radioChange: function (e) {
 		console.log(this.data.isUpdata)
 		if (this.data.isUpdata) {
-			console.log('123')
+			
 			var shopData = this.data.shopData
 			if (e.detail.value != 0) {
-
+				
 				shopData[0].stepsCon[2].isS = true
 				for (var i = 0; i < shopData[0].stepsCon[0].basicsetup[1].radiolist.length; i++) {
 					shopData[0].stepsCon[0].basicsetup[1].radiolist[i].checked = false
@@ -266,11 +285,9 @@ Page({
 				for (var j = 0; j < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; j++) {
 					shopData[1].stepsCon[0].basicsetup[0].radiolist[j].checked = true
 				}
-				// console.log(shopData[1].stepsCon[0].basicsetup[0].radiolist[1])
 				shopData[1].stepsCon[0].basicsetup[0].radiolist[1].isS = true
-				// shopData[1].stepsCon[1].basicsetup[0].isS = true
 				if (e.detail.value == 2) {
-					console.log(this.data.channelType)
+					console.log('first')
 					if (this.data.channelType == 3) {
 						console.log('13132')
 						for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
@@ -283,14 +300,31 @@ Page({
 							"settlementLogo": '对公'
 						})
 					} else {
-						for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
-							shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = true
-							shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
+						
+						if (this.data.channelType == 5 && e.detail.value == 2) {
+							console.log('sddssssss')
+							console.log(this.data.channelType,this.data.merchantType)
+							for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
+								shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = false
+								shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
+							}
+							shopData[1].stepsCon[0].basicsetup[0].radiolist[1].checked = true
+							this.setData({
+								"settlementLogo": '对公',
+								"shopData": shopData
+							})
+
+						}else{
+							for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
+								shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = true
+								shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
+							}
+							shopData[1].stepsCon[0].basicsetup[0].radiolist[0].checked = true
+							this.setData({
+								"settlementLogo": '对私',
+								"shopData": shopData
+							})
 						}
-						shopData[1].stepsCon[0].basicsetup[0].radiolist[0].checked = true
-						this.setData({
-							"settlementLogo": '对私'
-						})
 					}
 				} else {
 					//对公对私
@@ -381,14 +415,29 @@ Page({
 						"settlementLogo": '对公'
 					})
 				} else {
-					for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
+					
+					if (this.data.channelType == 5 && this.data.merchantType == 2) {
+						console.log(this.data.channelType, this.data.merchantType)
+						for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
+							shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = false
+							shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
+						}
+						shopData[1].stepsCon[0].basicsetup[0].radiolist[1].checked = true
+						this.setData({
+							"settlementLogo": '对公',
+							"shopData": shopData
+						})
+					}else{
+						for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
 						shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = true
 						shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
 					}
 					shopData[1].stepsCon[0].basicsetup[0].radiolist[0].checked = true
 					this.setData({
-						"settlementLogo": '对私'
+						"settlementLogo": '对私',
+						"shopData": shopData
 					})
+					}
 				}
 			} else {
 				//对公对私
@@ -913,7 +962,7 @@ Page({
 				}else{
 					shopInput.qualityClient = '1'
 				}
-				
+				shopInput.auditStatus = this.data.auditStatus
 				shopInput.businessLicenseType = this.data.businessLicenseType
 				shopInput.juridicalPersonIDType = this.data.juridicalPersonIDType
 				var that = this
@@ -1661,7 +1710,20 @@ Page({
 				}
 				if (this.data.channelType == 5) {
 					this.setData({
-						multiArray3: sxfName
+						multiArray3: sxfName,
+
+					})
+				}
+				var shopData = this.data.shopData
+				if(this.data.channelType == 5 && this.data.merchantType == 2){
+					for (let i = 0; i < shopData[1].stepsCon[0].basicsetup[0].radiolist.length; i++) {
+						shopData[1].stepsCon[0].basicsetup[0].radiolist[i].isS = false
+						shopData[1].stepsCon[0].basicsetup[0].radiolist[i].checked = false
+					}
+					shopData[1].stepsCon[0].basicsetup[0].radiolist[1].checked = true
+					this.setData({
+						"settlementLogo": '对公',
+						"shopData": shopData
 					})
 				}
 			}
@@ -2240,6 +2302,7 @@ Page({
 						newO.paymentChannel = that.data.paymentChannel
 						newO.paymentType = that.data.channelType
 						newO.typeInfo = 0
+						
 						if (wx.getStorageSync('saleInfo').agentType != 0) {
 							if (saleI.pro != loca.pro) {
 								typeInfo = 1
@@ -2248,7 +2311,7 @@ Page({
 								typeInfo = 1
 							}
 						}
-						console.log(newO)
+					
 						wx.request({
 							url: that.data.server + common.intoSubmission,
 							method: 'post',
@@ -2657,6 +2720,7 @@ Page({
 
 							that.setData({
 								shopInput: data3,
+								auditStatus: data3.auditStatus,
 								multihangye: multihangye,
 								multiaddress: multiaddress,
 								qualityClient: data3.qualityClient,
